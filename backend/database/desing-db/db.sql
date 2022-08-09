@@ -15,12 +15,14 @@ CREATE SCHEMA IF NOT EXISTS `dbRegistrationService` ;
 USE `dbRegistrationService` ;
 
 -- -----------------------------------------------------
--- Table `dbRegistrationService`.`typeMail`
+-- Table `dbRegistrationService`.`mailTypes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`typeMail` (
-  `idtypeMail` INT NOT NULL AUTO_INCREMENT,
-  ` description` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idtypeMail`))
+CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mailTypes` (
+  `idmailType` INT NOT NULL AUTO_INCREMENT,
+  `tipo` VARCHAR(45) NOT NULL,
+  `createdAt` DATE NULL,
+  `updatedAt` DATE NULL,
+  PRIMARY KEY (`idmailType`))
 ENGINE = InnoDB;
 
 
@@ -29,7 +31,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`request` (
   `idrequest` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(45) NOT NULL,
+  `solicitud` VARCHAR(45) NOT NULL,
+  `createdAt` DATE NULL,
+  `updatedAt` DATE NULL,
   PRIMARY KEY (`idrequest`))
 ENGINE = InnoDB;
 
@@ -40,6 +44,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`departament` (
   `iddepartament` INT NOT NULL AUTO_INCREMENT,
   `departament` VARCHAR(90) NOT NULL,
+  `createdAt` DATE NULL,
+  `updatedAt` DATE NULL,
   PRIMARY KEY (`iddepartament`))
 ENGINE = InnoDB;
 
@@ -51,6 +57,8 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`group` (
   `idgroup` INT NOT NULL AUTO_INCREMENT,
   `responsible` VARCHAR(60) NOT NULL,
   `members` VARCHAR(200) NOT NULL,
+  `createdAt` DATE NULL,
+  `updatedAt` DATE NULL,
   PRIMARY KEY (`idgroup`))
 ENGINE = InnoDB;
 
@@ -67,6 +75,8 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
   `request_idrequest` INT NOT NULL,
   `departament_iddepartament` INT NOT NULL,
   `group_idgroup` INT NOT NULL,
+  `createdAt` DATE NULL,
+  `updatedAt` DATE NULL,
   PRIMARY KEY (`idmail`),
   INDEX `fk_mail_typeMail_idx` (`typeMail_idtypeMail` ASC) VISIBLE,
   INDEX `fk_mail_request1_idx` (`request_idrequest` ASC) VISIBLE,
@@ -74,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
   INDEX `fk_mail_group1_idx` (`group_idgroup` ASC) VISIBLE,
   CONSTRAINT `fk_mail_typeMail`
     FOREIGN KEY (`typeMail_idtypeMail`)
-    REFERENCES `dbRegistrationService`.`typeMail` (`idtypeMail`)
+    REFERENCES `dbRegistrationService`.`mailTypes` (`idmailType`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_mail_request1`
