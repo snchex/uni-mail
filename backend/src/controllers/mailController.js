@@ -16,7 +16,8 @@ export const getMail = async (req, res) => {
     try {
         const mail = await mailModel.findAll({
             where: { id:req.params.id }
-        })
+        });
+        res.json(mail[0]);
     } catch (error) {
         res.json({message: error.message});
     }
@@ -40,7 +41,7 @@ export const createMail = async (req, res) => {
 export const updateMail = async (req, res) => {
     try {
         const mails = await mailModel.update(req.body, {
-            where: { id: req.params.id },
+            where: { idmail: req.params.id },
         });
         res.json({ "message": "Correo creado correctamente" });
             } catch (err) {

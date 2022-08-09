@@ -5,38 +5,17 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Schema dbRegistrationService
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Schema dbRegistrationService
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `dbRegistrationService` ;
+CREATE SCHEMA IF NOT EXISTS `dbRegistrationService` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `dbRegistrationService` ;
-
--- -----------------------------------------------------
--- Table `dbRegistrationService`.`mailTypes`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mailTypes` (
-  `idmailType` INT NOT NULL AUTO_INCREMENT,
-  `tipo` VARCHAR(45) NOT NULL,
-  `createdAt` DATE NULL,
-  `updatedAt` DATE NULL,
-  PRIMARY KEY (`idmailType`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `dbRegistrationService`.`request`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`request` (
-  `idrequest` INT NOT NULL AUTO_INCREMENT,
-  `solicitud` VARCHAR(45) NOT NULL,
-  `createdAt` DATE NULL,
-  `updatedAt` DATE NULL,
-  PRIMARY KEY (`idrequest`))
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `dbRegistrationService`.`departament`
@@ -44,10 +23,12 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`departament` (
   `iddepartament` INT NOT NULL AUTO_INCREMENT,
   `departament` VARCHAR(90) NOT NULL,
-  `createdAt` DATE NULL,
-  `updatedAt` DATE NULL,
+  `createdAt` DATE NULL DEFAULT NULL,
+  `updatedAt` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`iddepartament`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -56,11 +37,41 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`group` (
   `idgroup` INT NOT NULL AUTO_INCREMENT,
   `responsible` VARCHAR(60) NOT NULL,
-  `members` VARCHAR(200) NOT NULL,
-  `createdAt` DATE NULL,
-  `updatedAt` DATE NULL,
+  `member` VARCHAR(200) NOT NULL,
+  `createdAt` DATE NULL DEFAULT NULL,
+  `updatedAt` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`idgroup`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `dbRegistrationService`.`request`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`request` (
+  `idrequest` INT NOT NULL AUTO_INCREMENT,
+  `solicitud` VARCHAR(45) NOT NULL,
+  `createdAt` DATE NULL DEFAULT NULL,
+  `updatedAt` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`idrequest`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `dbRegistrationService`.`mailType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mailType` (
+  `idmailType` INT NOT NULL AUTO_INCREMENT,
+  `tipo` VARCHAR(45) NOT NULL,
+  `createdAt` DATE NULL DEFAULT NULL,
+  `updatedAt` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`idmailType`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -71,38 +82,32 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
   `user` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `statu` VARCHAR(45) NOT NULL,
-  `typeMail_idtypeMail` INT NOT NULL,
-  `request_idrequest` INT NOT NULL,
-  `departament_iddepartament` INT NOT NULL,
-  `group_idgroup` INT NOT NULL,
-  `createdAt` DATE NULL,
-  `updatedAt` DATE NULL,
+  `fk_idtypeMail` INT NOT NULL,
+  `fk_idrequest` INT NOT NULL,
+  `fk_iddepartament` INT NOT NULL,
+  `fk_idgroup` INT NOT NULL,
+  `createdAt` DATE NULL DEFAULT NULL,
+  `updatedAt` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`idmail`),
-  INDEX `fk_mail_typeMail_idx` (`typeMail_idtypeMail` ASC) VISIBLE,
-  INDEX `fk_mail_request1_idx` (`request_idrequest` ASC) VISIBLE,
-  INDEX `fk_mail_departament1_idx` (`departament_iddepartament` ASC) VISIBLE,
-  INDEX `fk_mail_group1_idx` (`group_idgroup` ASC) VISIBLE,
-  CONSTRAINT `fk_mail_typeMail`
-    FOREIGN KEY (`typeMail_idtypeMail`)
-    REFERENCES `dbRegistrationService`.`mailTypes` (`idmailType`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_mail_request1`
-    FOREIGN KEY (`request_idrequest`)
-    REFERENCES `dbRegistrationService`.`request` (`idrequest`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_mail_typeMail_idx` (`fk_idtypeMail` ASC) VISIBLE,
+  INDEX `fk_mail_request1_idx` (`fk_idrequest` ASC) VISIBLE,
+  INDEX `fk_mail_departament1_idx` (`fk_iddepartament` ASC) VISIBLE,
+  INDEX `fk_mail_group1_idx` (`fk_idgroup` ASC) VISIBLE,
   CONSTRAINT `fk_mail_departament1`
-    FOREIGN KEY (`departament_iddepartament`)
-    REFERENCES `dbRegistrationService`.`departament` (`iddepartament`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    FOREIGN KEY (`fk_iddepartament`)
+    REFERENCES `dbRegistrationService`.`departament` (`iddepartament`),
   CONSTRAINT `fk_mail_group1`
-    FOREIGN KEY (`group_idgroup`)
-    REFERENCES `dbRegistrationService`.`group` (`idgroup`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    FOREIGN KEY (`fk_idgroup`)
+    REFERENCES `dbRegistrationService`.`group` (`idgroup`),
+  CONSTRAINT `fk_mail_request1`
+    FOREIGN KEY (`fk_idrequest`)
+    REFERENCES `dbRegistrationService`.`request` (`idrequest`),
+  CONSTRAINT `fk_mail_typeMail`
+    FOREIGN KEY (`fk_idtypeMail`)
+    REFERENCES `dbRegistrationService`.`mailType` (`idmailType`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
