@@ -3,7 +3,8 @@ import cors from "cors";
 import morgan from "morgan";
 import db from "../database/db.js";
 
-import routes from "./routes/route.js";
+import mails from "./routes/mails.js";
+import users from "./routes/users.js";
 
 
 const app = express();
@@ -11,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
-app.use('/mailTypes', routes);
+app.use('/mailTypes', mails);
 
 try {
     await db.authenticate()
