@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
   `idmail` INT NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `statu` VARCHAR(45) NOT NULL,
+  `statu` BOOLEAN NOT NULL,
   `fk_idtypeMail` INT NOT NULL,
   `fk_idrequest` INT NOT NULL,
   `fk_iddepartament` INT NOT NULL,
