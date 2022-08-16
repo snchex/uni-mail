@@ -1,4 +1,4 @@
-import { pool } from '../db.js'
+import { pool } from '../database/db.js'
 
 export const getAllMailTypes = async (req, res) => {
     try{
@@ -6,7 +6,7 @@ export const getAllMailTypes = async (req, res) => {
         res.json(results);
 
     } catch (error) {
-        res.json({message: error.message});
+        return res.status(500).json({message: error.message});
     }
 
 }
@@ -20,7 +20,7 @@ export const getMailType =  async (req, res) => {
         res.json({result});
         
     } catch (error) {
-        res.json({message: error.message});
+        return res.status(500).json({message: error.message});
     }
 }
 
@@ -32,11 +32,11 @@ export const createMailType = async (req, res) => {
         const newForm = {tipo};
     
         const [result] = await pool.query('INSERT INTO mailType set ?', [newForm]);
-        res.json({"message": "Type created successfully"});
+        
         res.json({id: result.insertId, tipo});
         
     } catch (error) {
-        res.json({message: error.message});
+        return res.status(500).json({message: error.message});
     }
 
 }
@@ -52,7 +52,7 @@ export const updateMailType = async (req, res) => {
           }
         
     } catch (error) {
-        res.json({message: error.message})
+        return res.status(500).json({message: error.message});
     }
 }
 
@@ -65,7 +65,7 @@ export const deleteMailType = async (req, res) => {
             return res.status(404).json({mesage: "Elemento no encontrado"})
         }
     } catch (error) {
-        res.json({message: error.message});
+        return res.status(500).json({message: error.message});
     }
     
 }

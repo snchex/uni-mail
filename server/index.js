@@ -1,7 +1,10 @@
 import express  from "express";
-import typeRouter from "./routes/typeRoutes.js";
-import indexRouter from "./routes/index.js";
-import { PORT } from "./config.js";
+import cors from "cors";
+import typeRoute from "./routes/typeRoutes.js";
+import groupRoute from "./routes/groupRoutes.js";
+import departamentRoute from "./routes/departamentRoutes.js";
+import mailRoute from "./routes/mailRoutes.js";
+import requestRoute from "./routes/requestRoutes.js";
 import flash from 'connect-flash';
 const app = express();  
 
@@ -11,15 +14,21 @@ const app = express();
 
 app.use(flash());
 app.use(express.json());
+app.use(cors());
 
 
 
 
 
 //routes
-app.use(typeRouter);
-app.use(indexRouter);
+app.use(typeRoute);
+app.use(groupRoute);
+app.use(departamentRoute)
+app.use(mailRoute);
+app.use(requestRoute);
 
-
-app.listen(PORT);
-console.log(`Serving on port ${PORT}`);
+app.set('port', process.env.PORT || 3030);
+//Starting the server
+app.listen(app.get('port'), () => {
+    console.log('Server on port', app.get('port'));
+});
