@@ -4,16 +4,20 @@ import TypePage from './pages/TypePage';
 import Request from './pages/Request';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home'
+import Navbar from './components/Navbar';
 
 function App() {
   return (
+    <>
+      <Navbar/>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/mailtypes" element={<TypePage/>}/>
+        <Route path="/request" element={<Request/>}/>
+        <Route path="*" element={<NotFound/>}/>
+      </Routes>
     
-    <Routes>
-      <Route path="/" element={<Home/>}/>
-      <Route path="/mailtype" element={<TypePage/>}/>
-      <Route path="/request" element={<Request/>}/>
-      <Route path="*" element={<NotFound/>}/>
-    </Routes>
+    </>
   );
 }
 
