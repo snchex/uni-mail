@@ -7,26 +7,26 @@ export default function TypePage() {
         initialValues={{
           tipo: "",
         }}
-        onSubmit={async (values) => {
+        onSubmit={async (values, actions) => {
           console.log(values);
           try {
             const response = await createType(values);
             console.log(response);
-
+            actions.resetForm();
           } catch (error) {
             console.error(error);
           }
         }}
       >
 
-        {({ handleChange, handleSubmit }) => (
+        {({ handleChange, handleSubmit, values, isSubmitting }) => (
 
           <Form onSubmit={handleSubmit}>
 
             <label>Tipo de Correo</label>
-            <input type="text" name="tipo" placeholder='Tipo de Correo' onChange={handleChange}></input>
+            <input type="text" name="tipo" placeholder='Tipo de Correo' onChange={handleChange} value={values.tipo}></input>
 
-            <button type="submit">Guardar</button>
+            <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Guardar"}</button>
 
           </Form>
         )}
