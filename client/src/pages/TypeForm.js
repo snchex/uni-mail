@@ -1,6 +1,10 @@
 import { createType } from '../api/type.js'
 import { Form, Formik } from 'formik'
+import {useType} from '../context/TypeContext';
+
+
 export default function TypePage() {
+;
   return (
     <div>
       <Formik

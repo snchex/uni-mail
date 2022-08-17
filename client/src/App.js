@@ -6,11 +6,12 @@ import NotFound from './pages/NotFound';
 import TypePage from './pages/TypesPage';
 import Home from './pages/Home'
 import Navbar from './components/Navbar';
+import TypeContextProvider from './context/TypeContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <>
+    <TypeContextProvider> 
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -20,7 +21,7 @@ function App() {
         <Route path="*" element={<NotFound/>}/>
       </Routes>
     
-    </>
+    </TypeContextProvider>
   );
 }
 

@@ -343,6 +343,13 @@ table{
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
 }
+.table-list{
+  position: relative;
+  margin-left: 30rem;
+  margin-top: 10rem;
+ padding: 5rem;
+ background-color: #aaa;
+}
 .alert-success {
   color: #000000;
   background-color: #d1e7dd;
