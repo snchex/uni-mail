@@ -17,14 +17,13 @@ function TypePage() {
     }
     return (
         <table className='table-list'>
-            <thead>
+             <thead>
+                <td>Lista de tipos de Correo</td>
             </thead>
-             <td>Lista de tipos de Correo</td>
-            <tbody>
-                {renderMain()}
-            </tbody>
+            {renderMain()}
+        
         </table>
-    )
+    )       
 }
 
 export default TypePage;

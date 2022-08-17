@@ -1,6 +1,6 @@
 import { createType } from '../api/type.js'
 import { Form, Formik } from 'formik'
-import {useType} from '../context/TypeContext';
+
 
 
 export default function TypePage() {
@@ -28,9 +28,9 @@ export default function TypePage() {
           <Form onSubmit={handleSubmit}>
 
             <label>Tipo de Correo</label>
-            <input type="text" name="tipo" placeholder='Tipo de Correo' onChange={handleChange} value={values.tipo}></input>
+            <input className='form-control-label px-3' type="text" name="tipo" placeholder='Tipo de Correo' onChange={handleChange} value={values.tipo}></input>
 
-            <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Guardar"}</button>
+            <button className='btn btn-primary' type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Guardar"}</button>
 
           </Form>
         )}

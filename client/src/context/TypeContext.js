@@ -1,5 +1,6 @@
 import { createContext, useContext, useState  } from 'react';
-import { getAllTypes } from '../api/type.js';
+import { getAllTypes, deleteType} from '../api/type.js';
+
 
 export const TypeContext = createContext();
 
@@ -18,8 +19,19 @@ export const TypeContextProvider = ({ children }) => {
         const response = await getAllTypes();
         setTypes(response.data);
     }
+
+    const delType = async (idmailType) => {
+        try {
+            const response = await deleteType(idmailType);
+            types.filter(type => type.id !== idmailType);
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
-    <TypeContext.Provider value={{types, loadTypes}} >
+    <TypeContext.Provider value={{types, loadTypes, delType}} >
         {children}
     </TypeContext.Provider>
     )
