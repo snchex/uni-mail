@@ -1,4 +1,4 @@
-import { useTypes } from '../../context/TypeContext';
+import { useTypes } from '../context/TypeContextProvider'
 import { useNavigate } from "react-router-dom";
 
 export default function TypeCard({ type }) {

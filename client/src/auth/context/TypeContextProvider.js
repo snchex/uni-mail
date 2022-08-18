@@ -1,8 +1,8 @@
-import { createContext, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { getAllTypes, deleteType, createType, getmailType, updateType } from '../api/typeApi';
+import { TypeContext} from './typeContext';
 
 
-export const TypeContext = createContext();
 
 export const useTypes = () => {
     const context = useContext(TypeContext);
