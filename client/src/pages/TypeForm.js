@@ -1,20 +1,21 @@
 import { Form, Formik } from 'formik'
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useTypes } from '../context/TypeContext';
 import { useEffect, useState } from "react";
 
 export default function TypePage() {
 
-  const { crType, getType } = useTypes();
+  const { crType, getType, upType } = useTypes();
   const [type, setType] = useState({
     tipo: "",
   });
 
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadType = async () => {
-      
+
       if (params.id) {
         console.log(params.id);
         const type = await getType(params.id);
@@ -28,6 +29,7 @@ export default function TypePage() {
   });
 
 
+
   return (
     <div>
 
@@ -38,11 +40,20 @@ export default function TypePage() {
         enableReinitialize={true}
         onSubmit={async (values, actions) => {
           console.log(values);
-          crType(values);
-          actions.resetForm();
+
+          if (params.id) {
+            console.log("Update");
+            await upType(params.id, values);
+            navigate('/mailtypeslist');
+          } else {
+            await crType(values);
+            navigate('/mailtypeslist');
+          }
+          setType({
+            tipo: "",
+          });
         }}
       >
-
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
 
           <Form onSubmit={handleSubmit}>
@@ -53,6 +64,7 @@ export default function TypePage() {
                 <input type="text" name='tipo' placeholder='Tipo de Correo' onChange={handleChange} value={values.tipo}></input>
                 <p></p>
                 <button className='btn btn-primary' type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Guardar"}</button>
+
               </div>
             </div>
           </Form>

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { getAllTypes, deleteType, createType, getmailType } from '../api/typeApi';
+import { getAllTypes, deleteType, createType, getmailType, updateType } from '../api/typeApi';
 
 
 export const TypeContext = createContext();
@@ -49,9 +49,22 @@ export const TypeContextProvider = ({ children }) => {
         }
 
     }
+    const upType = async (id, newFields) => {
+        try {
+            const response = await updateType(id, newFields);
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+
+        }
+
+    }
+
+
+
 
     return (
-        <TypeContext.Provider value={{ types, loadTypes, delType, crType, getType }} >
+        <TypeContext.Provider value={{ types, loadTypes, delType, crType, getType, upType }} >
             {children}
         </TypeContext.Provider>
     )
