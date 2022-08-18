@@ -15,7 +15,8 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/mailtypes" element={<TypeForm/>}/>
+        <Route path="/mailtype/create" element={<TypeForm/>}/>
+        <Route path="/mailtype/edit/:id" element={<TypeForm/>}/>
         <Route path="/mailtypeslist" element={<TypePage/>}/>
         <Route path="/request" element={<Request/>}/>
         <Route path="*" element={<NotFound/>}/>

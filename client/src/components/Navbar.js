@@ -9,7 +9,7 @@ export default function Navbar() {
         
                 <li><Link className='active' to="/">Inicio</Link></li>
                 
-                <li><Link className='active' to="/mailtypes">Crear Tipo Correos</Link></li>
+                <li><Link className='active' to="/mailtype/create">Crear Tipo Correos</Link></li>
                 <li><Link className='active' to="/mailtypeslist">Lista Tipo Correos</Link></li>
                 <li><Link className='btn btn-outline-primary'to="/">Registrarse</Link></li>
                 <li><Link className='btn btn-outline-success' to="/">Inicio Session</Link></li>
