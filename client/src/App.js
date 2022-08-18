@@ -1,12 +1,12 @@
 import './App.css';
 import {Route, Routes} from 'react-router-dom';
-import TypeForm from './pages/TypeForm';
-import Request from './pages/Request';
-import NotFound from './pages/NotFound';
-import TypePage from './pages/TypesPage';
-import Home from './pages/Home'
-import Navbar from './components/Navbar';
-import TypeContextProvider from './context/TypeContext';
+import TypeForm from './auth/pages/TypeForm';
+import Request from './auth/pages/Request';
+import NotFound from './auth/pages/NotFound';
+import TypePage from './auth/pages/TypesPage';
+import Home from './auth/pages/Home'
+import Navbar from './auth/components/Navbar';
+import TypeContextProvider from './auth/context/TypeContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
