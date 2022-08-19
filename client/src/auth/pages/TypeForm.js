@@ -28,8 +28,6 @@ export default function TypePage() {
     loadType();
   });
 
-
-
   return (
     <>
 
@@ -61,7 +59,7 @@ export default function TypePage() {
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-2">Tipo de Correo</label>
 
-                <input type="text" name='tipo' placeholder='Tipo de Correo' onChange={handleChange} value={values.tipo}></input>
+                <input type="text" name='tipo' placeholder='Ingrese el tipo de Correo' onChange={handleChange} value={values.tipo}></input>
                 <p></p>
                 <button className='btn btn-primary' type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Guardar"}</button>
 
@@ -69,7 +67,6 @@ export default function TypePage() {
             </div>
           </Form>
         )}
-
       </Formik>
     </>
   )

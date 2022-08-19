@@ -12,7 +12,7 @@ function TypePage() {
 
 
     function renderMain() {
-        if(types.length === 0) return <div className='container'><h1>No exiten Tipos</h1></div>
+        if (types.length === 0) return <div className='container'><h1>No exiten Tipos</h1></div>
         return types.map(type => (<TypeCard type={type} key={type.id} />));
     }
     return (

@@ -28,12 +28,12 @@ export const getDepartament = async (req, res) => {
 export const createDepartament = async (req, res) => {
     try {
         console.log(req.body);
-        const { departament } = req.body;
-        const newForm = { departament };
+        const { departamento } = req.body;
+        const newForm = { departamento };
 
         const [result] = await pool.query('INSERT INTO departament set ?', [newForm]);
 
-        res.json({ id: result.insertId, departament });
+        res.json({ id: result.insertId, departamento });
 
     } catch (error) {
         res.json({ message: error.message });
