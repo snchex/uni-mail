@@ -8,11 +8,11 @@ import Home from './auth/pages/Home'
 import Navbar from './auth/components/Navbar';
 import TypeContextProvider from './auth/context/TypeContextProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { AuthProvider } from './auth';
+//import { AuthProvider } from './auth';
 
 function App() {
   return (
-   <AuthProvider>
+   //<AuthProvider>
 
       <TypeContextProvider> 
         <Navbar/>
@@ -32,7 +32,7 @@ function App() {
       </TypeContextProvider>
 
 
-    </AuthProvider>
+    //</AuthProvider>
   );
 }
 

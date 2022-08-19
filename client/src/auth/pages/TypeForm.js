@@ -31,7 +31,7 @@ export default function TypePage() {
 
 
   return (
-    <div>
+    <>
 
       <h1> {params.id ? "Editar Tipo Correo" : "Nuevo Tipo de Correo"}</h1>
 
@@ -71,6 +71,6 @@ export default function TypePage() {
         )}
 
       </Formik>
-    </div>
+    </>
   )
 }
