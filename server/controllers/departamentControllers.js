@@ -28,12 +28,12 @@ export const getDepartament = async (req, res) => {
 export const createDepartament = async (req, res) => {
     try {
         console.log(req.body);
-        const { departament } = req.body;
-        const newForm = { departament };
+        const { departamento } = req.body;
+        const newForm = { departamento };
 
         const [result] = await pool.query('INSERT INTO departament set ?', [newForm]);
 
-        res.json({ id: result.insertId, departament });
+        res.json({ id: result.insertId, departamento });
 
     } catch (error) {
         res.json({ message: error.message });
@@ -60,12 +60,13 @@ export const updateDepartament = async (req, res) => {
 export const deleteDepartament = async (req, res) => {
     try {
         const [result] = await pool.query('DELETE FROM departament WHERE id = ?', [req.params.id]);
-
+        res.json({ "message": "Tipo de correo eliminado correctamente" });
         if (result === 0) {
             return res.status(404).json({ message: "Elemento no encontrado" })
         }
     } catch (error) {
-        res.json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
+
 
 }

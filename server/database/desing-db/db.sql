@@ -22,7 +22,7 @@ USE `dbRegistrationService` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`departament` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `departament` VARCHAR(90) NOT NULL,
+  `departamento` VARCHAR(90) NOT NULL,
   `createdAt` DATE NULL DEFAULT NULL,
   `updatedAt` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`id`))

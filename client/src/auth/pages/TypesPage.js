@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import TypeCard from '../components/TypeCard';
-import { useTypes } from '../context/TypeContext'
+import { useTypes } from '../context/TypeProvider'
 
 function TypePage() {
     
@@ -12,11 +12,11 @@ function TypePage() {
 
 
     function renderMain() {
-        if(types.length === 0) return <h1>No exiten Tipos</h1>
+        if (types.length === 0) return <div className='container'><h1>No exiten Tipos</h1></div>
         return types.map(type => (<TypeCard type={type} key={type.id} />));
     }
     return (
-        <div>
+        <>
             <h1>Lista de tipos de Correo</h1>
             <table className='table-list'>
                
@@ -24,7 +24,7 @@ function TypePage() {
             
             </table>
 
-        </div>
+        </>
     )       
 }
 
