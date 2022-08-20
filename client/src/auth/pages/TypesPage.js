@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import TypeCard from '../components/TypeCard';
-import { useTypes } from '../context/TypeContextProvider'
+import { useTypes } from '../context/TypeProvider'
 
 function TypePage() {
     

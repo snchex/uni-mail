@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { getAllTypes, deleteType, createType, getmailType, updateType } from '../api/typeApi';
-import { TypeContext} from './typeContext';
+import { TypeContext} from './TypeContext';
 
 
 
@@ -23,7 +23,7 @@ export const TypeContextProvider = ({ children }) => {
     const getType = async (id) => {
         try {
             const response = await getmailType(id);
-            return response.data
+            return response.data 
         } catch (error) {
             console.error(error);
         }

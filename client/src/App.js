@@ -1,10 +1,10 @@
 import './App.css';
 import {Route, Routes} from 'react-router-dom';
-import TypeForm from './auth/pages/TypeForm';
-import DepartamentForm from './auth/pages/DepartamentForm';
+import TypeForm from './auth/pages/form/TypeForm';
+import DepartamentForm from './auth/pages//form/DepartamentForm';
 import DepartamentPage from './auth/pages/DepartamentPage';
 import TypePage from './auth/pages/TypesPage';
-import TypeContextProvider from './auth/context/TypeContextProvider';
+import TypeProvider from './auth/context/TypeProvider';
 import DepartamentProvider from './auth/context/DepartamentProvider';
 import Request from './auth/pages/Request';
 import NotFound from './auth/pages/NotFound';
@@ -17,7 +17,7 @@ function App() {
   return (
    //<AuthProvider>
     <DepartamentProvider>
-      <TypeContextProvider> 
+      <TypeProvider> 
         <Navbar/>
         
         <div className='container mx-auto py-4'>
@@ -40,7 +40,7 @@ function App() {
 
         </div>
       
-      </TypeContextProvider>
+      </TypeProvider>
 
     </DepartamentProvider>
 

@@ -1,5 +1,4 @@
 import  { Router } from 'express';
-import {pool} from '../database/db.js';
 const router = Router();
 import { getAllMailTypes, getMailType, createMailType, updateMailType, deleteMailType } from '../controllers/typeControllers.js';
 

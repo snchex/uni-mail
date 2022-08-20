@@ -1,11 +1,11 @@
 import { Formik, Form } from "formik";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDepartaments } from '../context/DepartamentProvider';
+import { useDeparts } from '../../context/DepartamentProvider';
 import { useEffect, useState } from 'react';
 
 export default function DepartamentForm() {
-    const { crDpt, getDpt, upDpt } = useDepartaments();
-    const [departament, setDepartament] = useState({
+    const { crDpt, getDpt, upDpt } = useDeparts();
+    const [depart, setDepartament] = useState({
         departamento: "",
     });
 
@@ -17,10 +17,10 @@ export default function DepartamentForm() {
         const loadDepartament = async () => {
             if (params.id) {
                 console.log(params.id);
-                const departament = await getDpt(params.id);
-                console.log(departament);
+                const depart = await getDpt(params.id);
+                console.log(depart);
                 setDepartament({
-                    departamento: departament.departamento
+                    departamento: depart.departamento
                 });
             }
         }
@@ -30,7 +30,7 @@ export default function DepartamentForm() {
         <>
             <h1> {params.id ? "Editar Departamento" : "Nuevo Departamento"}</h1>
             <Formik
-                initialValues={departament}
+                initialValues={depart}
                 enableReinitialize={true}
                 onSubmit={async (values, actions) => {
                     console.log(values);

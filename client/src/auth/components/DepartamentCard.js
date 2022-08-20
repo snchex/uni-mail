@@ -1,21 +1,19 @@
-import { useDepartaments } from "../context/DepartamentProvider";
+import { useDeparts } from "../context/DepartamentProvider";
 import { useNavigate } from 'react-router-dom';
 
 
-export default function DepartamentCard({ departament }){
-    const { delDepartament } = useDepartaments();
+export default function DepartCard({ depart }){
+    const { delDpt } = useDeparts();
     const navigate = useNavigate();
-
-
 
     return (
         <>
         <tbody>
             <tr className='tr-table'>
-                <td>{departament.departamento}</td>
-                <td>{departament.createdAt}</td>
-                <td><button onClick={() => navigate(`/departament/edit/${departament.id}`)} className='btn btn-outline-warning'>Editar</button></td>
-                <td><button onClick={() => delDepartament(departament.id)} className='btn btn-outline-danger'>Cancelar</button></td>
+                <td>{depart.departamento}</td>
+                <td>{depart.createdAt}</td>
+                <td><button onClick={() => navigate(`/departament/edit/${depart.id}`)} className='btn btn-outline-warning'>Editar</button></td>
+                <td><button onClick={() => delDpt(depart.id)} className='btn btn-outline-danger'>Eliminar</button></td>
             </tr>
         </tbody>
         </>

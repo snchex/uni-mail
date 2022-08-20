@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik'
 import { useParams, useNavigate } from "react-router-dom";
-import { useTypes } from '../context/TypeContextProvider';
+import { useTypes } from '../../context/TypeProvider';
 import { useEffect, useState } from "react";
 
 export default function TypePage() {

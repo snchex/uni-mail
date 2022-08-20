@@ -3,7 +3,7 @@ import { getAllDepartaments, getDepartament, createDepartament, updateDepartamen
 import { DepartamentContext } from './DepartamentContext';
 
 
-export const useDepartaments = () => {
+export const useDeparts = () => {
     const context = useContext(DepartamentContext);
     if (context === undefined) {
         throw new Error("Departament must be used within a DepartamentProvider")
@@ -15,13 +15,14 @@ export const useDepartaments = () => {
 
 export const DepartamentProvider = ({ children }) => {
 
-    const [departaments, setDepartaments] = useState([]);
+    const [departs, setDepartaments] = useState([]);
 
     async function loadDepartaments() {
         const response = await getAllDepartaments();
-        console.log(response);
+        //console.log(response.data);
         setDepartaments(response.data);
     }
+
     const getDpt = async (id) => {
         try {
             const response = await getDepartament(id);
@@ -31,9 +32,9 @@ export const DepartamentProvider = ({ children }) => {
         }
     }
 
-    const crDpt = async (departament) => {
+    const crDpt = async (depart) => {
         try {
-            const response = await createDepartament(departament);
+            const response = await createDepartament(depart);
             console.log(response);
 
         } catch (error) {
@@ -52,7 +53,7 @@ export const DepartamentProvider = ({ children }) => {
     const delDpt = async (id) => {
         try {
             const response = await deleteDepartament(id);
-            setDepartaments(departaments.filter(departament => departament.id !== id));
+            setDepartaments(departs.filter(depart => depart.id !== id));
             console.log(response);
         } catch (error) {
             console.error(error);
@@ -61,7 +62,7 @@ export const DepartamentProvider = ({ children }) => {
     }
 
     return (
-        <DepartamentContext.Provider value={{ departaments, loadDepartaments, crDpt, getDpt, upDpt, delDpt }}>
+        <DepartamentContext.Provider value={{ departs, loadDepartaments, crDpt, getDpt, upDpt, delDpt }}>
             {children}
         </DepartamentContext.Provider>
     )

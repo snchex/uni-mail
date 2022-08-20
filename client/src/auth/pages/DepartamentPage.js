@@ -1,31 +1,31 @@
 import { useEffect } from 'react';
-import DepartamentCard from '../components/DepartamentCard';
-import { useDepartaments } from "../context/DepartamentProvider";
+import DepartCard from '../components/DepartamentCard';
+import { useDeparts } from '../context/DepartamentProvider'
 
-function DepartamentPage() {
+function DepartPage() {
+    
+    const { departs, loadDepartaments } = useDeparts();
 
-  const { departaments, loadDepartaments } = useDepartaments();
-
-  useEffect(() => {
-    loadDepartaments();
-  });
-
-
-  function renderMain() {
-    if (departaments.length === 0) return <div className="container-fluid"><h1>No existen Departamentos</h1></div>
-    return departaments.map(departament => (<DepartamentCard type={departament} key={departament.id} />));
-  }
+    useEffect(() => {
+        loadDepartaments();
+    });
 
 
-  return (
-    <>
-      <h1>Lista de Departamentos</h1>
-      <table className="table-list">
-        {renderMain()}
-      </table>
+    function renderMain() {
+        if (departs.length === 0) return <div className='container'><h1>No exiten Departamentos</h1></div>
+        return departs.map(depart => (<DepartCard depart={depart} key={depart.id} />));
+    }
+    return (
+        <>
+            <h1>Lista de tipos de Correo</h1>
+            <table className='table-list'>
+               
+                {renderMain()}
+            
+            </table>
 
-    </>
-  )
+        </>
+    )       
 }
 
-export default DepartamentPage;
+export default DepartPage;

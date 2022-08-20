@@ -1,5 +1,4 @@
 import  { Router } from 'express';
-import { pool } from '../database/db.js';
 const router = Router();
 import { getAllDepartaments, getDepartament, createDepartament, updateDepartament, deleteDepartament} from '../controllers/departamentControllers.js';
 

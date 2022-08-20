@@ -1,17 +1,10 @@
-import { useTypes } from '../context/TypeContextProvider'
+import { useTypes } from '../context/TypeProvider'
 import { useNavigate } from "react-router-dom";
 
 export default function TypeCard({ type }) {
     const { delType } = useTypes();
     const navigate = useNavigate();
 
-    /*  const handleStatu = async (mailStatu) => {
-          await toggleStatu(mail.id, mailStatu)
-  
-          }
-      };*/
-    /**  <button onClick={() => handleStatu(mail.statu)}></button> */
-    /***  <td>{type.done === 1 ? "✔" : "✖"}</td> */
     return (
         <>
             <tbody>
