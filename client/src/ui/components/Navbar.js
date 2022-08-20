@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
-export default function Navbar() {
+export function Navbar () {
   return (
     <>
         <nav>
@@ -11,7 +11,7 @@ export default function Navbar() {
         
                 <li><Link className='active' to="/">Inicio</Link></li>
                 <li>
-                  <DropdownButton id="dropdown-basic-button" title="Correos">
+                  <DropdownButton  id="dropdown-basic-button" title="Correos">
                     <Dropdown.Item href="#/action-1"><Link className='dropdown-item' to="/mailtype/create">Crear Tipo Correos</Link></Dropdown.Item>
                     <Dropdown.Item href="#/action-2"><Link className='dropdown-item' to="/mailtypeslist">Lista Tipo Correos</Link></Dropdown.Item>           
                   </DropdownButton>
@@ -36,3 +36,5 @@ export default function Navbar() {
     </>
   )
 }
+
+export default Navbar;

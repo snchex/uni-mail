@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import TypeCard from '../components/TypeCard';
 import { useTypes } from '../context/TypeProvider'
 
-function TypePage() {
-    
+export function TypePage() {
+
     const { types, loadTypes } = useTypes();
 
     useEffect(() => {
@@ -19,13 +19,13 @@ function TypePage() {
         <>
             <h1>Lista de tipos de Correo</h1>
             <table className='table-list'>
-               
+
                 {renderMain()}
-            
+
             </table>
 
         </>
-    )       
+    )
 }
 
 export default TypePage;

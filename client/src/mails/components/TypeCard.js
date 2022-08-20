@@ -13,7 +13,7 @@ export default function TypeCard({ type }) {
                     <td>{type.createdAt}</td>
                     <td><button onClick={() => navigate(`/mailtype/edit/${type.id}`)} className='btn btn-outline-warning'>Editar</button></td>
                     <td><button onClick={() => delType(type.id)} className='btn btn-outline-danger'>Eliminar</button></td>
-                                    
+
                 </tr>
 
             </tbody>

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDeparts } from '../../context/DepartamentProvider';
 import { useEffect, useState } from 'react';
 
-export default function DepartamentForm() {
+export function DepartamentForm() {
     const { crDpt, getDpt, upDpt } = useDeparts();
     const [depart, setDepartament] = useState({
         departamento: "",
@@ -68,3 +68,4 @@ export default function DepartamentForm() {
         </>
     )
 }
+export default  DepartamentForm;

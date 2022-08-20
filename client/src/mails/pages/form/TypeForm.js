@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTypes } from '../../context/TypeProvider';
 import { useEffect, useState } from "react";
 
-export default function TypePage() {
+export function TypeForm() {
 
   const { crType, getType, upType } = useTypes();
   const [type, setType] = useState({
@@ -71,3 +71,4 @@ export default function TypePage() {
     </>
   )
 }
+export default TypeForm;
