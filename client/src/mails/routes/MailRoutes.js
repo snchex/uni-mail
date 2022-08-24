@@ -1,15 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { TypeForm, DepartamentForm, DepartPage, TypePage, RequestPage, Home } from '../pages';
-import { DepartamentProvider, TypeProvider } from '../context';
+import { DepartamentProvider, TypeProvider, RequestProvider } from '../context';
 
 import { Navbar } from "../../ui"
+import RequestForm from '../pages/form/RequestForm';
 
 export function MailRoutes() {
   return (
 
+        <RequestProvider>
         <DepartamentProvider>
-            <TypeProvider>
+        <TypeProvider>
                 < Navbar />
             <div className='container mx-auto py-4'>
 
@@ -25,12 +27,16 @@ export function MailRoutes() {
                     <Route path="/departament/edit/:id" element={<DepartamentForm />} />
                     <Route path="/departament/list" element={<DepartPage />} />
 
-                    <Route path="/request" element={<RequestPage />} />
+                    <Route path="/request/create" element={<RequestForm />} />
+                    <Route path="/request/edit/:id" element={<RequestForm />} />
+                    <Route path="/request/list" element={<RequestPage />} />
+
                     
                 </Routes>
             </div>
-            </TypeProvider>
+        </TypeProvider>
         </DepartamentProvider>
+        </RequestProvider> 
 
     
   )

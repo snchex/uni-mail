@@ -42,10 +42,10 @@ export function TypeForm() {
           if (params.id) {
             console.log("Update");
             await upType(params.id, values);
-            navigate('/mailtypeslist');
+            navigate('/mailtypes/list');
           } else {
             await crType(values);
-            navigate('/mailtypeslist');
+            navigate('/mailtypes/list');
           }
           setType({
             tipo: "",

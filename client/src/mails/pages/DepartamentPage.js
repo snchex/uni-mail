@@ -17,7 +17,7 @@ export function DepartPage() {
     }
     return (
         <>
-            <h1>Lista de tipos de Correo</h1>
+            <h1>Lista de Departamentos de Correo</h1>
             <table className='table-list'>
 
                 {renderMain()}

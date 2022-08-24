@@ -1,49 +1,50 @@
-import { Formik, Form } from "formik";
-import { useParams, useNavigate } from "react-router-dom";
-import { useDeparts } from '../../context/DepartamentProvider';
+import { Formik, Form } from 'formik';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useRequests } from '../../context/RequestProvider';
 import { useEffect, useState } from 'react';
 
-export function DepartamentForm() {
-    const { crDpt, getDpt, upDpt } = useDeparts();
-    const [depart, setDepartament] = useState({
-        departamento: "",
+
+export function RequestForm() {
+    const { crRequest, gtRequest, upRequest } = useRequests();
+    const [request, setRequest] = useState({
+        solicitud: "",
     });
 
     const params = useParams();
     const navigate = useNavigate();
 
-
     useEffect(() => {
-        const loadDepartament = async () => {
+        const loadRequest = async () => {
             if (params.id) {
-                const depart = await getDpt(params.id);
-                console.log(depart);
-                setDepartament({
-                    departamento: depart.departamento
+                const request = await gtRequest(params.id);
+                console.log(request);
+                setRequest({
+                    solicitud: request.solicitud,
+
                 });
             }
         }
-        loadDepartament();
+        loadRequest();
     });
+
+
     return (
         <>
-            <h1> {params.id ? "Editar Departamento" : "Nuevo Departamento"}</h1>
+            <h1>{params.id ? "Editar Tipo de Solicitud" : "Nuevo Tipo de Solicitud"}</h1>
             <Formik
-                initialValues={depart}
+                initialValues={request}
                 enableReinitialize={true}
                 onSubmit={async (values, actions) => {
-                    console.log(values);
-
                     if (params.id) {
                         console.log('Update');
-                        await upDpt(params.id, values);
-                        navigate('/departament/list');
+                        await upRequest(params.id, values);
+                        navigate('/request/list');
                     } else {
-                        await crDpt(values);
-                        navigate('/departament/list');
+                        await crRequest(values);
+                        navigate('/request/list');
                     }
-                    setDepartament({
-                        departamento: "",
+                    setRequest({
+                        solicitud: "",
                     })
                 }}
             >
@@ -54,7 +55,7 @@ export function DepartamentForm() {
                             <div className="form-group col-sm-6 flex-column d-flex">
                                 <label className="form-control-label px-2">Departamento</label>
 
-                                <input type="text" name='departamento' placeholder='Ingrese el departamento' onChange={handleChange} value={values.departamento}></input>
+                                <input type="text" name='solicitud' placeholder='Ingrese el tipo de Solicitud' onChange={handleChange} value={values.solicitud}></input>
                                 <p></p>
                                 <button className='btn btn-primary' type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Guardar"}</button>
 
@@ -62,9 +63,10 @@ export function DepartamentForm() {
                         </div>
                     </Form>
                 )}
-            </Formik>
 
+            </Formik>
         </>
     )
 }
-export default  DepartamentForm;
+
+export default RequestForm;

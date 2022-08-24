@@ -33,7 +33,7 @@ export const createRequest = async (req, res) => {
 
         const [result] = await pool.query('INSERT INTO request set ?', [newForm]);
 
-        res.json({ id: result.insertId, tipo });
+        res.json({ id: result.insertId, solicitud });
 
     } catch (error) {
         res.json({ message: error.message });

@@ -3,3 +3,4 @@
 //export * from './AuthReducer';
 export * from './DepartamentProvider';
 export * from './TypeProvider';
+export * from './RequestProvider';
