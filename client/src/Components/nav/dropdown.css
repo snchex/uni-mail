@@ -1,0 +1,29 @@
+.submenu {
+    width: 10rem;
+    position:relative;
+    top: 20px;
+    list-style: none;
+    text-align: start;
+  }
+  
+  .submenu li {
+    background: rgb(0, 212, 212);
+    cursor: pointer;
+  }
+  
+  .submenu li a:hover {
+    background: rgb(0, 175, 175);
+  }
+  
+  .submenu.clicked {
+    display: none;
+  }
+  
+  .submenu-item {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: white;
+    padding: 16px;
+  }

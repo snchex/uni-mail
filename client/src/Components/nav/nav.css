@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+svg{
+    display: inline;
+}
+svg.rs-dropdown-toggle-icon{
+    margin-right: 15px;
+}
+svg.rs-dropdown-toggle-caret.rs-icon{
+    margin-left: 15px;
+}

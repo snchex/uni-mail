@@ -1,0 +1,21 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+@media only screen and (max-width: 1000px) {
+    #loginForm{
+        padding-left: 25%;
+        padding-right: 25%;
+    }    
+}
+
+@media only screen and (max-width: 700px) {
+    #loginForm{
+        padding-left: 10%;
+        padding-right: 10%;
+    }    
+}
+
+
+
