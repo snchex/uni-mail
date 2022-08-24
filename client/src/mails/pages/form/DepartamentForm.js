@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDeparts } from '../../context/DepartamentProvider';
 import { useEffect, useState } from 'react';
 
-export default function DepartamentForm() {
+export function DepartamentForm() {
     const { crDpt, getDpt, upDpt } = useDeparts();
     const [depart, setDepartament] = useState({
         departamento: "",
@@ -16,7 +16,6 @@ export default function DepartamentForm() {
     useEffect(() => {
         const loadDepartament = async () => {
             if (params.id) {
-                console.log(params.id);
                 const depart = await getDpt(params.id);
                 console.log(depart);
                 setDepartament({
@@ -38,10 +37,10 @@ export default function DepartamentForm() {
                     if (params.id) {
                         console.log('Update');
                         await upDpt(params.id, values);
-                        navigate('/departamentlist');
+                        navigate('/departament/list');
                     } else {
                         await crDpt(values);
-                        navigate('/departamentlist');
+                        navigate('/departament/list');
                     }
                     setDepartament({
                         departamento: "",
@@ -68,3 +67,4 @@ export default function DepartamentForm() {
         </>
     )
 }
+export default  DepartamentForm;

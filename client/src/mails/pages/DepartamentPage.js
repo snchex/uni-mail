@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import DepartCard from '../components/DepartamentCard';
 import { useDeparts } from '../context/DepartamentProvider'
 
-function DepartPage() {
-    
+export function DepartPage() {
+
     const { departs, loadDepartaments } = useDeparts();
 
     useEffect(() => {
@@ -17,15 +17,15 @@ function DepartPage() {
     }
     return (
         <>
-            <h1>Lista de tipos de Correo</h1>
+            <h1>Lista de Departamentos de Correo</h1>
             <table className='table-list'>
-               
+
                 {renderMain()}
-            
+
             </table>
 
         </>
-    )       
+    )
 }
 
 export default DepartPage;

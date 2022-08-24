@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { getAllTypes, deleteType, createType, getmailType, updateType } from '../api/typeApi';
+import { getAllTypes, deleteType, createType, getmailType, updateType } from '../../mails/api/typeApi';
 import { TypeContext} from './TypeContext';
 
 
@@ -12,7 +12,7 @@ export const useTypes = () => {
     return context;
 };
 
-export const TypeContextProvider = ({ children }) => {
+export const TypeProvider = ({ children }) => {
     const [types, setTypes] = useState([]);
     //View List
     async function loadTypes() {
@@ -71,4 +71,4 @@ export const TypeContextProvider = ({ children }) => {
 
 
 }
-export default TypeContextProvider;
+export default TypeProvider;

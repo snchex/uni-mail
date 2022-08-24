@@ -16,7 +16,6 @@ export const updateType = async (id, newFields) =>
 
 
 
-
 export const deleteType = async (id) => 
     await axios.delete(`http://localhost:3030/mailtype/delete/${id}`);
 

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTypes } from '../../context/TypeProvider';
 import { useEffect, useState } from "react";
 
-export default function TypePage() {
+export function TypeForm() {
 
   const { crType, getType, upType } = useTypes();
   const [type, setType] = useState({
@@ -42,10 +42,10 @@ export default function TypePage() {
           if (params.id) {
             console.log("Update");
             await upType(params.id, values);
-            navigate('/mailtypeslist');
+            navigate('/mailtypes/list');
           } else {
             await crType(values);
-            navigate('/mailtypeslist');
+            navigate('/mailtypes/list');
           }
           setType({
             tipo: "",
@@ -71,3 +71,4 @@ export default function TypePage() {
     </>
   )
 }
+export default TypeForm;
