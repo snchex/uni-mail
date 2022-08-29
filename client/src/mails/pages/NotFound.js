@@ -2,7 +2,7 @@ import React from 'react'
 
 export const NotFound = () => {
   return (
-    <div  className='notfound'>NotFound</div>
+    <div  className='notfound'>404 NotFound</div>
   )
 }
 

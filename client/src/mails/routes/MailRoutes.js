@@ -1,18 +1,18 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { TypeForm, DepartamentForm, DepartPage, TypePage, RequestPage, Home } from '../pages';
-import { DepartamentProvider, TypeProvider, RequestProvider } from '../context';
+import { TypeForm, TypePage, DepartamentForm, DepartPage, RequestPage, RequestForm, GroupPage, GroupForm, Home, NotFound } from '../pages';
+import { DepartamentProvider, TypeProvider, RequestProvider, GroupProvider } from '../context';
 
 import { Navbar } from "../../ui"
-import RequestForm from '../pages/form/RequestForm';
+
 
 export function MailRoutes() {
   return (
-
+        <GroupProvider>
         <RequestProvider>
         <DepartamentProvider>
         <TypeProvider>
-                < Navbar />
+            < Navbar />
             <div className='container mx-auto py-4'>
 
                 <Routes>
@@ -31,12 +31,20 @@ export function MailRoutes() {
                     <Route path="/request/edit/:id" element={<RequestForm />} />
                     <Route path="/request/list" element={<RequestPage />} />
 
+
+                    <Route path="/group/create" element={<GroupForm />} />
+                    <Route path="/group/edit/:id" element={<GroupForm />} />
+                    <Route path="/group/list" element={<GroupPage />} />
+
+                    <Route path="*" element={<NotFound />} />
+
                     
                 </Routes>
             </div>
         </TypeProvider>
         </DepartamentProvider>
         </RequestProvider> 
+        </GroupProvider>
 
     
   )

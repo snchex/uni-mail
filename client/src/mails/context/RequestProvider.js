@@ -18,7 +18,7 @@ export const RequestProvider = ({ children }) => {
     async function loadRequests() {
         const response = await getAllRequests();
         setRequests(response.data);
-        console.log(response.data);
+
 
     }
 

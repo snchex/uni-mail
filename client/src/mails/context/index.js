@@ -4,3 +4,4 @@
 export * from './DepartamentProvider';
 export * from './TypeProvider';
 export * from './RequestProvider';
+export * from './GroupProvider';
