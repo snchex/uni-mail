@@ -1,12 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export function Navbar() {
+
+  const navigate = useNavigate();
+
+
+  const onLogout = () => {
+
+    navigate('/login', { 
+      replace: true, 
+    } );
+  };
   return (
     <>
       <nav>
-
+      <a href="/"><link className="img-ico" href="%PUBLIC_URL%/logo192.png" /></a>
         <ul>
 
           <li><Link className='active' to="/">Inicio</Link></li>
@@ -30,9 +40,14 @@ export function Navbar() {
               <Dropdown.Item style={{ margin: 0 }} href="#/action-2"><Link className='dropdown-item' to="/request/list">Lista Tipo de Solicitud</Link></Dropdown.Item>
             </DropdownButton>
           </li>
+          <li>
+            <DropdownButton style={{ margin: 0 }} id="dropdown-basic-button" title="Grupos">
+              <Dropdown.Item style={{ margin: 0 }} href="#/action-1"><Link className='dropdown-item' to="/group/create">Crear Grupos</Link></Dropdown.Item>
+              <Dropdown.Item style={{ margin: 0 }} href="#/action-2"><Link className='dropdown-item' to="/group/list">Lista de Grupos</Link></Dropdown.Item>
+            </DropdownButton>
+          </li>
 
-
-          <li><Link className='btn btn-outline-primary' to="/">Registrarse</Link></li>
+          <li><Link onClick={onLogout} className='btn btn-outline-primary' to="/login">Salir</Link></li>
           <li><Link className='btn btn-outline-success' to="/login">Inicio Session</Link></li>
 
 

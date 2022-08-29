@@ -17,7 +17,6 @@ export function DepartamentForm() {
         const loadDepartament = async () => {
             if (params.id) {
                 const depart = await getDpt(params.id);
-                console.log(depart);
                 setDepartament({
                     departamento: depart.departamento
                 });

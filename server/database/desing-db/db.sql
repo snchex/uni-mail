@@ -32,10 +32,11 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `dbRegistrationService`.`group`
+-- Table `dbRegistrationService`.`cluster`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`group` (
+CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`cluster` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
   `responsible` VARCHAR(60) NOT NULL,
   `member` VARCHAR(200) NOT NULL,
   `createdAt` DATE NULL DEFAULT NULL,
@@ -98,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
     REFERENCES `dbRegistrationService`.`departament` (`id`),
   CONSTRAINT `fk_mail_group1`
     FOREIGN KEY (`fk_idgroup`)
-    REFERENCES `dbRegistrationService`.`group` (`id`),
+    REFERENCES `dbRegistrationService`.`cluster` (`id`),
   CONSTRAINT `fk_mail_request1`
     FOREIGN KEY (`fk_idrequest`)
     REFERENCES `dbRegistrationService`.`request` (`id`),

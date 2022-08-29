@@ -4,8 +4,8 @@ export const pool = createPool ({
    
     host: 'localhost',
     port: 3306,
-    user: 'root',
-    password: 'Rt40.5np5',
+    user: 'registerMail',
+    password: 'Regis3022_',
     database: 'dbRegistrationService'
 
 });

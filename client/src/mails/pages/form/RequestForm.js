@@ -17,7 +17,6 @@ export function RequestForm() {
         const loadRequest = async () => {
             if (params.id) {
                 const request = await gtRequest(params.id);
-                console.log(request);
                 setRequest({
                     solicitud: request.solicitud,
 
@@ -53,7 +52,7 @@ export function RequestForm() {
                     <Form onSubmit={handleSubmit}>
                         <div className="row justify-content-center text-left">
                             <div className="form-group col-sm-6 flex-column d-flex">
-                                <label className="form-control-label px-2">Departamento</label>
+                                <label className="form-control-label px-2">Solicitud</label>
 
                                 <input type="text" name='solicitud' placeholder='Ingrese el tipo de Solicitud' onChange={handleChange} value={values.solicitud}></input>
                                 <p></p>

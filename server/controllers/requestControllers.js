@@ -1,6 +1,6 @@
 import { pool } from '../database/db.js'
 
-export const getAllRequest = async (req, res) => {
+export const getAllRequests = async (req, res) => {
     try {
         const [results] = await pool.query('SELECT * FROM request ORDER BY createdAt ASC')
         res.json(results);
