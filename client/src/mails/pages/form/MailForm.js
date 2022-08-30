@@ -1,14 +1,14 @@
 import { Formik, Form } from 'formik';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useGroups } from '../../context/GroupProvider';
+import { useMails } from '../../context/MailProvider';
 import { useEffect, useState } from 'react';
 
 
-export function GroupForm() {
-    const { crGroup, gtGroup, upGroup } = useGroups();
-    const [group, setGroup] = useState({
-        name: "",
-        responsible: "",
+export function MailForm() {
+    const { crMail, gtMail, upMail } = useMails();
+    const [mail, setMail] = useState({
+        user: "",
+        password: "",
         member: "",
     });
 
@@ -16,37 +16,42 @@ export function GroupForm() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const loadGroup = async () => {
+        const loadMail = async () => {
             if (params.id) {
-                const group = await gtGroup(params.id);
-                setGroup({
-                    name: group.name,
-                    responsible: group.responsible,
-                    member: group.member,
+                const mail = await gtMail(params.id);
+                setMail({
+                    user: mail.name,
+                    password: mail.password,
+                    statu: mail.statu,
+                    fk_idtypeMail: mail.fk_idtypeMail,
+                    fk_idReques: mail.fk_idReques,
+                    fk_iddepartament: mail.fk_iddepartament,
+                    fk_idgroup: mail.fk_idgroup,
+
 
                 });
             }
         }
-        loadGroup();
+        loadMail();
     });
 
 
     return (
         <>
-            <h1>{params.id ? "Editar Tipo de Grupo" : "Nuevo Tipo de Grupo"}</h1>
+            <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
             <Formik
-                initialValues={group}
+                initialValues={mail}
                 enableReinitialize={true}
                 onSubmit={async (values, actions) => {
                     if (params.id) {
                         console.log('Update');
-                        await upGroup(params.id, values);
-                        navigate('/group/list');
+                        await upMail(params.id, values);
+                        navigate('/mail/list');
                     } else {
-                        await crGroup(values);
-                        navigate('/group/list');
+                        await crMail(values);
+                        navigate('/mail/list');
                     }
-                    setGroup({
+                    setMail({
                         name: "",
                         responsible: "",
                         member: "",
@@ -89,4 +94,4 @@ export function GroupForm() {
     )
 }
 
-export default GroupForm;
+export default MailForm;
