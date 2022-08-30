@@ -18,16 +18,7 @@ export default function GroupCard({ group }) {
 
     return (
         <>
-            <thead className="text-center">
-                <tr className="border-bottom">
-                    <th> <span class="mx-2">Grupo</span> </th>
-                    <th> <span class="ml-2">Responsable</span> </th>
-                    <th> <span class="ml-2">Miembros</span> </th>
-                    <th> <span class="ml-2">Accion</span> </th>
-                    <th> <span class="ml-2">Accion</span> </th>
-                  
-                </tr>
-            </thead>
+           
       
         <tbody className='text-center mx-auto'>
             <tr>

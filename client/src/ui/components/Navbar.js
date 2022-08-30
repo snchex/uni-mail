@@ -21,6 +21,12 @@ export function Navbar() {
 
           <li><Link className='active' to="/">Inicio</Link></li>
           <li>
+            <DropdownButton style={{ margin: 0 }} id="dropdown-basic-button" title="Correos">
+              <Dropdown.Item style={{ margin: 0 }} href="#/action-1"><Link className='dropdown-item' to="/mail/create">Crear Correos</Link></Dropdown.Item>
+              <Dropdown.Item style={{ margin: 0 }} href="#/action-2"><Link className='dropdown-item' to="/mail/list">Lista  Correos</Link></Dropdown.Item>
+            </DropdownButton>
+          </li>
+          <li>
             <DropdownButton style={{ margin: 0 }} id="dropdown-basic-button" title="Tipo Correos">
               <Dropdown.Item style={{ margin: 0 }} href="#/action-1"><Link className='dropdown-item' to="/mailtype/create">Crear Tipo Correos</Link></Dropdown.Item>
               <Dropdown.Item style={{ margin: 0 }} href="#/action-2"><Link className='dropdown-item' to="/mailtypes/list">Lista Tipo Correos</Link></Dropdown.Item>

@@ -1,2 +1,2 @@
 import { createContext } from "react";
-export const TypeContext = createContext();
+export const MailContext = createContext();

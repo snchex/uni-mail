@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import MailCard from '../components/MailCard';
-import { useGroups } from '../context/GroupProvider';
+import { useMails } from '../context/MailProvider';
 
 
 export const MailPage = () => {
 
-  const { mails, loadGroups } = useGroups();
+  const { mails, loadMails } = useMails();
 
 
   useEffect(() => {
-    loadGroups();
+    loadMails ();
   });
 
   function renderMain() {
