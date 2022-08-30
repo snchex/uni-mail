@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react';
 export function GroupForm() {
     const { crGroup, gtGroup, upGroup } = useGroups();
     const [group, setGroup] = useState({
-        solicitud: "",
+        name: "",
+        responsible: "",
+        member: "",
     });
 
     const params = useParams();
@@ -55,19 +57,27 @@ export function GroupForm() {
 
                     <Form onSubmit={handleSubmit}>
                         <div className="row justify-content-center text-left">
-                            <div className="form-group col-sm-6 flex-column d-flex">
-                                <label className="form-control-label px-2">Departamento</label>
+                            <div className="container-fluid mx-auto px-5">
 
-                                
-                            
-                                <input type="text" name='name' placeholder='Ingrese el nombre de grupo' onChange={handleChange} value={values.name}></input>
-                            
-                            
-                                <input type="text" name='responsible' placeholder='Ingrese el responsable' onChange={handleChange} value={values.responsible}></input>
-                        
-                                <input type="text" name='member' placeholder='Ingrese los miembros' onChange={handleChange} value={values.member}></input>
-                               
-                                <button className='btn btn-primary' type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Guardar"}</button>
+                                <div className="form-group col-sm-6 flex-column d-flex">
+                                    <label className="form-control-label px-3">Departamento</label>
+                                    <input type="text" name='name' placeholder='Ingrese el nombre de grupo' onChange={handleChange} value={values.name}></input>
+                                </div>
+
+                                <div className='form-group col-sm-6 flex-column d-flex'>
+                                <label className="form-control-label px-3">Responsable</label> 
+                                    <input type="text" name='responsible' placeholder='Ingrese el responsable' onChange={handleChange} value={values.responsible}></input>
+                                </div>
+
+                                <div className='form-group col-sm-6 flex-column d-flex'>
+                                    <label className="form-control-label px-3">Miembros</label> 
+                                    <input type="text" name='member' placeholder='Ingrese los miembros' onChange={handleChange} value={values.member}></input>
+                                </div>
+                                <div className="form-group col-sm-6 flex-column d-flex">
+                                    
+                                    <button className='btn btn-primary' type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Guardar"}</button>
+                                  
+                                </div>
 
                             </div>
                         </div>

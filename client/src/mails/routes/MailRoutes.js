@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { TypeForm, TypePage, DepartamentForm, DepartPage, RequestPage, RequestForm, GroupPage, GroupForm, Home, NotFound } from '../pages';
-import { DepartamentProvider, TypeProvider, RequestProvider, GroupProvider } from '../context';
+import { TypeForm, TypePage, DepartamentForm, DepartPage, RequestPage, RequestForm, GroupPage, GroupForm, MailForm, MailPage, Home, NotFound } from '../pages';
+import { DepartamentProvider, TypeProvider, RequestProvider, GroupProvider, MailProvider } from '../context';
 
 import { Navbar } from "../../ui"
 
 
 export function MailRoutes() {
   return (
+        <MailProvider >
         <GroupProvider>
         <RequestProvider>
         <DepartamentProvider>
@@ -17,7 +18,10 @@ export function MailRoutes() {
 
                 <Routes>
                 <Route path="/" element={<Home />} />
-                    
+                    <Route path="/mail/create" element={<MailForm />} />
+                    <Route path="/mail/edit/:id" element={<MailForm />} />
+                    <Route path="/mail/list" element={<MailPage />} />
+
                     <Route path="/mailtype/create" element={<TypeForm />} />
                     <Route path="/mailtype/edit/:id" element={<TypeForm />} />
                     <Route path="/mailtypes/list" element={<TypePage />} />
@@ -45,7 +49,7 @@ export function MailRoutes() {
         </DepartamentProvider>
         </RequestProvider> 
         </GroupProvider>
-
+        </MailProvider>
     
   )
 }
