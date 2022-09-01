@@ -3,17 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Formm from 'react-bootstrap/Form';
 import { useMails } from '../../context/MailProvider';
 import { useEffect, useState } from 'react';
-import { getAllTypes } from '../../api/typeApi';
-import { getAllDepartaments } from '../../api/departamentApi';
-import { getAllRequests } from '../../api/requestApi';
+import { useGroups, useDeparts, useRequests, useTypes } from '../../context';
 
 export function MailForm() {
 
     const { crMail, gtMail, upMail } = useMails();
-
-    const [types, setTypes] = useState([]);
-    const [requests, setRequests] = useState([]);
-    const [departaments, setDepartament] = useState([]);
+    const { groups, loadGroups } = useGroups();
+    const { departs, loadDepartaments } = useDeparts();
+    const { requests, loadRequests } = useRequests();
+    const { types, loadTypes } = useTypes();
 
     const [mail, setMail] = useState({
         user: "",
@@ -43,25 +41,11 @@ export function MailForm() {
                 });
             }
         }
-        async function loadTypes() {
-            const response = await getAllTypes();
-            setTypes(response.data);
-            
-        }
-        
-        async function loadRequests() {
-            const response = await getAllRequests();
-            setRequests(response.data);
-        }
-        async function loadDepartaments() {
-            const response = await getAllDepartaments();
-            setDepartament(response.data);
-        }
-        
         loadMail();
         loadTypes();
         loadRequests();
         loadDepartaments();
+        loadGroups();
 
     });
 
@@ -107,7 +91,7 @@ export function MailForm() {
                                 <input type="password" name='responsible' placeholder='Ingrese la Contrase&ntilde;a' onChange={handleChange} value={values.password}></input>
                             </div>
 
-                            
+
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Tipo de Correo
@@ -139,8 +123,21 @@ export function MailForm() {
                                     Departamento
                                     <Formm.Select>
                                         {
-                                            departaments.map(departament => (
+                                            departs.map(departament => (
                                                 <option key={departament.id} onChange={handleChange} value={values.fk_iddepartament}>{departament.departamento}</option>
+                                            ))
+                                        }
+                                    </Formm.Select>
+
+                                </label>
+                            </div>
+                            <div className='form-group col-sm-6 flex-column d-flex'>
+                                <label className="form-control-label px-3">
+                                    Grupo - Responsable 
+                                    <Formm.Select>
+                                        {
+                                            groups.map(group => (
+                                                <option key={group.id} onChange={handleChange} value={values.fk_idgroup}>{group.name} - {group.responsible}</option>
                                             ))
                                         }
                                     </Formm.Select>
@@ -155,7 +152,7 @@ export function MailForm() {
                                 </label>
 
                             </div>
-                            
+
                             <div className="form-group col-sm-6 flex-column d-flex">
 
                                 <button className='btn btn-primary' type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Guardar"}</button>
