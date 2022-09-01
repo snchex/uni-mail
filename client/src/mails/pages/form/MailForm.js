@@ -3,10 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Formm from 'react-bootstrap/Form';
 import { useMails } from '../../context/MailProvider';
 import { useEffect, useState } from 'react';
+//import { useTypes } from '../../context/TypeProvider';
+//import TypeCard from '../../components/TypeCard';
 
 
 export function MailForm() {
     const { crMail, gtMail, upMail } = useMails();
+    //const { types } = useTypes();
     const [mail, setMail] = useState({
         user: "",
         password: "",
@@ -38,9 +41,15 @@ export function MailForm() {
             }
         }
         loadMail();
+        
     });
 
-
+/*
+    function renderMain() {
+        
+        return types.map(type => (<Form type={type}  />));
+    }
+*/
     return (
         <>
             <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
@@ -71,7 +80,7 @@ export function MailForm() {
 
                     <Form onSubmit={handleSubmit}>
                         <div className="row justify-content-center text-left">
-                            <div className="container-fluid mx-auto px-5">
+                            
 
                                 <div className="form-group col-sm-6 flex-column d-flex">
                                     <label className="form-control-label px-3">Usuario</label>
@@ -91,6 +100,18 @@ export function MailForm() {
                                     </label> 
                                     
                                 </div>
+                                <div className='form-group col-sm-6 flex-column d-flex'>
+                                    <label className="form-control-label px-3">
+                                        Tipo de Correo
+                                        <Formm.Select size="sm">
+                                            <option onChange={handleChange} value={values.fk_idtypeMail}></option>
+                                        </Formm.Select>
+                                    </label> 
+                                    
+                                </div>
+
+
+
                                
                                 <div className="form-group col-sm-6 flex-column d-flex">
                                     
@@ -98,7 +119,7 @@ export function MailForm() {
                                   
                                 </div>
 
-                            </div>
+                            
                         </div>
                     </Form>
                 )}

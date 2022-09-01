@@ -499,6 +499,8 @@ tbody, td, tfoot, th, thead, tr {
 .btn-outline-warning{
   padding-top: .1rem !important;
   padding-bottom: .1rem !important;
+  padding-left: .1rem !important;
+  padding-right: .1rem !important;
 }
 
 .btn-cancel{
