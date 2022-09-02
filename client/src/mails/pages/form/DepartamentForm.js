@@ -5,13 +5,15 @@ import { useEffect, useState } from 'react';
 
 export function DepartamentForm() {
     const { crDpt, getDpt, upDpt } = useDeparts();
+
+
+
     const [depart, setDepartament] = useState({
         departamento: "",
     });
 
     const params = useParams();
     const navigate = useNavigate();
-
 
     useEffect(() => {
         const loadDepartament = async () => {
