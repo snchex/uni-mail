@@ -18,10 +18,17 @@ export function DepartPage() {
     return (
         <>
             <h1>Lista de Departamentos de Correo</h1>
-            <table className='table-list'>
+            <table className='table table-borderles'>
+                <thead className="text-center">
+                    <tr className="border-bottom">
+                        <th> <span className="mx-2">Departamentos</span> </th>
+                        <th> <span className="ml-2">Accion</span> </th>
+                        <th> <span className="ml-2">Accion</span> </th>
+                    </tr>
+                </thead>
 
                 {renderMain()}
-
+ 
             </table>
 
         </>

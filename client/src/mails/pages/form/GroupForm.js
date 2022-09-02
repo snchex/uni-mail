@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 export function GroupForm() {
     const { crGroup, gtGroup, upGroup } = useGroups();
+    
     const [group, setGroup] = useState({
         name: "",
         responsible: "",

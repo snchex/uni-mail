@@ -14,11 +14,19 @@ export default function RequestCard({ request }) {
     return (
       
         <>
-            <tbody>
+            <tbody className='text-center mx-auto'>
                 <tr className='tr-table'>
                     <td>{request.solicitud}</td>
-                    <td><button onClick={() => navigate(`/request/edit/${request.id}`)} className='btn btn-outline-warning'>Editar</button></td>
-                    <td><button onClick={handleShow} className='btn btn-outline-danger'>Eliminar</button></td>
+                    <td>
+                        <button onClick={() => navigate(`/request/edit/${request.id}`)} className='btn btn-outline-warning'>
+                            <img src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png" alt='' />
+                        </button>
+                    </td>
+                    <td>
+                        <button onClick={handleShow} className='btn btn-outline-danger'>
+                            <img src="https://img.icons8.com/plasticine/24/000000/filled-trash.png" alt='trash' />
+                        </button>
+                    </td>
                 </tr>
             </tbody>
 

@@ -17,7 +17,6 @@ export function TypeForm() {
     const loadType = async () => {
 
       if (params.id) {
-        console.log(params.id);
         const type = await getType(params.id);
         setType({
           tipo: type.tipo
