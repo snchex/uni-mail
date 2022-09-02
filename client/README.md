@@ -12,8 +12,7 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### `mysql -u root -p`
-Password 'Regis3022_'
 
 ### User `CREATE USER 'registerMail'@'localhost' IDENTIFIED BY 'Regis3022_';`
-`GRANT CREATE, DELETE, SELECT, INSERT, UPDATE ON dbRegistrationService.* TO 'registerMail'@'localhost';`
-`FLUSH PRIVILEGES;`
+### `GRANT CREATE, DELETE, SELECT, INSERT, UPDATE ON dbRegistrationService.* TO 'registerMail'@'localhost';`
+### `FLUSH PRIVILEGES;`
