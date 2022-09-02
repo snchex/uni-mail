@@ -41,7 +41,7 @@ export const createMail = async (req, res) => {
 
         const [result] = await pool.query('INSERT INTO mail set ?', [newForm]);
 
-        res.json({ id: result.insertId, tipo });
+        res.json({ id: result.insertId, user, password, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament, fk_idgroup });
 
     } catch (error) {
         res.json({ message: error.message });

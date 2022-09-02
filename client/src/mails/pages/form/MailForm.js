@@ -1,4 +1,5 @@
-import { Formik, Form } from 'formik';
+import { Formik, Form} from 'formik';
+
 import { useParams, useNavigate } from 'react-router-dom';
 import { useMails } from '../../context/MailProvider';
 import { useEffect, useState } from 'react';
@@ -12,6 +13,7 @@ export function MailForm() {
     const { departs, loadDepartaments } = useDeparts();
     const { requests, loadRequests } = useRequests();
     const { types, loadTypes } = useTypes();
+
 
     const [mail, setMail] = useState({
         user: "",
@@ -140,7 +142,7 @@ export function MailForm() {
                                         <option></option>
                                         {
                                             groups.map(group => (
-                                                <option key={group.id} name='fk_idgroup' onChange={handleChange} value={values.fk_idgroup}>{group.name} - {group.responsible}</option>
+                                                <option key={group.id} name='fk_idgroup' onChange={handleChange} value={values.id}>{group.name} - {group.responsible}</option>
                                             ))
                                         }
                                     </Formm.Select>
@@ -150,8 +152,8 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Activo
-                                    <Formm.Check label="S&iacute;" className="mb-2" name="statu" aria-label="option 1" onChange={handleChange} value={values.statu} />
-                                    <Formm.Check label="No" className="mb-2" name="statu" aria-label="option 2" onChange={handleChange} value={values.statu} />
+                                    <Formm.Check label="S&iacute;"  className="mb-2" name="statu" aria-label="option 1" onChange={handleChange} value={values.statu} />
+                                    
                                 </label>
 
                             </div>
