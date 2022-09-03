@@ -1,5 +1,6 @@
 import express  from "express";
 import cors from "cors";
+import morgan from "morgan";
 import typeRoute from "./routes/typeRoutes.js";
 import groupRoute from "./routes/groupRoutes.js";
 import departamentRoute from "./routes/departamentRoutes.js";
@@ -15,7 +16,7 @@ const app = express();
 app.use(flash());
 app.use(express.json());
 app.use(cors());
-
+app.use(morgan('dev'));
 
 
 

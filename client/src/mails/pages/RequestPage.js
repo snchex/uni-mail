@@ -9,7 +9,13 @@ export const RequestPage = () => {
 
 
   useEffect(() => {
-    loadRequests();
+    const timer = setTimeout(() => {
+
+      loadRequests();
+
+    }, 1000);
+    
+    return () => clearTimeout(timer);
   });
 
   function renderMain() {

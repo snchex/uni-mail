@@ -1,4 +1,4 @@
-import { Formik, Form} from 'formik';
+import { Formik, Form } from 'formik';
 
 import { useParams, useNavigate } from 'react-router-dom';
 import { useMails } from '../../context/MailProvider';
@@ -18,7 +18,7 @@ export function MailForm() {
     const [mail, setMail] = useState({
         user: "",
         password: "",
-        statu: "",
+        statu: "false",
         fk_idtypeMail: "",
         fk_idrequest: "",
         fk_iddepartament: "",
@@ -29,40 +29,61 @@ export function MailForm() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const loadMail = async () => {
-            if (params.id) {
-                const mail = await gtMail(params.id);
-                setMail({
-                    user: mail.user,
-                    password: mail.password,
-                    statu: mail.statu,
-                    fk_idtypeMail: mail.fk_idtypeMail,
-                    fk_idrequest: mail.fk_idrequest,
-                    fk_iddepartament: mail.fk_iddepartament,
-                    fk_idgroup: mail.fk_idgroup,
-                });
+        const timer = setTimeout(() => {
+            const loadMail = async () => {
+                if (params.id) {
+                    const mail = await gtMail(params.id);
+                    setMail({
+                        user: mail.user,
+                        password: mail.password,
+                        statu: mail.statu,
+                        fk_idtypeMail: mail.fk_idtypeMail,
+                        fk_idrequest: mail.fk_idrequest,
+                        fk_iddepartament: mail.fk_iddepartament,
+                        fk_idgroup: mail.fk_idgroup,
+                    });
+                }
             }
-        }
-        loadMail();
-        loadTypes();
-        loadRequests();
-        loadDepartaments();
-        loadGroups();
-
+            loadMail();
+            loadTypes();
+            loadRequests();
+            loadDepartaments();
+            loadGroups();
+        }, 1000);
+        return () => clearTimeout(timer);
     });
-    
+
     return (
         <>
             <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
             <Formik
                 initialValues={mail}
                 enableReinitialize={true}
+
+                validate={(values) => {
+                    let errores = {};
+                    
+                    if (!values.password) {
+                        errores.password = 'Por favor ingrese la contraseña';
+                    } else if (!/^.{4,12}$/.test(values.password)) {
+                        errores.password = 'La contraseña tiene que ser de 4 a 12 digitos';
+                    }
+                    if (!values.user) {
+                        errores.user = 'Por favor ingrese su usuario';
+                    } else if (!/^[a-za-z0-9]+@(?:[a-za-z0-9]+\.)+[a-za-z]+$/.test(values.user)) {
+                        errores.user = 'Por favor ingrese un correo valido';
+                    }
+                    return errores;
+
+                }}
+
                 onSubmit={async (values, actions) => {
                     if (params.id) {
                         console.log('Update');
                         await upMail(params.id, values);
                         navigate('/mail/list');
                     } else {
+
                         await crMail(values);
                     }
                     navigate('/mail/list');
@@ -77,7 +98,7 @@ export function MailForm() {
                     })
                 }}
             >
-                {({ handleChange, handleSubmit, values, isSubmitting }) => (
+                {({ handleChange, handleSubmit, values, errors, touched, isSubmitting, handleBlur }) => (
 
                     <Form onSubmit={handleSubmit}>
                         <div className="row justify-content-center text-left">
@@ -85,12 +106,14 @@ export function MailForm() {
 
                             <div className="form-group col-sm-6 flex-column d-flex">
                                 <label className="form-control-label px-3">Usuario</label>
-                                <input type="text" name='user' placeholder='Ingrese el correo' onChange={handleChange} value={values.user}></input>
+                                <input type="text" name='user' placeholder='Ingrese el correo' onBlur={handleBlur} onChange={handleChange} value={values.user} />
+                                {touched.user && errors.user && <div className="error">{errors.user}</div>}
                             </div>
 
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">Contrase&ntilde;a</label>
-                                <input type="password" name='password' placeholder='Ingrese la Contrase&ntilde;a' onChange={handleChange} value={values.password}></input>
+                                <input type="password" name='password' placeholder='Ingrese la Contrase&ntilde;a' onBlur={handleBlur} onChange={handleChange} value={values.password} />
+                                {touched.password && errors.password && <div className="error">{errors.password}</div>}
                             </div>
 
 
@@ -98,7 +121,7 @@ export function MailForm() {
                                 <label className="form-control-label px-3">
                                     Tipo de Correo
                                     <Formm.Select>
-                                    <option></option>
+                                        <option></option>
                                         {
                                             types.map(type => (
                                                 <option key={type.id} name='fk_idtypeMail' onChange={handleChange} value={values.fk_idtypeMail}>{type.tipo}</option>
@@ -111,10 +134,10 @@ export function MailForm() {
                                 <label className="form-control-label px-3">
                                     Tipo de Solicitud
                                     <Formm.Select>
-                                    <option></option>
+                                        <option></option>
                                         {
                                             requests.map(request => (
-                                                <option key={request.id} name='fk_idrequest' onChange={handleChange} value={values.fk_idrequest}>{request.solicitud}</option>
+                                                <option key={request.id} name='fk_idrequest' onBlur={handleBlur} onChange={handleChange} value={values.fk_idrequest}>{request.solicitud}</option>
                                             ))
                                         }
                                     </Formm.Select>
@@ -125,7 +148,7 @@ export function MailForm() {
                                 <label className="form-control-label px-3">
                                     Departamento
                                     <Formm.Select>
-                                    <option></option>
+                                        <option></option>
                                         {
                                             departs.map(departament => (
                                                 <option key={departament.id} name='fk_iddepartament' onChange={handleChange} value={values.fk_iddepartament}>{departament.departamento}</option>
@@ -137,7 +160,7 @@ export function MailForm() {
                             </div>
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
-                                    Grupo - Responsable 
+                                    Grupo - Responsable
                                     <Formm.Select>
                                         <option></option>
                                         {
@@ -152,10 +175,9 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Activo
-                                    <Formm.Check label="S&iacute;"  className="mb-2" name="statu" aria-label="option 1" onChange={handleChange} value={values.statu} />
-                                    
-                                </label>
+                                    <Formm.Check label="S&iacute;" className="mb-2" name="statu" aria-label="option 1" onChange={handleChange} value={values.statu} />
 
+                                </label>
                             </div>
 
                             <div className="form-group col-sm-6 flex-column d-flex">

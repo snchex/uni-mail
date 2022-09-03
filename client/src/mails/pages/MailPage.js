@@ -9,7 +9,11 @@ export const MailPage = () => {
 
 
   useEffect(() => {
-    loadMails ();
+    const timer = setTimeout(() => {
+
+      loadMails();
+    }, 1000);
+    return () => clearTimeout(timer);
   });
 
   function renderMain() {
@@ -21,13 +25,13 @@ export const MailPage = () => {
     <>
       <h1>Lista de Correos</h1>
       <table className='table table-borderles'>
-          <thead className="text-center">
-            <tr className="border-bottom">
-                <th> <span className="mx-2">Grupo</span> </th>
-                <th> <span className="ml-2">Accion</span> </th>
-                <th> <span className="ml-2">Accion</span> </th>
-            </tr>
-          </thead>
+        <thead className="text-center">
+          <tr className="border-bottom">
+            <th> <span className="mx-2">Grupo</span> </th>
+            <th> <span className="ml-2">Accion</span> </th>
+            <th> <span className="ml-2">Accion</span> </th>
+          </tr>
+        </thead>
         {renderMain()}
       </table>
     </>

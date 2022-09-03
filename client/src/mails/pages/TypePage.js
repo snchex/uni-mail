@@ -7,7 +7,11 @@ export function TypePage() {
     const { types, loadTypes } = useTypes();
 
     useEffect(() => {
+        const timer = setTimeout(() => {
+
         loadTypes();
+        }, 1000);
+        return () => clearTimeout(timer);
     });
 
 
