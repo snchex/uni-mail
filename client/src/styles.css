@@ -15,6 +15,9 @@
   list-style: none;
   box-sizing: border-box;
 }
+.error{
+  color: red;
+}
 
 
 nav{

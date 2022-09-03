@@ -9,7 +9,11 @@ export const GroupPage = () => {
 
 
   useEffect(() => {
-    loadGroups();
+    const timer = setTimeout(() => {
+
+      loadGroups();
+    }, 1000);
+    return () => clearTimeout(timer);
   });
 
   function renderMain() {

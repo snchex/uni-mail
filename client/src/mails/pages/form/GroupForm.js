@@ -17,18 +17,22 @@ export function GroupForm() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const loadGroup = async () => {
-            if (params.id) {
-                const group = await gtGroup(params.id);
-                setGroup({
-                    name: group.name,
-                    responsible: group.responsible,
-                    member: group.member,
-
-                });
+        const timer = setTimeout(() => {
+            
+            const loadGroup = async () => {
+                if (params.id) {
+                    const group = await gtGroup(params.id);
+                    setGroup({
+                        name: group.name,
+                        responsible: group.responsible,
+                        member: group.member,
+    
+                    });
+                }
             }
-        }
-        loadGroup();
+            loadGroup();
+        }, 1000);
+        return () => clearTimeout(timer);
     });
 
 

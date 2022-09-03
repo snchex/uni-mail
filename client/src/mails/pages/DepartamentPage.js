@@ -7,7 +7,11 @@ export function DepartPage() {
     const { departs, loadDepartaments } = useDeparts();
 
     useEffect(() => {
-        loadDepartaments();
+        const timer = setTimeout(() => {
+
+            loadDepartaments();
+        }, 1000);
+        return () => clearTimeout(timer);
     });
 
 
