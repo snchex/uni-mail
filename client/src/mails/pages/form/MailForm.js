@@ -24,10 +24,10 @@ export function MailForm() {
         fk_iddepartament: "",
         fk_idgroup: "",
     });
-
     const params = useParams();
     const navigate = useNavigate();
-
+    
+    
     useEffect(() => {
         const timer = setTimeout(() => {
             const loadMail = async () => {
@@ -59,7 +59,7 @@ export function MailForm() {
             <Formik
                 initialValues={mail}
                 enableReinitialize={true}
-
+                
                 validate={(values) => {
                     let errores = {};
                     
@@ -70,7 +70,7 @@ export function MailForm() {
                     }
                     if (!values.user) {
                         errores.user = 'Por favor ingrese su usuario';
-                    } else if (!/^[a-za-z0-9]+@(?:[a-za-z0-9]+\.)+[a-za-z]+$/.test(values.user)) {
+                    } else if (!/^[.a-za-z0-9]+@(?:[a-za-z0-9]+\.)+[a-za-z]+$/.test(values.user)) {
                         errores.user = 'Por favor ingrese un correo valido';
                     }
                     return errores;
@@ -120,24 +120,27 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Tipo de Correo
-                                    <Formm.Select>
+                                    <Formm.Select  value={values.fk_idtypeMail} onChange={handleChange} name='fk_idtypeMail'>
+                                 
                                         <option></option>
                                         {
                                             types.map(type => (
-                                                <option key={type.id} name='fk_idtypeMail' onChange={handleChange} value={values.fk_idtypeMail}>{type.tipo}</option>
+                                                <option key={type.id}>{type.tipo}</option>
                                             ))
                                         }
+                                  
+
                                     </Formm.Select>
                                 </label>
                             </div>
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Tipo de Solicitud
-                                    <Formm.Select>
+                                    <Formm.Select name='fk_idrequest' onBlur={handleBlur} onChange={handleChange} value={values.fk_idrequest}>
                                         <option></option>
                                         {
                                             requests.map(request => (
-                                                <option key={request.id} name='fk_idrequest' onBlur={handleBlur} onChange={handleChange} value={values.fk_idrequest}>{request.solicitud}</option>
+                                                <option key={request.id} >{request.solicitud}</option>
                                             ))
                                         }
                                     </Formm.Select>
@@ -147,11 +150,11 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Departamento
-                                    <Formm.Select>
+                                    <Formm.Select name='fk_iddepartament' onChange={handleChange} value={values.fk_iddepartament}>
                                         <option></option>
                                         {
                                             departs.map(departament => (
-                                                <option key={departament.id} name='fk_iddepartament' onChange={handleChange} value={values.fk_iddepartament}>{departament.departamento}</option>
+                                                <option key={departament.id} >{departament.departamento}</option>
                                             ))
                                         }
                                     </Formm.Select>
@@ -161,11 +164,11 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Grupo - Responsable
-                                    <Formm.Select>
+                                    <Formm.Select name='fk_idgroup' onChange={handleChange} value={values.fk_idgroup}>
                                         <option></option>
                                         {
                                             groups.map(group => (
-                                                <option key={group.id} name='fk_idgroup' onChange={handleChange} value={values.id}>{group.name} - {group.responsible}</option>
+                                                <option key={group.id} >{group.name} - {group.responsible}</option>
                                             ))
                                         }
                                     </Formm.Select>
@@ -175,7 +178,7 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Activo
-                                    <Formm.Check label="S&iacute;" className="mb-2" name="statu" aria-label="option 1" onChange={handleChange} value={values.statu} />
+                                    <Formm.Check label="S&iacute;" className="mb-2" name="statu" aria-label="option 1" onChange={handleChange} value='1' />
 
                                 </label>
                             </div>

@@ -32,9 +32,9 @@ export const MailProvider = ({ children }) => {
         }
     }
 
-    const crMail = async (group) => {
+    const crMail = async (mail) => {
         try {
-            const response = await createMail(group);
+            const response = await createMail(mail);
             console.log(response);
         } catch (error) {
             console.error(error);

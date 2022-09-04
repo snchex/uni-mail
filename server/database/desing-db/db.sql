@@ -87,23 +87,25 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
   `fk_idrequest` INT NOT NULL,
   `fk_iddepartament` INT NOT NULL,
   `fk_idgroup` INT NOT NULL,
-  `createdAt` DATE NULL DEFAULT NULL,
-  `updatedAt` DATE NULL DEFAULT NULL,
+  `createdAt` TIMESTAMP NOT NULL,
+  `updatedAt` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_mail_typeMail_idx` (`fk_idtypeMail` ASC) VISIBLE,
   INDEX `fk_mail_request1_idx` (`fk_idrequest` ASC) VISIBLE,
   INDEX `fk_mail_departament1_idx` (`fk_iddepartament` ASC) VISIBLE,
   INDEX `fk_mail_group1_idx` (`fk_idgroup` ASC) VISIBLE,
-  CONSTRAINT `fk_mail_departament1`
+  CONSTRAINT `fk_iddepartament`
     FOREIGN KEY (`fk_iddepartament`)
-    REFERENCES `dbRegistrationService`.`departament` (`id`),
-  CONSTRAINT `fk_mail_group1`
+    REFERENCES `dbRegistrationService`.`departament` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_idgroup`
     FOREIGN KEY (`fk_idgroup`)
     REFERENCES `dbRegistrationService`.`cluster` (`id`),
-  CONSTRAINT `fk_mail_request1`
+  CONSTRAINT `fk_idrequest`
     FOREIGN KEY (`fk_idrequest`)
     REFERENCES `dbRegistrationService`.`request` (`id`),
-  CONSTRAINT `fk_mail_typeMail`
+  CONSTRAINT `fk_idtypeMail`
     FOREIGN KEY (`fk_idtypeMail`)
     REFERENCES `dbRegistrationService`.`mailType` (`id`))
 ENGINE = InnoDB
