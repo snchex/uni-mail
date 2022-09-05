@@ -27,9 +27,16 @@ export const MailPage = () => {
       <table className='table table-borderles'>
         <thead className="text-center">
           <tr className="border-bottom">
-            <th> <span className="mx-2">Grupo</span> </th>
-            <th> <span className="ml-2">Accion</span> </th>
-            <th> <span className="ml-2">Accion</span> </th>
+              <th> <span className="mx-2">Usuario</span> </th>
+              <th> <span className="ml-2">Contrase&ntilde;a</span> </th>
+              <th> <span className="ml-2">Estado</span> </th>
+              <th> <span className="ml-2">Tipo</span> </th>
+              <th> <span className="ml-2">Solicitud</span> </th>
+              <th> <span className="ml-2">Departamento</span> </th>
+              <th> <span className="ml-2">Grupo</span> </th>
+              <th> <span className="ml-2">Accion</span> </th>
+              <th> <span className="ml-2">Accion</span> </th>
+                  
           </tr>
         </thead>
         {renderMain()}

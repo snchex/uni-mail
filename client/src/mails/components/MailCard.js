@@ -18,20 +18,7 @@ export default function MailCard({ mail }) {
 
     return (
         <>
-            <thead className="text-center">
-                <tr className="border-bottom">
-                    <th> <span class="mx-2">Usuario</span> </th>
-                    <th> <span class="ml-2">Contrase&ntilde;a</span> </th>
-                    <th> <span class="ml-2">Estado</span> </th>
-                    <th> <span class="ml-2">Tipo</span> </th>
-                    <th> <span class="ml-2">Solicitud</span> </th>
-                    <th> <span class="ml-2">Departamento</span> </th>
-                    <th> <span class="ml-2">Grupo</span> </th>
-                    <th> <span class="ml-2">Accion</span> </th>
-                    <th> <span class="ml-2">Accion</span> </th>
-                  
-                </tr>
-            </thead>
+            
       
         <tbody className='text-center mx-auto'>
             <tr>
