@@ -10,7 +10,7 @@ export function TypePage() {
         const timer = setTimeout(() => {
 
         loadTypes();
-        }, 1000);
+        }, 500);
         return () => clearTimeout(timer);
     });
 

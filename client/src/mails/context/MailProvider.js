@@ -19,7 +19,6 @@ export const MailProvider = ({ children }) => {
     async function loadMails() {
         const response = await getAllMails();
         setMails(response.data);
-
     }
 
     const gtMail = async (id) => {

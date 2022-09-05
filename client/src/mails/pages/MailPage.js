@@ -12,7 +12,7 @@ export const MailPage = () => {
     const timer = setTimeout(() => {
 
       loadMails();
-    }, 1000);
+    }, 500);
     return () => clearTimeout(timer);
   });
 

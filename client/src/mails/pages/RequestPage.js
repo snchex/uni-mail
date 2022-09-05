@@ -13,7 +13,7 @@ export const RequestPage = () => {
 
       loadRequests();
 
-    }, 1000);
+    }, 500);
     
     return () => clearTimeout(timer);
   });

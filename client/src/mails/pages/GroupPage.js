@@ -12,7 +12,7 @@ export const GroupPage = () => {
     const timer = setTimeout(() => {
 
       loadGroups();
-    }, 1000);
+    }, 500);
     return () => clearTimeout(timer);
   });
 

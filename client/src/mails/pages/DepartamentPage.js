@@ -10,7 +10,7 @@ export function DepartPage() {
         const timer = setTimeout(() => {
 
             loadDepartaments();
-        }, 1000);
+        }, 500);
         return () => clearTimeout(timer);
     });
 
