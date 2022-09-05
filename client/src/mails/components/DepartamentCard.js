@@ -15,14 +15,14 @@ export default function DepartCard({ depart }) {
     return (
         <>
             <tbody>
-                <tr className='text-center mx-auto'>
+                <tr className='text-left mx-auto'>
                     <td className='ml-2'>{depart.departamento}</td>
-                    <td>
+                    <td className="text-center">
                         <button onClick={() => navigate(`/departament/edit/${depart.id}`)} className='btn btn-outline-warning'>
                             <img src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png" alt='' />
                         </button>
                     </td>
-                    <td>
+                    <td className="text-center">
                         <button onClick={handleShow} className='btn btn-outline-danger'>
                             <img src="https://img.icons8.com/plasticine/24/000000/filled-trash.png" alt='trash' />
                         </button>

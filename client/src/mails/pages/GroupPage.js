@@ -24,19 +24,25 @@ export const GroupPage = () => {
   return (
     <>
       <h1>Lista de Grupo</h1>
-      <table className='table table-borderles'>
-          <thead className="text-center">
-            <tr className="border-bottom">
-                <th> <span className="mx-2">Grupo</span> </th>
-                <th> <span className="ml-2">Responsable</span> </th>
-                <th> <span className="ml-2">Miembros</span> </th>
-                <th> <span className="ml-2">Accion</span> </th>
-                <th> <span className="ml-2">Accion</span> </th>
-            </tr>
-          </thead>
-      
-        {renderMain()}
-      </table>
+
+
+      <div className='container mx-auto'>
+
+        <table className='table table-borderles'>
+            <thead className="text-center">
+              <tr className="border-bottom">
+                  <th> <span className="mx-2">Grupo</span> </th>
+                  <th> <span className="ml-2">Responsable</span> </th>
+                  <th> <span className="ml-2">Miembros</span> </th>
+                  <th> <span className="ml-2">Accion</span> </th>
+                  <th> <span className="ml-2">Accion</span> </th>
+              </tr>
+            </thead>
+        
+          {renderMain()}
+        </table>
+
+      </div>
     </>
   )
 }

@@ -14,15 +14,15 @@ export default function RequestCard({ request }) {
     return (
       
         <>
-            <tbody className='text-center mx-auto'>
+            <tbody className='text-left mx-auto'>
                 <tr className='tr-table'>
                     <td>{request.solicitud}</td>
-                    <td>
+                    <td className="text-center">
                         <button onClick={() => navigate(`/request/edit/${request.id}`)} className='btn btn-outline-warning'>
                             <img src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png" alt='' />
                         </button>
                     </td>
-                    <td>
+                    <td className="text-center">
                         <button onClick={handleShow} className='btn btn-outline-danger'>
                             <img src="https://img.icons8.com/plasticine/24/000000/filled-trash.png" alt='trash' />
                         </button>
