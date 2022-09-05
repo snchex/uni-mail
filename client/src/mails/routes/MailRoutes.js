@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { TypeForm, TypePage, DepartamentForm, DepartPage, RequestPage, RequestForm, GroupPage, GroupForm, MailForm, MailPage, Home, NotFound } from '../pages';
+import { TypeForm, TypePage, DepartamentForm, DepartPage, RequestPage, RequestForm, GroupPage, GroupForm, MailForm, MailPage, Home, NotFound, SearchPage } from '../pages';
 import { DepartamentProvider, TypeProvider, RequestProvider, GroupProvider, MailProvider } from '../context';
 
 import { Navbar } from "../../ui"
@@ -39,6 +39,8 @@ export function MailRoutes() {
                     <Route path="/group/create" element={<GroupForm />} />
                     <Route path="/group/edit/:id" element={<GroupForm />} />
                     <Route path="/group/list" element={<GroupPage />} />
+
+                    <Route path="/search" element={<SearchPage />} />
 
                     <Route path="*" element={<NotFound />} />
 

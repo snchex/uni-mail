@@ -18,7 +18,7 @@ export function MailForm() {
     const [mail, setMail] = useState({
         user: "",
         password: "",
-        statu: "false",
+        statu: 0,
         fk_idtypeMail: "",
         fk_idrequest: "",
         fk_iddepartament: "",
@@ -120,12 +120,12 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Tipo de Correo
-                                    <Formm.Select  value={values.fk_idtypeMail} onChange={handleChange} name='fk_idtypeMail'>
+                                    <Formm.Select   onChange={handleChange} name='fk_idtypeMail'>
                                  
                                         <option></option>
                                         {
                                             types.map(type => (
-                                                <option key={type.id}>{type.tipo}</option>
+                                                <option key={type.id} value={type.id}>{type.tipo}</option>
                                             ))
                                         }
                                   
@@ -136,11 +136,11 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Tipo de Solicitud
-                                    <Formm.Select name='fk_idrequest' onBlur={handleBlur} onChange={handleChange} value={values.fk_idrequest}>
+                                    <Formm.Select name='fk_idrequest' onBlur={handleBlur} onChange={handleChange} >
                                         <option></option>
                                         {
                                             requests.map(request => (
-                                                <option key={request.id} >{request.solicitud}</option>
+                                                <option key={request.id} value={request.id} >{request.solicitud}</option>
                                             ))
                                         }
                                     </Formm.Select>
@@ -150,11 +150,11 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Departamento
-                                    <Formm.Select name='fk_iddepartament' onChange={handleChange} value={values.fk_iddepartament}>
+                                    <Formm.Select name='fk_iddepartament' onChange={handleChange} >
                                         <option></option>
                                         {
                                             departs.map(departament => (
-                                                <option key={departament.id} >{departament.departamento}</option>
+                                                <option key={departament.id} value={departament.id} >{departament.departamento}</option>
                                             ))
                                         }
                                     </Formm.Select>
@@ -164,11 +164,11 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Grupo - Responsable
-                                    <Formm.Select name='fk_idgroup' onChange={handleChange} value={values.fk_idgroup}>
+                                    <Formm.Select name='fk_idgroup' onChange={handleChange} >
                                         <option></option>
                                         {
                                             groups.map(group => (
-                                                <option key={group.id} >{group.name} - {group.responsible}</option>
+                                                <option key={group.id} value={group.id} >{group.name} - {group.responsible}</option>
                                             ))
                                         }
                                     </Formm.Select>
@@ -178,7 +178,7 @@ export function MailForm() {
                             <div className='form-group col-sm-6 flex-column d-flex'>
                                 <label className="form-control-label px-3">
                                     Activo
-                                    <Formm.Check label="S&iacute;" className="mb-2" name="statu" aria-label="option 1" onChange={handleChange} value='1' />
+                                    <Formm.Check label="S&iacute;" className="mb-2" name="statu" aria-label="option 1" onChange={handleChange} value={1} />
 
                                 </label>
                             </div>

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export default function MailCard({ mail }) {
+export function MailCard({ mail }) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -59,6 +59,7 @@ export default function MailCard({ mail }) {
        
     )
 }
+export default MailCard;
 
     /*  const handleStatu = async (mailStatu) => {
           await toggleStatu(mail.id, mailStatu)
