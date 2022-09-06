@@ -1,86 +1,72 @@
-
-import { useNavigate, useLocation } from 'react-router-dom';
-import queryString from 'query-string';
-
-
-import {useForm } from '../hooks/useForm'
-import GetUserSearch from '../helpers/getUserSearch';
+import { useEffect, useState } from 'react';
+import { useMails } from '../hooks';
 
  
 export const Home = () => {
 
+  const {mails, loadMails} = useMails();
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [filteredData, setFilteredData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
 
-  const {q = ''} = queryString.parse(location.search );
-  const mails = GetUserSearch(q)
-  console.log(mails);
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+    const newFilter = mails.filter((mail) => {
+      return mail.user.toLowerCase().includes(searchWord.toLowerCase());
+    });
 
-  const showSearch = (q.length === 0);
-  const showError  = (q.length > 0) && mails.length === 0;
+    if (searchWord === "") {
+      setFilteredData([]);
+    } else {
+      setFilteredData(newFilter);
+    }
+  };
 
-  const { searchText, onInputChange} = useForm({
-    searchText: q
+  const clearInput = () => {
+    setFilteredData([]);
+    setWordEntered("");
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        
+        loadMails();
+
+    }, 1000);
+    return () => clearTimeout(timer);
   });
 
-
-  const onSearchSubmit = (event) => {
-    event.preventDefault();
-
-
-    navigate(`?q=${ searchText }`)
-
-  }
-
-
-
   return (
-    <>
-
-      <div className="container">
-
-        <div className="row">
-
-          <div className="col-5">
-              <h4> SearchPage</h4>
-              <hr/>
-              <form onSubmit={ onSearchSubmit }> 
-                  <input type="text" className="form-control" name="searchText" autoComplete='off' placeholder="Search Mail" value={ searchText } onChange={onInputChange}/>
-                  <button className="btn btn-outline-primary mt-1">
-                      Buscar
-                  </button>
-              </form>
-
-          </div>
-          <div className="col-7">
-              <h4> Resultado de Busqueda </h4>
-              <hr/>
-              <div className="alert alert-primary animate__animated animate__fadeIn" 
-                style={{ display: showSearch ? '' : 'none' }}>
-                  Search Mail
-               
-              </div>
-              <div className="alert alert-danger animate__animated animate__fadeIn" 
-                style={{ display: showError ? '' : 'none' }}>
-                  Sin Results <b>{ q }</b>
-              </div>
-          
-          </div>  
-          { 
-            mails.map( (mail) => (
-                    
-              <td key={mail.id} {...mail}/>
-                                           
-            ))
-          }  
-    
-
+    <div className="search">
+      <div className="searchInputs">
+        <input
+          type="text"
+          placeholder="Result mails"
+          value={wordEntered}
+          onChange={handleFilter}
+        />
+        <div className="searchIcon">
+          {filteredData.length === 0 ? (
+            <button>Buscar</button>
+          ) : (
+            <button id="clearBtn" onClick={clearInput} > RC</button>
+          )}
         </div>
-
       </div>
-    
-    </>
-  )
+      {filteredData.length !== 0 && (
+        <div className="dataResult">
+          {filteredData.slice(0, 15).map((mail, key) => {
+            return (
+              <p className="dataItem" target="_blank">
+                <p>{mail.user} </p>
+              </p>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
 }
+
 export default Home;

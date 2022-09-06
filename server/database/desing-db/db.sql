@@ -81,7 +81,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `dateInicial` DATE NOT NULL,
+  `dateFinal` DATE,
   `statu` TINYINT(1) NOT NULL,
   `fk_idtypeMail` INT NOT NULL,
   `fk_idrequest` INT NOT NULL,

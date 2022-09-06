@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import MailCard from '../components/MailCard';
 import { useMails } from '../hooks/MailProvider';
+//import GetUserSearch from '../helpers/getUserSearch'
 
 
 export const MailPage = () => {
 
   const { mails, loadMails } = useMails();
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -18,7 +18,7 @@ export const MailPage = () => {
 
   function renderMain() {
     if (mails.length === 0) return <div className='container'><h1>No Existen Correos</h1></div>
-    return mails.map(mail => (<MailCard mail={mail} key={mail.id} />));
+    return  mails.map(mail => (<MailCard mail={mail} key={mail.id} />));
   }
 
   return (
@@ -31,8 +31,8 @@ export const MailPage = () => {
                 <th> <span className="mx-2">Usuario</span> </th>
                 <th> <span className="ml-2">Contrase&ntilde;a</span> </th>
                 <th> <span className="ml-2">Estado</span> </th>
-                <th> <span className="ml-2">Tipo</span> </th>
-                <th> <span className="ml-2">Solicitud</span> </th>
+                <th> <span className="ml-2">Tipos de Correos</span> </th>
+                <th> <span className="ml-2">Tipo de Solicitudes</span> </th>
                 <th> <span className="ml-2">Departamento</span> </th>
                 <th> <span className="ml-2">Grupo</span> </th>
                 <th> <span className="ml-2">Accion</span> </th>

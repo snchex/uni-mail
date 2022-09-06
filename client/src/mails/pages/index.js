@@ -2,7 +2,7 @@ export { DepartamentForm, TypeForm, RequestForm, GroupForm, MailForm} from './fo
 
 export * from './DepartamentPage';
 
-export * from './Home';
+export {Home} from './Home';
 export * from './NotFound';
 export * from './RequestPage';
 export * from './TypePage';

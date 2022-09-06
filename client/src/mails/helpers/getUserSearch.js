@@ -1,4 +1,4 @@
-import { useMails } from '../hooks/MailProvider';
+/*import { useMails } from '../hooks/MailProvider';
 import Home from '../pages/Home';
 //import { useEffect } from 'react';
 
@@ -22,4 +22,4 @@ export const GetUserSearch = (name = '') => {
   
 
 }
-export default GetUserSearch;
+export default GetUserSearch;*/
