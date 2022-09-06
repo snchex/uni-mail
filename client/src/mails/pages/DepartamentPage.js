@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import DepartCard from '../components/DepartamentCard';
-import { useDeparts } from '../context/DepartamentProvider'
+import { useDeparts } from '../hooks/DepartamentProvider'
 
 export function DepartPage() {
 
@@ -10,7 +10,7 @@ export function DepartPage() {
         const timer = setTimeout(() => {
 
             loadDepartaments();
-        }, 1000);
+        }, 500);
         return () => clearTimeout(timer);
     });
 
@@ -21,19 +21,22 @@ export function DepartPage() {
     }
     return (
         <>
-            <h1>Lista de Departamentos de Correo</h1>
-            <table className='table table-borderles'>
-                <thead className="text-center">
-                    <tr className="border-bottom">
-                        <th> <span className="mx-2">Departamentos</span> </th>
-                        <th> <span className="ml-2">Accion</span> </th>
-                        <th> <span className="ml-2">Accion</span> </th>
-                    </tr>
-                </thead>
+            <h1 className='row justify-content-center py-3'>Lista de Departamentos de Correo</h1>
+            <div className='container mx-auto col-md-6 '>
 
-                {renderMain()}
- 
-            </table>
+                <table className='table table-borderles'>
+                    <thead className="text-center">
+                        <tr className="border-bottom">
+                            <th> <span className="ml-2">Departamentos</span> </th>
+                            <th> <span className="ml-2">Accion</span> </th>
+                            <th> <span className="ml-2">Accion</span> </th>
+                        </tr>
+                    </thead>
+
+                    {renderMain()}
+    
+                </table>
+            </div>
 
         </>
     )

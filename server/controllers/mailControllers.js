@@ -2,7 +2,7 @@ import { pool } from '../database/db.js'
 
 export const getAllMails = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT * FROM mail ORDER BY createdAt ASC')
+        const [results] = await pool.query('SELECT mail.user, mail.password, mail.statu, mailType.tipo, request.solicitud, departament.departamento, cluster.name FROM mail, mailType, cluster, departament, request WHERE mailType.id = mail.fk_idtypeMail AND cluster.id = mail.fk_idgroup AND departament.id = mail.fk_iddepartament AND request.id = mail.fk_idrequest ORDER BY mail.createdAt ASC')
         res.json(results);
 
     } catch (error) {
@@ -13,7 +13,7 @@ export const getAllMails = async (req, res) => {
 
 export const getMail = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT * FROM mail WHERE id = ?', [req.params.id]);
+        const [result] = await pool.query('SELECT mail.user, mail.password, mail.statu, mailType.tipo, request.solicitud, departament.departamento, cluster.name FROM mail, mailType, cluster, departament, request WHERE mailType.id = mail.fk_idtypeMail and cluster.id = mail.fk_idgroup and departament.id = mail.fk_iddepartament and request.id = mail.fk_idrequest AND mail.id = ?', [req.params.id]);
         if (result === 0) {
             return res.status(404).json({ message: "Elemento no encontrado" })
         }

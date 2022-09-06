@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { getAllTypes, deleteType, createType, getmailType, updateType } from '../../mails/api/typeApi';
-import { TypeContext} from './TypeContext';
+import { TypeContext} from '../context/TypeContext';
 
 
 

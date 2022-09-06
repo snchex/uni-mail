@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDeparts } from '../../context/DepartamentProvider';
+import { useDeparts } from '../../hooks/DepartamentProvider';
 import { useEffect, useState } from 'react';
 
 export function DepartamentForm() {

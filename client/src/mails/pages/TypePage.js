@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import TypeCard from '../components/TypeCard';
-import { useTypes } from '../context/TypeProvider'
+import { useTypes } from '../hooks/TypeProvider'
 
 export function TypePage() {
 
@@ -10,7 +10,7 @@ export function TypePage() {
         const timer = setTimeout(() => {
 
         loadTypes();
-        }, 1000);
+        }, 500);
         return () => clearTimeout(timer);
     });
 
@@ -21,22 +21,26 @@ export function TypePage() {
         return types.map(type => (<TypeCard type={type} key={type.id} />))
     }
     return (
-        <div className='row'>
-            <h1>Lista de tipos de Correo</h1>
-            <table className='table table-borderles '>
-                <thead className="text-center">
-                    <tr className="border-bottom">
-                        <th> <span className="mx-2">Tipo de Correo</span> </th>
-                        <th> <span className="ml-2">Accion</span> </th>
-                        <th> <span className="ml-2">Accion</span> </th>
-                    </tr>
-                </thead>
+        <>
+        
+            <h1 className='row justify-content-center py-3'>Lista de tipos de Correo</h1>
+            <div className='container mx-auto col-md-4'>
+                <table className='table table-borderles '>
+                    <thead className="text-center">
+                        <tr className="border-bottom">
+                            <th> <span >Tipo de Correo</span> </th>
+                            <th> <span >Accion</span> </th>
+                            <th> <span >Accion</span> </th>
+                        </tr>
+                    </thead>
 
-                {renderMain()}
+                    {renderMain()}
 
-            </table>
+                </table>
 
-        </div>
+            </div>
+        
+        </>
     )
 }
 

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { getAllMails, getMail,createMail, updateMail, deleteMail } from "../api/mailApi";
 
-import { MailContext } from "./MailContext";
+import { MailContext } from "../context/MailContext";
 
 
 export const useMails = () => {
@@ -19,7 +19,6 @@ export const MailProvider = ({ children }) => {
     async function loadMails() {
         const response = await getAllMails();
         setMails(response.data);
-
     }
 
     const gtMail = async (id) => {

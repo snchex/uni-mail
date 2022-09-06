@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useGroups } from "../context/GroupProvider";
+import { useGroups } from "../hooks/GroupProvider";
 import { useNavigate } from "react-router-dom";
 
 export default function GroupCard({ group }) {
@@ -15,18 +15,18 @@ export default function GroupCard({ group }) {
 
     return (
         <>
-            <tbody className='text-center mx-auto'>
+            <tbody className='text-left mx-auto'>
                 <tr>
                     <td className='ml-2'>{group.name}</td>
                     <td className="ml-2">{group.responsible}</td>
                     <td className="ml-2">{group.member}</td>
-                    <td>
+                    <td className="text-center">
                         <button onClick={() => navigate(`/group/edit/${group.id}`)} className='btn btn-outline-warning'>
                             <img src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png" alt='' />
                         </button>
                     </td>
 
-                    <td>
+                    <td className="text-center">
                         <button onClick={handleShow} className='btn btn-outline-danger'>
                             <img src="https://img.icons8.com/plasticine/24/000000/filled-trash.png" alt='trash' />
                         </button>

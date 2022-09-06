@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import GroupCard from '../components/GroupCard';
-import { useGroups } from '../context/GroupProvider';
+import { useGroups } from '../hooks/GroupProvider';
 
 
 export const GroupPage = () => {
@@ -12,7 +12,7 @@ export const GroupPage = () => {
     const timer = setTimeout(() => {
 
       loadGroups();
-    }, 1000);
+    }, 500);
     return () => clearTimeout(timer);
   });
 
@@ -23,20 +23,24 @@ export const GroupPage = () => {
 
   return (
     <>
-      <h1>Lista de Grupo</h1>
-      <table className='table table-borderles'>
-          <thead className="text-center">
-            <tr className="border-bottom">
-                <th> <span className="mx-2">Grupo</span> </th>
-                <th> <span className="ml-2">Responsable</span> </th>
-                <th> <span className="ml-2">Miembros</span> </th>
-                <th> <span className="ml-2">Accion</span> </th>
-                <th> <span className="ml-2">Accion</span> </th>
-            </tr>
-          </thead>
-      
-        {renderMain()}
-      </table>
+      <h1 className='row justify-content-center py-3'>Lista de Grupos</h1>
+      <div className='container mx-auto col-md-7'>
+
+        <table className='table table-borderles'>
+            <thead className="text-center">
+              <tr className="border-bottom">
+                  <th> <span className="ml-2">Grupo</span> </th>
+                  <th> <span className="ml-2">Responsable</span> </th>
+                  <th> <span className="ml-2">Miembros</span> </th>
+                  <th> <span className="ml-2">Accion</span> </th>
+                  <th> <span className="ml-2">Accion</span> </th>
+              </tr>
+            </thead>
+        
+          {renderMain()}
+        </table>
+
+      </div>
     </>
   )
 }
