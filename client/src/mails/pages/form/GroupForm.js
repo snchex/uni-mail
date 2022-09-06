@@ -1,6 +1,6 @@
 import { Formik, Form } from 'formik';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useGroups } from '../../context/GroupProvider';
+import { useGroups } from '../../hooks/GroupProvider';
 import { useEffect, useState } from 'react';
 
 

@@ -1,9 +1,9 @@
 import { Formik, Form } from 'formik';
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { useMails } from '../../context/MailProvider';
+import { useMails } from '../../hooks/MailProvider';
 import { useEffect, useState } from 'react';
-import { useGroups, useDeparts, useRequests, useTypes } from '../../context';
+import { useGroups, useDeparts, useRequests, useTypes } from '../../hooks';
 import Formm from 'react-bootstrap/Form';
 
 export function MailForm() {
@@ -122,7 +122,7 @@ export function MailForm() {
                                     Tipo de Correo
                                     <Formm.Select   onChange={handleChange} name='fk_idtypeMail'>
                                  
-                                        <option value="" disabled>Seleccione</option>
+                                        <option value="" >Seleccione</option>
                                         {
                                             types.map(type => (
                                                 <option key={type.id} value={type.id}>{type.tipo}</option>
@@ -135,7 +135,7 @@ export function MailForm() {
                                 <label className="form-control-label px-3">
                                     Tipo de Solicitud
                                     <Formm.Select name='fk_idrequest' onBlur={handleBlur} onChange={handleChange} >
-                                        <option value="" disabled>Seleccione</option>
+                                        <option value="" >Seleccione</option>
                                         {
                                             requests.map(request => (
                                                 <option key={request.id} value={request.id} >{request.solicitud}</option>
@@ -149,7 +149,7 @@ export function MailForm() {
                                 <label className="form-control-label px-3">
                                     Departamento
                                     <Formm.Select name='fk_iddepartament' onChange={handleChange} >
-                                        <option value="" disabled>Seleccione</option>
+                                        <option value="" >Seleccione</option>
                                         {
                                             departs.map(departament => (
                                                 <option key={departament.id} value={departament.id} >{departament.departamento}</option>
@@ -163,7 +163,7 @@ export function MailForm() {
                                 <label className="form-control-label px-3">
                                     Grupo - Responsable
                                     <Formm.Select name='fk_idgroup' onChange={handleChange} >
-                                        <option value="" disabled>Seleccione</option>
+                                        <option value="" >Seleccione</option>
                                         {
                                             groups.map(group => (
                                                 <option key={group.id} value={group.id} >{group.name} - {group.responsible}</option>

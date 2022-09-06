@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import DepartCard from '../components/DepartamentCard';
-import { useDeparts } from '../context/DepartamentProvider'
+import { useDeparts } from '../hooks/DepartamentProvider'
 
 export function DepartPage() {
 
@@ -21,8 +21,8 @@ export function DepartPage() {
     }
     return (
         <>
-            <h1>Lista de Departamentos de Correo</h1>
-            <div className='container mx-auto'>
+            <h1 className='row justify-content-center py-3'>Lista de Departamentos de Correo</h1>
+            <div className='container mx-auto col-md-6 '>
 
                 <table className='table table-borderles'>
                     <thead className="text-center">

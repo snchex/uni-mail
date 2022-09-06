@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import { useMails }  from "../context/MailProvider";
+import { useMails }  from "../hooks/MailProvider";
 import { useNavigate } from "react-router-dom";
 
 
@@ -16,14 +16,15 @@ export function MailCard({ mail }) {
     const { delMail } = useMails();
     const navigate = useNavigate();
 
+
     return (
         <>
             
-        <tbody className='text-left mx-auto'>
+        <tbody key={mail.id} className='text-left mx-auto'>
             <tr>
                 <td className='ml-2'>{mail.user}</td>
-                <td className="ml-2">{mail.password}</td>   
-                <td className="ml-2 text-center">{mail.statu}</td>
+                <td className="hidetext ml-2">{mail.password}</td>   
+                <td className="ml-2 text-center">{mail.statu  === 1 ? "🟢" : "🔴"}</td>
                 <td className="ml-2">{mail.tipo}</td>
                 <td className="ml-2">{mail.solicitud}</td>
                 <td className="ml-2">{mail.departamento}</td>

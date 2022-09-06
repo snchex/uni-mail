@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { TypeForm, TypePage, DepartamentForm, DepartPage, RequestPage, RequestForm, GroupPage, GroupForm, MailForm, MailPage, Home, NotFound } from '../pages';
-import { DepartamentProvider, TypeProvider, RequestProvider, GroupProvider, MailProvider } from '../context';
+import { DepartamentProvider, TypeProvider, RequestProvider, GroupProvider, MailProvider } from '../hooks';
 
 import { Navbar } from "../../ui"
 
@@ -14,7 +14,7 @@ export function MailRoutes() {
         <DepartamentProvider>
         <TypeProvider>
             < Navbar />
-            <div className='container mx-auto py-4'>
+            <div className='container-fluid mx-auto py-4'>
 
                 <Routes>
                 <Route path="/" element={<Home />} />

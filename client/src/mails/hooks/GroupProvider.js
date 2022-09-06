@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { getAllGroups, getGroup, createGroup, updateGroup, deleteGroup } from "../api/groupApi";
-import { GroupContext } from "./GroupContext";
+import { GroupContext } from "../context/GroupContext";
 
 
 export const useGroups = () => {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import MailCard from '../components/MailCard';
-import { useMails } from '../context/MailProvider';
+import { useMails } from '../hooks/MailProvider';
 
 
 export const MailPage = () => {
@@ -23,7 +23,7 @@ export const MailPage = () => {
 
   return (
     <>
-      <h1>Lista de Correos</h1>
+      <h1 className='row justify-content-center py-3'>Lista de Correos</h1>
       <div className='container mx-auto'>
         <table className='table table-borderles'>
           <thead className="text-center">

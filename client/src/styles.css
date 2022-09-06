@@ -346,7 +346,7 @@ table {
   -o-border-radius: 5px;
 }
 
-
+.hidetext { -webkit-text-security: disc; /* Default */ }
 .table-list{
   margin-top: 5rem;
   position: relative;

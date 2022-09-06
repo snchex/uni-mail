@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { getAllRequests, getRequest, createRequest, updateRequest, deleteRequest } from "../api/requestApi";
-import { RequestContext } from "./RequestContext";
+import { RequestContext } from "../context/RequestContext";
 
 
 export const useRequests = () => {
@@ -18,7 +18,6 @@ export const RequestProvider = ({ children }) => {
     async function loadRequests() {
         const response = await getAllRequests();
         setRequests(response.data);
-
 
     }
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import { useTypes } from '../context/TypeProvider'
+import { useTypes } from '../hooks/TypeProvider'
 import { useNavigate } from "react-router-dom";
 
 export default function TypeCard({ type }) {
@@ -14,8 +14,8 @@ export default function TypeCard({ type }) {
 
     return (
         <>
-            <tbody>
-                <tr className='text-left mx-auto'>
+            <tbody className='text-left mx-auto'>
+                <tr>
                     <td className='ml-2'>{type.tipo}</td>
                     <td className="text-center">
                         <button onClick={() => navigate(`/mailtype/edit/${type.id}`)} className='btn btn-outline-warning'>

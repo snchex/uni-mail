@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import TypeCard from '../components/TypeCard';
-import { useTypes } from '../context/TypeProvider'
+import { useTypes } from '../hooks/TypeProvider'
 
 export function TypePage() {
 
@@ -23,14 +23,14 @@ export function TypePage() {
     return (
         <>
         
-            <h1>Lista de tipos de Correo</h1>
-            <div className='container mx-auto'>
+            <h1 className='row justify-content-center py-3'>Lista de tipos de Correo</h1>
+            <div className='container mx-auto col-md-4'>
                 <table className='table table-borderles '>
                     <thead className="text-center">
                         <tr className="border-bottom">
-                            <th> <span className="ml-1">Tipo de Correo</span> </th>
-                            <th> <span className="ml-2">Accion</span> </th>
-                            <th> <span className="ml-2">Accion</span> </th>
+                            <th> <span >Tipo de Correo</span> </th>
+                            <th> <span >Accion</span> </th>
+                            <th> <span >Accion</span> </th>
                         </tr>
                     </thead>
 

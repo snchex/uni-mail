@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
-import { useDeparts } from "../context/DepartamentProvider";
+import { useDeparts } from "../hooks/DepartamentProvider";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -14,8 +14,8 @@ export default function DepartCard({ depart }) {
 
     return (
         <>
-            <tbody>
-                <tr className='text-left mx-auto'>
+            <tbody className='text-left mx-auto'>
+                <tr >
                     <td className='ml-2'>{depart.departamento}</td>
                     <td className="text-center">
                         <button onClick={() => navigate(`/departament/edit/${depart.id}`)} className='btn btn-outline-warning'>
@@ -50,8 +50,6 @@ export default function DepartCard({ depart }) {
                 <Button onClick={() => delDpt(depart.id)} variant="primary">Entendido</Button>
                 </Modal.Footer>
             </Modal>
-
-
 
         </>
     )

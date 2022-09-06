@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useRequests } from "../context/RequestProvider";
+import { useRequests } from "../hooks/RequestProvider";
 import { useNavigate } from "react-router-dom";
 
 export default function RequestCard({ request }) {
@@ -15,8 +15,8 @@ export default function RequestCard({ request }) {
       
         <>
             <tbody className='text-left mx-auto'>
-                <tr className='tr-table'>
-                    <td>{request.solicitud}</td>
+                <tr>
+                    <td className='ml-2'>{request.solicitud}</td>
                     <td className="text-center">
                         <button onClick={() => navigate(`/request/edit/${request.id}`)} className='btn btn-outline-warning'>
                             <img src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png" alt='' />

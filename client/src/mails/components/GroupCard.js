@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useGroups } from "../context/GroupProvider";
+import { useGroups } from "../hooks/GroupProvider";
 import { useNavigate } from "react-router-dom";
 
 export default function GroupCard({ group }) {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import RequestCard from '../components/RequestCard'
-import { useRequests } from '../context/RequestProvider';
+import { useRequests } from '../hooks/RequestProvider';
 
 
 export const RequestPage = () => {
@@ -25,8 +25,8 @@ export const RequestPage = () => {
 
   return (
     <>
-      <div className='container mx-auto'>
-      <h1>Lista de Solicitudes</h1>
+      <h1 className='row justify-content-center py-3'>Lista de Solicitudes</h1>
+      <div className='container col-md-4'>
       <table className='table table-borderles'>
           <thead className="text-center">
             <tr className="border-bottom">
