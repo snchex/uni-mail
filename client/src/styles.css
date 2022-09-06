@@ -387,13 +387,8 @@ tbody, td, tfoot, th, thead, tr {
   padding-bottom: .1rem !important;
   
 }
-.img-ico{
-  margin-left: 2rem;
-  width: 4.2rem;
-  height: 2.2rem;
-  margin-top: 1rem;
 
-}
+
 .img-user{
   margin-left: .8rem;
   width: 2.6rem;
@@ -955,24 +950,7 @@ width: 40px !important;
 height: 40px !important
 }
 
-.avatar {
-position: relative;
-line-height: 1;
-border-radius: 500px;
-white-space: nowrap;
-font-weight: 700;
-border-radius: 100%;
-display: -ms-flexbox;
-display: flex;
--ms-flex-pack: center;
-justify-content: center;
--ms-flex-align: center;
-align-items: center;
--ms-flex-negative: 0;
-flex-shrink: 0;
-border-radius: 500px;
-box-shadow: 0 5px 10px 0 rgba(50, 50, 50, .15)
-}
+
 
 .avatar img {
 border-radius: inherit;
@@ -1046,5 +1024,4 @@ background: white
   max-width: 550px;
   margin: 1.75rem auto;
 }
-
 
