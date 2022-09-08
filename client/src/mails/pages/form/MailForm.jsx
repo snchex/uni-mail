@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import Formm from "react-bootstrap/Form";
-
 import { useParams, useNavigate } from "react-router-dom";
+import { useMails } from "../../hooks/MailProvider";
 import CalendarInicial from "../../components/CalendarInicial";
 import CalendarFinal from "../../components/CalendarFinal";
-import { useMails } from "../../hooks/MailProvider";
-import { useEffect, useState } from "react";
+import CalendarSolicitud from "../../components/CalendarSolicitud";
 import { useGroups, useDeparts, useRequests, useTypes } from "../../hooks";
 
 export function MailForm() {
@@ -54,8 +53,9 @@ export function MailForm() {
   });
 
   return (
-    <div className="container">
+    <div className="card">
       <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
+      <hr />
       <Formik
         initialValues={mail}
         enableReinitialize={true}
@@ -108,10 +108,12 @@ export function MailForm() {
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label px-3">Usuario</label>
+                <label className="form-control-label px-3">Usuario
+                </label>
                 <input
                   type="text"
                   name="user"
+                  autoFocus={true}
                   placeholder="Ingrese el correo"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -120,6 +122,16 @@ export function MailForm() {
                 {touched.user && errors.user && (
                   <div className="error">{errors.user}</div>
                 )}
+              </div>
+              <div className="form-group col-sm-6 flex-column d-flex">
+                <tr>
+                  <label className="form-control-label mx-2">
+                    Fecha de Vinculacion
+                  </label>
+                  <td>
+                    <CalendarSolicitud />
+                  </td>
+                </tr>
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
@@ -178,14 +190,23 @@ export function MailForm() {
                 </label>
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
+                <label className="form-control-label px-3">
+                  Solicitante
+                  <Formm.Select name="fk_iddepartament" onChange={handleChange}>
+                    <option value="#">Seleccione</option>
+                   
+                      <option value={values.solicitante}>Talento Humano</option>
+                  
+                  </Formm.Select>
+                </label>
+              </div>
+              <div className="form-group col-sm-6 flex-column d-flex">
                 <tr>
-                  <label className="form-control-label mx-4">
-                    {" "}
-                    Fecha de Vinculacion{" "}
+                  <label className="form-control-label mx-2">
+                    Fecha de Vinculacion
                   </label>
-                  <label className="form-control-label mx-5">
-                    {" "}
-                    Fecha de Desvinculacion{" "}
+                  <label className="form-control-label px-5 mx-5">
+                    Fecha de Desvinculacion
                   </label>
                   <td>
                     <CalendarInicial />
@@ -194,18 +215,24 @@ export function MailForm() {
                     <CalendarFinal />
                   </td>
                 </tr>
-                <label className="form-control-label px-3">
-                  Activo
-                  <Formm.Check
-                    label="S&iacute;"
-                    className="mb-2"
-                    name="statu"
-                    aria-label="option 1"
-                    onChange={handleChange}
-                    value={1}
-                  />
-                </label>
               </div>
+              <div className="form-group  flex-column d-flex">
+                <label className="form-control-label px-3">
+                    Activo
+                   
+                    <Formm.Check
+                      label="S&iacute;"
+                      className="mb-2"
+                      name="statu"
+                      aria-label="option 1"
+                      onChange={handleChange}
+                      value={1}
+                    />
+                  </label>
+              </div>
+
+
+                      
 
               <div className="form-group">
                 <button

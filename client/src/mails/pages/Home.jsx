@@ -38,7 +38,7 @@ export const Home = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="card">
       <div className="row">
         <div className="col-5">
           <h4>Busqueda</h4>
