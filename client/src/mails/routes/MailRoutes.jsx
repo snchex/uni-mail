@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { TypeForm, TypePage, DepartamentForm, DepartPage, RequestPage, RequestForm, GroupPage, GroupForm, MailForm, MailPage, Home, NotFound } from '../pages';

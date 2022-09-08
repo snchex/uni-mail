@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { getAllMails, getMail,createMail, updateMail, deleteMail } from "../api/mailApi";
 
 import { MailContext } from "../context/MailContext";
