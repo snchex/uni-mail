@@ -16,7 +16,7 @@ const app = express();
 app.use(flash());
 app.use(express.json());
 app.use(cors());
-//app.use(morgan('dev'));
+app.use(morgan('dev'));
 
 
 

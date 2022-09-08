@@ -2,7 +2,7 @@ import { pool } from '../database/db.js'
 
 export const getAllMails = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT mail.user, mail.password, mail.statu, mailType.tipo, request.solicitud, departament.departamento, cluster.name FROM mail, mailType, cluster, departament, request WHERE mailType.id = mail.fk_idtypeMail AND cluster.id = mail.fk_idgroup AND departament.id = mail.fk_iddepartament AND request.id = mail.fk_idrequest ORDER BY mail.createdAt ASC')
+        const [results] = await pool.query('SELECT mail.user, mail.solicitante, mail.dateSolicitud, mail.dateInicial, mail.dateFinal, mail.statu, mailType.tipo, request.solicitud, departament.departamento FROM mail, mailType, departament, request WHERE mailType.id = mail.fk_idtypeMail and departament.id = mail.fk_iddepartament and request.id = mail.fk_idrequest ORDER BY mail.createdAt ASC')
         res.json(results);
 
     } catch (error) {
@@ -13,7 +13,7 @@ export const getAllMails = async (req, res) => {
 
 export const getMail = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT mail.user, mail.password, mail.statu, mailType.tipo, request.solicitud, departament.departamento, cluster.name FROM mail, mailType, cluster, departament, request WHERE mailType.id = mail.fk_idtypeMail and cluster.id = mail.fk_idgroup and departament.id = mail.fk_iddepartament and request.id = mail.fk_idrequest AND mail.id = ?', [req.params.id]);
+        const [result] = await pool.query('SELECT mail.user, mail.solicitante, mail.dateSolicitud, mail.dateInicial, mail.dateFinal, mail.statu, mailType.tipo, request.solicitud, departament.departamento FROM mail, mailType, departament, request WHERE mailType.id = mail.fk_idtypeMail and departament.id = mail.fk_iddepartament and request.id = mail.fk_idrequest AND mail.id = ?', [req.params.id]);
         if (result === 0) {
             return res.status(404).json({ message: "Elemento no encontrado" })
         }
@@ -28,20 +28,23 @@ export const getMail = async (req, res) => {
 export const createMail = async (req, res) => {
     try {
         console.log(req.body);
-        const { user, password, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament, fk_idgroup } = req.body;
+        const { user, solicitante, statu, dateSolicitud, dateInicial, dateFinal, fk_idtypeMail, fk_idrequest, fk_iddepartament } = req.body;
         const newForm = {
             user,
-            password,
+            solicitante,
+            dateSolicitud,
+            dateInicial,
+            dateFinal,
             statu,
             fk_idtypeMail,
             fk_idrequest,
             fk_iddepartament,
-            fk_idgroup
+
         };
 
         const [result] = await pool.query('INSERT INTO mail set ?', [newForm]);
 
-        res.json({ id: result.insertId, user, password, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament, fk_idgroup });
+        res.json({ id: result.insertId, user, solicitante, dateSolicitud, dateInicial, dateFinal, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament });
 
     } catch (error) {
         res.json({ message: error.message });

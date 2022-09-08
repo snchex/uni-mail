@@ -36,12 +36,19 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`cluster` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `responsible` VARCHAR(60) NOT NULL,
+  `name` VARCHAR(60) NOT NULL,
+  `dateInicial` DATE NOT NULL,
+  `dateFinal` DATE,
   `member` VARCHAR(200) NOT NULL,
+  `fk_idmail` INT NOT NULL, 
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  INDEX `fk_cluster_mail_idx` (`fk_idmail` ASC) VISIBLE,
+    CONSTRAINT `fk_idmail`
+    FOREIGN KEY (`fk_idmail`)
+    REFERENCES `dbRegistrationService`.`mail` (`id`)
+  )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -81,34 +88,36 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(45) NOT NULL,
+  `solicitante` VARCHAR(45) NOT NULL,
+  `dateSolicitud` DATE NOT NULL,
   `dateInicial` DATE NOT NULL,
   `dateFinal` DATE,
   `statu` TINYINT(1) NOT NULL,
   `fk_idtypeMail` INT NOT NULL,
   `fk_idrequest` INT NOT NULL,
   `fk_iddepartament` INT NOT NULL,
-  `fk_idgroup` INT NOT NULL,
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `fk_mail_typeMail_idx` (`fk_idtypeMail` ASC) VISIBLE,
   INDEX `fk_mail_request1_idx` (`fk_idrequest` ASC) VISIBLE,
   INDEX `fk_mail_departament1_idx` (`fk_iddepartament` ASC) VISIBLE,
-  INDEX `fk_mail_group1_idx` (`fk_idgroup` ASC) VISIBLE,
   CONSTRAINT `fk_iddepartament`
     FOREIGN KEY (`fk_iddepartament`)
     REFERENCES `dbRegistrationService`.`departament` (`id`)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT,
-  CONSTRAINT `fk_idgroup`
-    FOREIGN KEY (`fk_idgroup`)
-    REFERENCES `dbRegistrationService`.`cluster` (`id`),
   CONSTRAINT `fk_idrequest`
     FOREIGN KEY (`fk_idrequest`)
-    REFERENCES `dbRegistrationService`.`request` (`id`),
+    REFERENCES `dbRegistrationService`.`request` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
   CONSTRAINT `fk_idtypeMail`
     FOREIGN KEY (`fk_idtypeMail`)
-    REFERENCES `dbRegistrationService`.`mailType` (`id`))
+    REFERENCES `dbRegistrationService`.`mailType` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT
+    )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
