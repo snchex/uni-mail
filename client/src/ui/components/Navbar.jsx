@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
+
 export function Navbar() {
 
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export function Navbar() {
   return (
     <>
       <nav>
-      <a href="/"><link className="img-ico" href="%PUBLIC_URL%/logo192.png" /></a>
+    
         <ul>
 
           <li><Link className='active' to="/">Inicio</Link></li>

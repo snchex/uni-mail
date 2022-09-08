@@ -111,6 +111,7 @@ export function MailForm() {
                 <label className="form-control-label px-3">Usuario
                 </label>
                 <input
+                className="inputUser"
                   type="text"
                   name="user"
                   autoFocus={true}
@@ -120,18 +121,17 @@ export function MailForm() {
                   value={values.user}
                 />
                 {touched.user && errors.user && (
-                  <div className="error">{errors.user}</div>
+                  <div className="error pl-5">{errors.user}</div>
                 )}
               </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                <tr>
-                  <label className="form-control-label mx-2">
-                    Fecha de Vinculacion
+              <div className="form-group col-sm-6 pl-4 flex-column d-flex">
+          
+                  <label className="form-control-label mx-3">
+                    Fecha de Solicitud
                   </label>
-                  <td>
-                    <CalendarSolicitud />
-                  </td>
-                </tr>
+                  
+                    <CalendarSolicitud className="calendarSolicitud"/>
+                
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">

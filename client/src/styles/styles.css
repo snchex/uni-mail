@@ -409,12 +409,8 @@ tbody, td, tfoot, th, thead, tr {
   height: 90vh;
   
 }
-.las {
-  position: relative;
-  left: 1rem;
-  padding: .3rem;
-  font-size: 1.5rem;
-}
+
+
 
 .cardx {
   border: none;
@@ -449,6 +445,11 @@ tbody, td, tfoot, th, thead, tr {
  
 
 }
+
+
+.img-ico{
+  width: 3%;
+}
 .btn-outline-danger{
   padding-top: .1rem !important;
   padding-bottom: .1rem !important;
@@ -461,7 +462,15 @@ tbody, td, tfoot, th, thead, tr {
   padding-left: .1rem !important;
   padding-right: .1rem !important;
 }
+.inputUser{
+  width: 95.5%;
+  margin-left: 1rem;
+  
+}
+.calendarWrapSolicitud{
+  margin-left: 1rem;
 
+}
 .btn-cancel{
   background-color: #aaa;
   color: white;
@@ -758,6 +767,7 @@ tbody, td, tfoot, th, thead, tr {
   padding-top: 5px;
   text-transform: capitalize;
 }
+
 .form-horizontal .btn{
   float: right;
   font-size: 14px;

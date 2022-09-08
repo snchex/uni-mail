@@ -50,7 +50,7 @@ const CalendarSolicitud = () => {
   };
 
   return (
-    <div className="calendarWrap">
+    <div className="calendarWrapSolicitud">
       <input
         value={calendar}
         readOnly
