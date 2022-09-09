@@ -9,13 +9,14 @@ export function GroupForm() {
 
   const [group, setGroup] = useState({
     name: "",
-    responsible: "",
     member: "",
+    dateInicial: "",
+    dateFinal: "",
+    fk_idgroup: "",
   });
 
   const params = useParams();
   const navigate = useNavigate();
-
   useEffect(() => {
     const timer = setTimeout(() => {
       const loadGroup = async () => {
@@ -23,8 +24,10 @@ export function GroupForm() {
           const group = await gtGroup(params.id);
           setGroup({
             name: group.name,
-            responsible: group.responsible,
             member: group.member,
+            fk_idgroup: group.fk_idgroup,
+            dateInicial: group.dateInicial,
+            dateFinal: group.dateFinal,
           });
         }
       };
@@ -50,8 +53,10 @@ export function GroupForm() {
           }
           setGroup({
             name: "",
-            responsible: "",
             member: "",
+            fk_idgroup: "",
+            dateInicial: "",
+            dateFinal: "",
           });
         }}
       >
@@ -71,15 +76,31 @@ export function GroupForm() {
                     value={values.name}
                   ></input>
                 </div>
+                <div className="form-group col-sm-6 flex-column d-flex">
+                <tr>
+                  <label className="form-control-label mx-2">
+                    Fecha de Vinculacion
+                  </label>
+                  <label className="form-control-label px-5 mx-5">
+                    Fecha de Desvinculacion
+                  </label>
+                  <td>
+                    <CalendarInicial />
+                  </td>
+                  <td>
+                    <CalendarFinal />
+                  </td>
+                </tr>
+              </div>
 
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <label className="form-control-label px-3">Responsable</label>
                   <input
                     type="text"
-                    name="responsible"
+                    name="dateInicial"
                     placeholder="Ingrese el responsable"
                     onChange={handleChange}
-                    value={values.responsible}
+                    value={values.dateInicial}
                   ></input>
                 </div>
 

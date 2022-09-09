@@ -17,8 +17,10 @@ export default function GroupCard({ group }) {
       <tbody className="text-left mx-auto">
         <tr>
           <td className="ml-2">{group.name}</td>
-          <td className="ml-2">{group.responsible}</td>
+          <td className="ml-2">{group.user}</td>
           <td className="ml-2">{group.member}</td>
+          <td className="ml-2">{group.dateInicial}</td>
+          <td className="ml-2">{group.dateFinal}</td>
           <td className="text-center">
             <button
               onClick={() => navigate(`/group/edit/${group.id}`)}
