@@ -12,22 +12,22 @@ const CalendarInicial = () => {
   // open close
   const [open, setOpen] = useState(false);
 
-  // get the target element to toggle
+
   const refOne = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setCalendar(format(new Date(), "yyyy/MM/dd"));
-      // event listeners
+
       document.addEventListener("keydown", hideOnEscape, true);
       document.addEventListener("click", hideOnClickOutside, true);
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
   console.log(calendar);
-  // hide dropdown on ESC press
+
   const hideOnEscape = (e) => {
-    // console.log(e.key)
+  
     if (e.key === "Escape") {
       setOpen(false);
     }
@@ -35,8 +35,7 @@ const CalendarInicial = () => {
 
   // Hide on outside click
   const hideOnClickOutside = (e) => {
-    // console.log(refOne.current)
-    // console.log(e.target)
+ 
     if (refOne.current && !refOne.current.contains(e.target)) {
       setOpen(false);
     }
@@ -44,8 +43,7 @@ const CalendarInicial = () => {
 
   // on date change, store date in state
   const handleSelect = (date) => {
-    // console.log(date)
-    // console.log(format(date, 'MM/dd/yyyy'))
+ 
     setCalendar(format(date, "yyyy/MM/dd"));
   };
 
