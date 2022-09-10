@@ -3,26 +3,25 @@ import { Formik, Form } from "formik";
 import Formm from "react-bootstrap/Form";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMails } from "../../hooks/MailProvider";
-import CalendarInicial from "../../components/CalendarInicial";
-import CalendarFinal from "../../components/CalendarFinal";
-import CalendarSolicitud from "../../components/CalendarSolicitud";
-import { useGroups, useDeparts, useRequests, useTypes } from "../../hooks";
+import { useDeparts, useRequests, useTypes } from "../../hooks";
 
 export function MailForm() {
   const { crMail, gtMail, upMail } = useMails();
-  const { groups, loadGroups } = useGroups();
   const { departs, loadDepartaments } = useDeparts();
   const { requests, loadRequests } = useRequests();
   const { types, loadTypes } = useTypes();
 
   const [mail, setMail] = useState({
     user: "",
-    password: "",
+    solicitante: "Talento Humano",
+    dateInicial: "",
+    dateSolicitud: "",
+    dateFinal: "",
     statu: 0,
     fk_idtypeMail: "",
     fk_idrequest: "",
     fk_iddepartament: "",
-    fk_idgroup: "",
+    
   });
   const params = useParams();
   const navigate = useNavigate();
@@ -34,12 +33,15 @@ export function MailForm() {
           const mail = await gtMail(params.id);
           setMail({
             user: mail.user,
-            password: mail.password,
+            solicitante: mail.solicitante,
+            dateInicial: mail.dateInicial,
+            dateFinal: mail.dateFinal,
+            dateSolicitud: mail.dateSolicitud,
             statu: mail.statu,
             fk_idtypeMail: mail.tipo,
             fk_idrequest: mail.solicitud,
             fk_iddepartament: mail.departamento,
-            fk_idgroup: mail.name,
+            
           });
         }
       };
@@ -47,8 +49,7 @@ export function MailForm() {
       loadTypes();
       loadRequests();
       loadDepartaments();
-      loadGroups();
-    }, 1000);
+      }, 1000);
     return () => clearTimeout(timer);
   });
 
@@ -62,11 +63,6 @@ export function MailForm() {
         validate={(values) => {
           let errores = {};
 
-          if (!values.password) {
-            errores.password = "Por favor ingrese la contraseña";
-          } else if (!/^.{4,12}$/.test(values.password)) {
-            errores.password = "La contraseña tiene que ser de 4 a 12 digitos";
-          }
           if (!values.user) {
             errores.user = "Por favor ingrese su usuario";
           } else if (
@@ -87,12 +83,15 @@ export function MailForm() {
           navigate("/mail/list");
           setMail({
             user: "",
-            password: "",
+            solicitante: "",
+            dateSolicitud: "", 
+            dateInicial: "",
+            dateFinal: "",
             statu: "",
             fk_idtypeMail: "",
             fk_idrequest: "",
             fk_iddepartament: "",
-            fk_idgroup: "",
+            
           });
         }}
       >
@@ -108,10 +107,9 @@ export function MailForm() {
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label px-3">Usuario
-                </label>
+                <label className="form-control-label px-3">Usuario</label>
                 <input
-                className="inputUser"
+                  className="inputUser"
                   type="text"
                   name="user"
                   autoFocus={true}
@@ -124,15 +122,7 @@ export function MailForm() {
                   <div className="error pl-5">{errors.user}</div>
                 )}
               </div>
-              <div className="form-group col-sm-6 pl-4 flex-column d-flex">
-          
-                  <label className="form-control-label mx-3">
-                    Fecha de Solicitud
-                  </label>
-                  
-                    <CalendarSolicitud className="calendarSolicitud"/>
-                
-              </div>
+              
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Tipo de Correo
@@ -176,64 +166,58 @@ export function MailForm() {
                   </Formm.Select>
                 </label>
               </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label px-3">
-                  Grupo - Responsable
-                  <Formm.Select name="fk_idgroup" onChange={handleChange}>
-                    <option value="">Seleccione</option>
-                    {groups.map((group) => (
-                      <option key={group.id} value={group.id}>
-                        {group.name} - {group.responsible}
-                      </option>
-                    ))}
-                  </Formm.Select>
-                </label>
-              </div>
-              <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label px-3">
-                  Solicitante
-                  <Formm.Select name="fk_iddepartament" onChange={handleChange}>
-                    <option value="#">Seleccione</option>
-                   
-                      <option value={values.solicitante}>Talento Humano</option>
-                  
-                  </Formm.Select>
-                </label>
-              </div>
+          
+             
               <div className="form-group col-sm-6 flex-column d-flex">
                 <tr>
-                  <label className="form-control-label mx-2">
+                <label className="form-control-label px-2 mx-1">
+                    Fecha de Solicitud
+                  </label>
+                  <label className="form-control-label px-3 mx-4">
                     Fecha de Vinculacion
                   </label>
-                  <label className="form-control-label px-5 mx-5">
+                  <label className="form-control-label  px-2 mx-2">
                     Fecha de Desvinculacion
                   </label>
                   <td>
-                    <CalendarInicial />
+                    <input
+                      type="date"
+                      name="dateSolicitud"
+                      onChange={handleChange}
+                      value={values.dateSolicitud}
+                    />
                   </td>
-                  <td>
-                    <CalendarFinal />
+                  <td className="px-4">
+                    <input
+                      type="date"
+                      name="dateInicial"
+                      onChange={handleChange}
+                      value={values.dateInicial}
+                    />
+                  </td>
+                  <td className="px-4">
+                    <input
+                      type="date"
+                      name="dateFinal"
+                      onChange={handleChange}
+                      value={values.dateFinal}
+                    />
                   </td>
                 </tr>
               </div>
-              <div className="form-group  flex-column d-flex">
+              <div className="form-group lex-column d-flex ">
                 <label className="form-control-label px-3">
-                    Activo
-                   
-                    <Formm.Check
-                      label="S&iacute;"
-                      className="mb-2"
-                      name="statu"
-                      aria-label="option 1"
-                      onChange={handleChange}
-                      value={1}
-                    />
-                  </label>
+                  Activo
+                  <Formm.Check
+                    label="S&iacute;"
+                    className="mb-2"
+                    name="statu"
+                    aria-label="option 1"
+                    onChange={handleChange}
+                    value={1}
+                  />
+                </label>
               </div>
-
-
-                      
-
               <div className="form-group">
                 <button
                   className="btn btn-primary"
@@ -250,5 +234,4 @@ export function MailForm() {
     </div>
   );
 }
-
 export default MailForm;

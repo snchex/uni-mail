@@ -18,7 +18,6 @@ export default function GroupCard({ group }) {
         <tr>
           <td className="ml-2">{group.name}</td>
           <td className="ml-2">{group.user}</td>
-          <td className="ml-2">{group.member}</td>
           <td className="ml-2">{group.dateInicial}</td>
           <td className="ml-2">{group.dateFinal}</td>
           <td className="text-center">

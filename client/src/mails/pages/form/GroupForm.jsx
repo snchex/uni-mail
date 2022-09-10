@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGroups } from "../../hooks/GroupProvider";
-import { useEffect, useState } from "react";
+import { useMails } from "../../hooks";
 
 export function GroupForm() {
   const { crGroup, gtGroup, upGroup } = useGroups();
-
+  const { mails, loadMails } = useMails();
   const [group, setGroup] = useState({
     name: "",
-    member: "",
+  
     dateInicial: "",
     dateFinal: "",
-    fk_idgroup: "",
+    fk_idmail: "",
   });
 
   const params = useParams();
@@ -24,14 +24,15 @@ export function GroupForm() {
           const group = await gtGroup(params.id);
           setGroup({
             name: group.name,
-            member: group.member,
-            fk_idgroup: group.fk_idgroup,
+           
+            fk_idmail: group.fk_idmail,
             dateInicial: group.dateInicial,
             dateFinal: group.dateFinal,
           });
         }
       };
       loadGroup();
+      loadMails();
     }, 1000);
     return () => clearTimeout(timer);
   });
@@ -53,8 +54,8 @@ export function GroupForm() {
           }
           setGroup({
             name: "",
-            member: "",
-            fk_idgroup: "",
+     
+            fk_idmail: "",
             dateInicial: "",
             dateFinal: "",
           });
@@ -77,43 +78,50 @@ export function GroupForm() {
                   ></input>
                 </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                <tr>
-                  <label className="form-control-label mx-2">
-                    Fecha de Vinculacion
-                  </label>
-                  <label className="form-control-label px-5 mx-5">
-                    Fecha de Desvinculacion
-                  </label>
-                  <td>
-                    <CalendarInicial />
-                  </td>
-                  <td>
-                    <CalendarFinal />
-                  </td>
-                </tr>
-              </div>
+                    <label className="form-control-label px-3">Miembros</label>
+                    {mails.map(mail => (
+                      <checkbox
+                      label="S&iacute;"
+                      className="mb-2"
+                      name="statu"
+                      aria-label="option 1"
+                      key={mail.id}
+                      onChange={handleChange}
+                      value={mail.id}
+                    />
+                    ))}
 
+
+
+                </div>
                 <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">Responsable</label>
-                  <input
-                    type="text"
-                    name="dateInicial"
-                    placeholder="Ingrese el responsable"
-                    onChange={handleChange}
-                    value={values.dateInicial}
-                  ></input>
+                  <tr>
+                    <label className="form-control-label mx-2">
+                      Fecha de Vinculacion
+                    </label>
+                    <label className="form-control-label  mx-4">
+                      Fecha de Desvinculacion
+                    </label>
+                    <td className="">
+                      <input
+                        type="date"
+                        name="dateInicial"
+                        onChange={handleChange}
+                        value={values.dateInicial}
+                      />
+                    </td>
+                    <td className="px-5">
+                      <input
+                        type="date"
+                        name="dateFinal"
+                        onChange={handleChange}
+                        value={values.dateFinal}
+                      />
+                    </td>
+                  </tr>
                 </div>
 
-                <div className="form-group col-sm-6 flex-column d-flex">
-                  <label className="form-control-label px-3">Miembros</label>
-                  <input
-                    type="text"
-                    name="member"
-                    placeholder="Ingrese los miembros"
-                    onChange={handleChange}
-                    value={values.member}
-                  ></input>
-                </div>
+             
                 <div className="form-group col-sm-6 flex-column d-flex">
                   <button
                     className="btn btn-primary"

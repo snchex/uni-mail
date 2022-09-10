@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
   `solicitante` VARCHAR(45) NOT NULL,
   `dateSolicitud` DATE NOT NULL,
   `dateInicial` DATE NOT NULL,
-  `dateFinal` DATE,
+  `dateFinal` DATE ,
   `statu` TINYINT(1) NOT NULL,
   `fk_idtypeMail` INT NOT NULL,
   `fk_idrequest` INT NOT NULL,

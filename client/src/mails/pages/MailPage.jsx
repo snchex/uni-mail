@@ -31,10 +31,10 @@ export const MailPage = () => {
           <thead className="text-center">
             <tr className="border-bottom">
               <th>
-                <span className="mx-2">Usuario</span>
+                <span className="ml-2">Usuario</span>
               </th>
               <th>
-                <span className="ml-2">Contrase&ntilde;a</span>
+                <span className="ml-2">Solicitante</span>
               </th>
               <th>
                 <span className="ml-2">Estado</span>
@@ -49,7 +49,13 @@ export const MailPage = () => {
                 <span className="ml-2">Departamento</span>
               </th>
               <th>
-                <span className="ml-2">Grupo</span>
+                <span className="ml-2">Fecha de Solicitud</span>
+              </th>
+              <th>
+                <span className="ml-2">Fecha de Vinculacion</span>
+              </th>
+              <th>
+                <span className="ml-2">Fecha de Desvinculacion</span>
               </th>
               <th>
                 <span className="ml-2">Accion</span>

@@ -18,12 +18,14 @@ export function MailCard({ mail }) {
       <tbody key={mail.id} className="text-left mx-auto">
         <tr>
           <td className="ml-2">{mail.user}</td>
-          <td className="hidetext ml-2">{mail.password}</td>
+          <td className="ml-2">{mail.solicitante}</td>
           <td className="ml-2 text-center">{mail.statu === 1 ? "🟢" : "🔴"}</td>
           <td className="ml-2">{mail.tipo}</td>
           <td className="ml-2">{mail.solicitud}</td>
           <td className="ml-2">{mail.departamento}</td>
-          <td className="ml-2">{mail.name}</td>
+          <td className="ml-2">{mail.dateSolicitud}</td>
+          <td className="ml-2">{mail.dateInicial}</td>
+          <td className="ml-2">{mail.dateFinal}</td>
           <td className="text-center">
             <button
               onClick={() => navigate(`/mail/edit/${mail.id}`)}

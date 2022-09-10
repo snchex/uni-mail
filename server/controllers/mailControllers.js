@@ -28,7 +28,7 @@ export const getMail = async (req, res) => {
 export const createMail = async (req, res) => {
     try {
         console.log(req.body);
-        const { user, solicitante, statu, dateSolicitud, dateInicial, dateFinal, fk_idtypeMail, fk_idrequest, fk_iddepartament } = req.body;
+        const { user, solicitante, dateSolicitud, dateInicial, statu, dateFinal, fk_idtypeMail, fk_idrequest, fk_iddepartament } = req.body;
         const newForm = {
             user,
             solicitante,
