@@ -25,9 +25,9 @@ export const MailPage = () => {
 
   return (
     <>
-      <h1 className="row justify-content-center py-3">Lista de Correos</h1>
-      <div className="container mx-auto">
-        <table className="table table-borderles">
+      <h1 className="row justify-content-md-center py-3">Lista de Correos</h1>
+      <div className="row justify-content-md-center mx-5 px-4">
+        <table className="table table-borderles ">
           <thead className="text-center">
             <tr className="border-bottom">
               <th>
@@ -40,7 +40,7 @@ export const MailPage = () => {
                 <span className="ml-2">Estado</span>
               </th>
               <th>
-                <span className="ml-2">Tipos de Correos</span>
+                <span className="ml-2">Tipo</span>
               </th>
               <th>
                 <span className="ml-2">Tipo de Solicitudes</span>

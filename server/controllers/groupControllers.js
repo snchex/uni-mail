@@ -2,7 +2,7 @@ import { pool } from '../database/db.js'
 
 export const getAllGroups = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT cluster.name, cluster.dateInicial, cluster.dateFinal, mail.user FROM cluster, mail ORDER BY createdAt ASC')
+        const [results] = await pool.query('SELECT cluster.name, date_format(dateInicial, "%d-%m-%Y") AS dateInicial, date_format(dateFinal, "%d-%m-%Y") AS dateFinal, mail.user FROM cluster, mail ORDER BY createdAt ASC')
         res.json(results);
 
     } catch (error) {
@@ -13,7 +13,7 @@ export const getAllGroups = async (req, res) => {
 
 export const getGroup = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT cluster.name, cluster.dateInicial, cluster.dateFinal, mail.user FROM cluster, mail WHERE id = ?', [req.params.id]);
+        const [result] = await pool.query('SELECT cluster.name, date_format(dateInicial, "%d-%m-%Y") AS dateInicial, date_format(dateFinal, "%d-%m-%Y") AS dateFinal, mail.user FROM cluster, mail WHERE id = ?', [req.params.id]);
         if (result === 0) {
             return res.status(404).json({ message: "Elemento no encontrado" })
         }

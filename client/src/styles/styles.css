@@ -321,7 +321,7 @@ footer{
   color: black
 }
 .tr-table{
-  padding: 1rem;
+  padding: .5rem;
   border-bottom: 1px solid #fcfcfc;
 }
 
@@ -346,7 +346,7 @@ table {
   box-shadow: 0 6px 12px 0 rgb(0 0 0 / 20%);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  max-width: 80rem;
+  max-width: 90rem;
   min-width: 20rem;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;

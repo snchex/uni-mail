@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 export function RequestForm() {
   const { crRequest, gtRequest, upRequest } = useRequests();
+
   const [request, setRequest] = useState({
     solicitud: "",
   });
@@ -14,17 +15,20 @@ export function RequestForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loadRequest = async () => {
-      if (params.id) {
-        const request = await gtRequest(params.id);
-        setRequest({
-          solicitud: request.solicitud,
-        });
-      }
-    };
-    loadRequest();
+    const timer = setTimeout(() => {
+        const loadRequest = async () => {
+          if (params.id) {
+            const request = await gtRequest(params.id);
+            setRequest({
+              solicitud: request.solicitud,
+            });
+          } 
+        };
+      loadRequest();
+    }, 1000);
+    return () => clearTimeout(timer);
   });
-
+  console.table(request);
   return (
     <>
       <h1>

@@ -52,7 +52,7 @@ export const MailProvider = ({ children }) => {
     const delMail = async (id) => {
         try {
             const response = await deleteMail(id);
-            setMails(mails.filter(group => group.id !== id));
+            setMails(mails.filter(mail => mail.id !== id));
             console.log(response);
         } catch (error) {
 

@@ -12,22 +12,24 @@ export function MailCard({ mail }) {
 
   const { delMail } = useMails();
   const navigate = useNavigate();
+  
 
   return (
     <>
-      <tbody key={mail.id} className="text-left mx-auto">
+      <tbody  className="text-left mx-auto">
         <tr>
-          <td className="ml-2">{mail.user}</td>
-          <td className="ml-2">{mail.solicitante}</td>
-          <td className="ml-2 text-center">{mail.statu === 1 ? "🟢" : "🔴"}</td>
-          <td className="ml-2">{mail.tipo}</td>
-          <td className="ml-2">{mail.solicitud}</td>
-          <td className="ml-2">{mail.departamento}</td>
-          <td className="ml-2">{mail.dateSolicitud}</td>
-          <td className="ml-2">{mail.dateInicial}</td>
-          <td className="ml-2">{mail.dateFinal}</td>
+          <td key={mail.id} className="ml-2">{mail.user}</td>
+          <td key={mail.id} className="ml-2">{mail.solicitante}</td>
+          <td key={mail.id} className="ml-2 text-center">{mail.statu === 1 ? "🟢" : "🔴"}</td>
+          <td key={mail.id} className="ml-2">{mail.tipo}</td>
+          <td key={mail.id} className="ml-2">{mail.solicitud}</td>
+          <td key={mail.id} className="ml-2">{mail.departamento}</td>
+          <td key={mail.id} className="ml-2 text-center">{mail.dateSolicitud}</td>
+          <td key={mail.id} className="ml-2 text-center">{mail.dateInicial}</td>
+          <td key={mail.id} className="ml-2 text-center">{mail.dateFinal}</td>
           <td className="text-center">
             <button
+              key={mail.id}
               onClick={() => navigate(`/mail/edit/${mail.id}`)}
               className="btn btn-outline-warning"
             >

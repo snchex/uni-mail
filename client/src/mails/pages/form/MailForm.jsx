@@ -29,6 +29,7 @@ export function MailForm() {
   useEffect(() => {
     const timer = setTimeout(() => {
       const loadMail = async () => {
+
         if (params.id) {
           const mail = await gtMail(params.id);
           setMail({
@@ -40,7 +41,7 @@ export function MailForm() {
             statu: mail.statu,
             fk_idtypeMail: mail.tipo,
             fk_idrequest: mail.solicitud,
-            fk_iddepartament: mail.departamento,
+            fk_iddepartament: mail.fk_iddepartament,
             
           });
         }
@@ -52,7 +53,7 @@ export function MailForm() {
       }, 1000);
     return () => clearTimeout(timer);
   });
-
+ 
   return (
     <div className="card">
       <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
@@ -157,7 +158,7 @@ export function MailForm() {
                 <label className="form-control-label px-3">
                   Departamento
                   <Formm.Select name="fk_iddepartament" onChange={handleChange}>
-                    <option value="">Seleccione</option>
+                    <option >Seleccione</option>
                     {departs.map((departament) => (
                       <option key={departament.id} value={departament.id}>
                         {departament.departamento}
