@@ -20,7 +20,9 @@ export const MailPage = () => {
           <h1>No Existen Correos</h1>
         </div>
       );
-    return mails.map((mail) => <MailCard mail={mail} key={mail.id} />);
+    return mails.map(mail => (
+      <MailCard mail={mail} key={mail.id} />
+    ));
   }
 
   return (

@@ -5,31 +5,29 @@ import Modal from "react-bootstrap/Modal";
 import { useMails } from "../hooks/MailProvider";
 import { useNavigate } from "react-router-dom";
 
-export function MailCard({ mail }) {
+export default function MailCard({ mail }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const { delMail } = useMails();
   const navigate = useNavigate();
-  
 
   return (
     <>
       <tbody  className="text-left mx-auto">
-        <tr>
-          <td key={mail.id} className="ml-2">{mail.user}</td>
-          <td key={mail.id} className="ml-2">{mail.solicitante}</td>
-          <td key={mail.id} className="ml-2 text-center">{mail.statu === 1 ? "🟢" : "🔴"}</td>
-          <td key={mail.id} className="ml-2">{mail.tipo}</td>
-          <td key={mail.id} className="ml-2">{mail.solicitud}</td>
-          <td key={mail.id} className="ml-2">{mail.departamento}</td>
-          <td key={mail.id} className="ml-2 text-center">{mail.dateSolicitud}</td>
-          <td key={mail.id} className="ml-2 text-center">{mail.dateInicial}</td>
-          <td key={mail.id} className="ml-2 text-center">{mail.dateFinal}</td>
+        <tr key={mail.id} >
+          <td className="ml-2">{mail.user}</td>
+          <td className="ml-2">{mail.solicitante}</td>
+          <td className="ml-2 text-center">{mail.statu === 1 ? "🟢" : "🔴"}</td>
+          <td className="ml-2">{mail.tipo}</td>
+          <td className="ml-2">{mail.solicitud}</td>
+          <td className="ml-2">{mail.departamento}</td>
+          <td className="ml-2 text-center">{mail.dateSolicitud}</td>
+          <td className="ml-2 text-center">{mail.dateInicial}</td>
+          <td className="ml-2 text-center">{mail.dateFinal}</td>
           <td className="text-center">
             <button
-              key={mail.id}
               onClick={() => navigate(`/mail/edit/${mail.id}`)}
               className="btn btn-outline-warning"
             >
@@ -74,7 +72,7 @@ export function MailCard({ mail }) {
     </>
   );
 }
-export default MailCard;
+
 
 /*  const handleStatu = async (mailStatu) => {
       await toggleStatu(mail.id, mailStatu)

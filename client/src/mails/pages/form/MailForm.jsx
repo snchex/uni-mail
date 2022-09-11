@@ -32,6 +32,7 @@ export function MailForm() {
 
         if (params.id) {
           const mail = await gtMail(params.id);
+
           setMail({
             user: mail.user,
             solicitante: mail.solicitante,
@@ -39,8 +40,8 @@ export function MailForm() {
             dateFinal: mail.dateFinal,
             dateSolicitud: mail.dateSolicitud,
             statu: mail.statu,
-            fk_idtypeMail: mail.tipo,
-            fk_idrequest: mail.solicitud,
+            fk_idtypeMail: mail.fk_idtypeMail,
+            fk_idrequest: mail.fk_idrequest,
             fk_iddepartament: mail.fk_iddepartament,
             
           });
@@ -128,9 +129,9 @@ export function MailForm() {
                 <label className="form-control-label px-3">
                   Tipo de Correo
                   <Formm.Select onChange={handleChange} name="fk_idtypeMail">
-                    <option value="">Seleccione</option>
+                    <option> Seleccione</option>
                     {types.map((type) => (
-                      <option key={type.id} value={type.id}>
+                      <option key={type.id} value={type.id} >
                         {type.tipo}
                       </option>
                     ))}
@@ -145,7 +146,7 @@ export function MailForm() {
                     onBlur={handleBlur}
                     onChange={handleChange}
                   >
-                    <option value="">Seleccione</option>
+                    <option>Seleccione</option>
                     {requests.map((request) => (
                       <option key={request.id} value={request.id}>
                         {request.solicitud}
@@ -160,7 +161,7 @@ export function MailForm() {
                   <Formm.Select name="fk_iddepartament" onChange={handleChange}>
                     <option >Seleccione</option>
                     {departs.map((departament) => (
-                      <option key={departament.id} value={departament.id}>
+                      <option key={departament.id} value={departament.id} >
                         {departament.departamento}
                       </option>
                     ))}

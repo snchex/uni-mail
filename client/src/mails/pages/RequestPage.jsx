@@ -20,7 +20,7 @@ export const RequestPage = () => {
           <h1>No Existen Solicitudes</h1>
         </div>
       );
-    return requests.map((request) => (
+    return requests.map(request => (
       <RequestCard request={request} key={request.id} />
     ));
   }
