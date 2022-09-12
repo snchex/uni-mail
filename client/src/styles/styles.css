@@ -337,7 +337,12 @@ td{
   padding: .1rem;
 }
 
-
+.fechared {
+  color: red;
+}
+.fechagreen {
+  color: green;
+}
 table {
   border-radius: 5px;
   background-color: #e0e0e07d;
@@ -411,28 +416,6 @@ tbody, td, tfoot, th, thead, tr {
 }
 
 
-
-.cardx {
-  border: none;
-  border-radius: 10px;
-  width: 100%;
-  background-color: #fff
-}
-.card-new {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0,0,0,.125);
-  border-radius: 0.25rem !important;
-  -webkit-border-radius: 0.25rem !important;
-  -moz-border-radius: 0.25rem !important;
-  -ms-border-radius: 0.25rem !important;
-  -o-border-radius: 0.25rem !important;
-}
 
 .btn-outline-signin{
   border-color: green;

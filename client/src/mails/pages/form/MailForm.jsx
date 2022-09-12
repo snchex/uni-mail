@@ -16,7 +16,7 @@ export function MailForm() {
     solicitante: "Talento Humano",
     dateInicial: "",
     dateSolicitud: "",
-    dateFinal: "",
+    dateFinal: '',
     statu: 0,
     fk_idtypeMail: "",
     fk_idrequest: "",
@@ -56,7 +56,7 @@ export function MailForm() {
   });
  
   return (
-    <div className="card">
+    <div className="card mx-auto col-md-9">
       <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
       <hr />
       <Formik
@@ -72,6 +72,23 @@ export function MailForm() {
           ) {
             errores.user = "Por favor ingrese un correo valido";
           }
+
+          if(!values.dateInicial) {
+            errores.dateInicial = "Por favor ingrese la Fecha de Vinculacion";
+          }
+          if(!values.dateSolicitud) {
+            errores.dateSolicitud = "Por favor ingrese la Fecha de Solicitud";
+          }
+          if(!values.fk_iddepartament) {
+            errores.fk_iddepartament = "Por favor ingrese el departamento";
+          }
+          if(!values.fk_idrequest) {
+            errores.fk_idrequest = "Por favor ingrese el tipo de Solicitud";
+          }
+          if(!values.fk_idtypeMail) {
+            errores.fk_idtypeMail = "Por favor ingrese el tipo de Correo";
+          }
+
           return errores;
         }}
         onSubmit={async (values, actions) => {
@@ -121,21 +138,25 @@ export function MailForm() {
                   value={values.user}
                 />
                 {touched.user && errors.user && (
-                  <div className="error pl-5">{errors.user}</div>
+                  <span className="error pl-5">{errors.user}</span>
                 )}
+                
               </div>
               
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Tipo de Correo
                   <Formm.Select onChange={handleChange} name="fk_idtypeMail">
-                    <option> Seleccione</option>
-                    {types.map((type) => (
+                    <option disabled selected value=""> Seleccione</option>
+                    {types.map(type => (
                       <option key={type.id} value={type.id} >
                         {type.tipo}
                       </option>
                     ))}
                   </Formm.Select>
+                  {touched.fk_idtypeMail && errors.fk_idtypeMail && (
+                      <span className="error pl-5">{errors.fk_idtypeMail}</span>
+                    )}
                 </label>
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
@@ -146,26 +167,32 @@ export function MailForm() {
                     onBlur={handleBlur}
                     onChange={handleChange}
                   >
-                    <option>Seleccione</option>
-                    {requests.map((request) => (
+                    <option disabled selected value="">Seleccione</option>
+                    {requests.map(request => (
                       <option key={request.id} value={request.id}>
                         {request.solicitud}
                       </option>
                     ))}
                   </Formm.Select>
+                  {touched.fk_idrequest && errors.fk_idrequest && (
+                      <span className="error pl-5">{errors.fk_idrequest}</span>
+                    )}
                 </label>
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Departamento
-                  <Formm.Select name="fk_iddepartament" onChange={handleChange}>
-                    <option >Seleccione</option>
+                  <Formm.Select name="fk_iddepartament" type="text" onBlur={handleBlur} onChange={handleChange}>
+                    <option disabled selected value="" > Seleccione</option>
                     {departs.map((departament) => (
                       <option key={departament.id} value={departament.id} >
                         {departament.departamento}
                       </option>
                     ))}
                   </Formm.Select>
+                    {touched.fk_iddepartament && errors.fk_iddepartament && (
+                      <span className="error pl-5">{errors.fk_iddepartament}</span>
+                    )}
                 </label>
               </div>
           
@@ -187,7 +214,10 @@ export function MailForm() {
                       name="dateSolicitud"
                       onChange={handleChange}
                       value={values.dateSolicitud}
-                    />
+                    />{touched.dateSolicitud && errors.dateSolicitud && (
+                      <span className="error pl-5">{errors.dateSolicitud}</span>
+                    )}
+                    
                   </td>
                   <td className="px-4">
                     <input
@@ -195,7 +225,9 @@ export function MailForm() {
                       name="dateInicial"
                       onChange={handleChange}
                       value={values.dateInicial}
-                    />
+                    />{touched.dateInicial && errors.dateInicial && (
+                      <span className="error pl-5">{errors.dateInicial}</span>
+                    )}
                   </td>
                   <td className="px-4">
                     <input
@@ -206,8 +238,6 @@ export function MailForm() {
                     />
                   </td>
                 </tr>
-              </div>
-              <div className="form-group lex-column d-flex ">
                 <label className="form-control-label px-3">
                   Activo
                   <Formm.Check
@@ -219,6 +249,9 @@ export function MailForm() {
                     value={1}
                   />
                 </label>
+              </div>
+              <div className="form-group col-sm-6 flex-column d-flex ">
+               
               </div>
               <div className="form-group">
                 <button

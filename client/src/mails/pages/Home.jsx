@@ -7,6 +7,10 @@ export const Home = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
+  let date = new Date();
+  let output = String(date.getDate()).padStart(2, '0') + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + date.getFullYear();
+ 
+
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
@@ -31,11 +35,11 @@ export const Home = () => {
 
   const showError = filteredData.length === 0;
   const showSearch = filteredData.length !== 0;
-
+/*
   const clearInput = () => {
     setFilteredData([]);
     setWordEntered("");
-  };
+  };**/
 
   return (
     <div className="card">
@@ -54,9 +58,7 @@ export const Home = () => {
           {filteredData.length === 0 ? (
             <span></span>
           ) : (
-            <button className="btn btn-warning" onClick={clearInput}>
-              Limpiar
-            </button>
+           <span></span>  
           )}
         </div>
 
@@ -79,15 +81,26 @@ export const Home = () => {
                   <b>Tipo de Solicitud</b>
                 </td>
                 <td className="px-2">
-                  <b>Fecha de Inicio</b>
+                  <b>Fecha de Solicitud</b>
                 </td>
+                <td className="px-2">
+                  <b>Fecha de Desvinculacion</b>
+                </td>
+                
               </tr>
               {filteredData.slice(0, 15).map((mail) => {
                 return (
                   <tr className="border-bottom" key={mail.id}>
                     <td>{mail.user} </td>
                     <td>{mail.departamento}</td>
-                    <td>{mail.tipo}</td>
+                    <td className="text-center">{mail.tipo}</td>
+                    <td className="text-center">{mail.dateSolicitud}</td>
+                    { output >= mail.dateFinal ? (
+                      <td className=" text-center fechared">{mail.dateFinal}</td>
+                    ):(
+
+                      <td className="text-center fechagreen">{mail.dateFinal}</td>
+                    )}
                   </tr>
                 );
               })}

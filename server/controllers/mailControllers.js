@@ -29,22 +29,37 @@ export const createMail = async (req, res) => {
     try {
         console.log(req.body);
         const { user, solicitante, dateSolicitud, dateInicial, statu, dateFinal, fk_idtypeMail, fk_idrequest, fk_iddepartament } = req.body;
-        const newForm = {
-            user,
-            solicitante,
-            dateSolicitud,
-            dateInicial,
-            dateFinal,
-            statu,
-            fk_idtypeMail,
-            fk_idrequest,
-            fk_iddepartament,
+        if (dateFinal === "") {
+            const newForm = {
+                user,
+                solicitante,
+                dateSolicitud,
+                dateInicial,
+                statu,
+                fk_idtypeMail,
+                fk_idrequest,
+                fk_iddepartament,
 
-        };
+            };
+            const [result] = await pool.query('INSERT INTO mail set ?', [newForm]);
+            res.json({ id: result.insertId, user, solicitante, dateSolicitud, dateInicial, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament });
 
-        const [result] = await pool.query('INSERT INTO mail set ?', [newForm]);
+        } else {
+            const newForm = {
+                user,
+                solicitante,
+                dateSolicitud,
+                dateInicial,
+                dateFinal,
+                statu,
+                fk_idtypeMail,
+                fk_idrequest,
+                fk_iddepartament,
+            };
+            const [result] = await pool.query('INSERT INTO mail set ?', [newForm]);
+            res.json({ id: result.insertId, user, solicitante, dateSolicitud, dateInicial, dateFinal, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament });
+        }
 
-        res.json({ id: result.insertId, user, solicitante, dateSolicitud, dateInicial, dateFinal, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament });
 
     } catch (error) {
         res.json({ message: error.message });
