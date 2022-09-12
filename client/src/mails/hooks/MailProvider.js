@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { getAllMails, getMail,createMail, updateMail, deleteMail } from "../api/mailApi";
 
 import { MailContext } from "../context/MailContext";
@@ -52,7 +52,7 @@ export const MailProvider = ({ children }) => {
     const delMail = async (id) => {
         try {
             const response = await deleteMail(id);
-            setMails(mails.filter(group => group.id !== id));
+            setMails(mails.filter(mail => mail.id !== id));
             console.log(response);
         } catch (error) {
 

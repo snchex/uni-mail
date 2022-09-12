@@ -2,7 +2,7 @@ import { pool } from '../database/db.js'
 
 export const getAllMails = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT mail.user, mail.password, mail.statu, mailType.tipo, request.solicitud, departament.departamento, cluster.name FROM mail, mailType, cluster, departament, request WHERE mailType.id = mail.fk_idtypeMail AND cluster.id = mail.fk_idgroup AND departament.id = mail.fk_iddepartament AND request.id = mail.fk_idrequest ORDER BY mail.createdAt ASC')
+        const [results] = await pool.query('SELECT mail.id, user, solicitante, date_format(dateSolicitud, "%d-%m-%Y") AS dateSolicitud, date_format(dateInicial, "%d-%m-%Y") AS dateInicial, date_format(dateFinal, "%d-%m-%Y") AS dateFinal, statu, tipo, solicitud, departamento FROM mail, mailType, departament, request WHERE mailType.id = mail.fk_idtypeMail AND departament.id = mail.fk_iddepartament AND request.id = mail.fk_idrequest ORDER BY mail.createdAt DESC')
         res.json(results);
 
     } catch (error) {
@@ -13,7 +13,7 @@ export const getAllMails = async (req, res) => {
 
 export const getMail = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT mail.user, mail.password, mail.statu, mailType.tipo, request.solicitud, departament.departamento, cluster.name FROM mail, mailType, cluster, departament, request WHERE mailType.id = mail.fk_idtypeMail and cluster.id = mail.fk_idgroup and departament.id = mail.fk_iddepartament and request.id = mail.fk_idrequest AND mail.id = ?', [req.params.id]);
+        const [result] = await pool.query('SELECT mail.id, user, solicitante, date_format(dateSolicitud, "%Y-%m-%d") AS dateSolicitud, date_format(dateInicial, "%Y-%m-%d") AS dateInicial, date_format(dateFinal, "%Y-%m-%d") AS dateFinal, statu, tipo, solicitud, departamento FROM mail, mailType, departament, request WHERE mailType.id = mail.fk_idtypeMail AND departament.id = mail.fk_iddepartament AND request.id = mail.fk_idrequest AND mail.id = ?', [req.params.id]);
         if (result === 0) {
             return res.status(404).json({ message: "Elemento no encontrado" })
         }
@@ -28,20 +28,38 @@ export const getMail = async (req, res) => {
 export const createMail = async (req, res) => {
     try {
         console.log(req.body);
-        const { user, password, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament, fk_idgroup } = req.body;
-        const newForm = {
-            user,
-            password,
-            statu,
-            fk_idtypeMail,
-            fk_idrequest,
-            fk_iddepartament,
-            fk_idgroup
-        };
+        const { user, solicitante, dateSolicitud, dateInicial, statu, dateFinal, fk_idtypeMail, fk_idrequest, fk_iddepartament } = req.body;
+        if (dateFinal === "") {
+            const newForm = {
+                user,
+                solicitante,
+                dateSolicitud,
+                dateInicial,
+                statu,
+                fk_idtypeMail,
+                fk_idrequest,
+                fk_iddepartament,
 
-        const [result] = await pool.query('INSERT INTO mail set ?', [newForm]);
+            };
+            const [result] = await pool.query('INSERT INTO mail set ?', [newForm]);
+            res.json({ id: result.insertId, user, solicitante, dateSolicitud, dateInicial, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament });
 
-        res.json({ id: result.insertId, user, password, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament, fk_idgroup });
+        } else {
+            const newForm = {
+                user,
+                solicitante,
+                dateSolicitud,
+                dateInicial,
+                dateFinal,
+                statu,
+                fk_idtypeMail,
+                fk_idrequest,
+                fk_iddepartament,
+            };
+            const [result] = await pool.query('INSERT INTO mail set ?', [newForm]);
+            res.json({ id: result.insertId, user, solicitante, dateSolicitud, dateInicial, dateFinal, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament });
+        }
+
 
     } catch (error) {
         res.json({ message: error.message });

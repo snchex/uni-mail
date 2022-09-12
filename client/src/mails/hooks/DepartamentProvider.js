@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React,{ useContext, useState } from 'react';
 import { getAllDepartaments, getDepartament, createDepartament, updateDepartament, deleteDepartament } from "../../mails/api/departamentApi";
 import { DepartamentContext } from '../context/DepartamentContext';
 

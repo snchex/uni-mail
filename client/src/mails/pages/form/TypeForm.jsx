@@ -1,10 +1,10 @@
-import { Form, Formik } from 'formik'
+import React from "react";
+import { Form, Formik } from "formik";
 import { useParams, useNavigate } from "react-router-dom";
-import { useTypes } from '../../hooks/TypeProvider';
+import { useTypes } from "../../hooks/TypeProvider";
 import { useEffect, useState } from "react";
 
 export function TypeForm() {
-
   const { crType, getType, upType } = useTypes();
   const [type, setType] = useState({
     tipo: "",
@@ -15,20 +15,18 @@ export function TypeForm() {
 
   useEffect(() => {
     const loadType = async () => {
-
       if (params.id) {
         const type = await getType(params.id);
         setType({
-          tipo: type.tipo
+          tipo: type.tipo,
         });
       }
-    }
+    };
     loadType();
   });
 
   return (
     <>
-
       <h1> {params.id ? "Editar Tipo Correo" : "Nuevo Tipo de Correo"}</h1>
 
       <Formik
@@ -40,10 +38,10 @@ export function TypeForm() {
           if (params.id) {
             console.log("Update");
             await upType(params.id, values);
-            navigate('/mailtypes/list');
+            navigate("/mailtypes/list");
           } else {
             await crType(values);
-            navigate('/mailtypes/list');
+            navigate("/mailtypes/list");
           }
           setType({
             tipo: "",
@@ -51,22 +49,34 @@ export function TypeForm() {
         }}
       >
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
-
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
               <div className="form-group col-sm-6 flex-column d-flex">
-                <label className="form-control-label px-2">Tipo de Correo</label>
+                <label className="form-control-label px-2">
+                  Tipo de Correo
+                </label>
 
-                <input type="text" name='tipo' placeholder='Ingrese el tipo de Correo' onChange={handleChange} value={values.tipo}></input>
+                <input
+                  type="text"
+                  name="tipo"
+                  placeholder="Ingrese el tipo de Correo"
+                  onChange={handleChange}
+                  value={values.tipo}
+                ></input>
                 <p></p>
-                <button className='btn btn-primary' type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Guardar"}</button>
-
+                <button
+                  className="btn btn-primary"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Guardando..." : "Guardar"}
+                </button>
               </div>
             </div>
           </Form>
         )}
       </Formik>
     </>
-  )
+  );
 }
 export default TypeForm;

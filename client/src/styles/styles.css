@@ -8,6 +8,8 @@
   
 }
 
+
+
 *{
   padding: 0;
   margin: 0;
@@ -97,15 +99,6 @@ a.active:hover{
 
 
 
-.checkbtn{
-  font-size: 30px;
-  color: #2c3e50;
-  float: right;
-  line-height: 80px;
-  margin-right: 40px;
-  cursor: pointer;
-  display: none;
-}
 #check{
   display: none;
 }
@@ -297,6 +290,19 @@ background-color: transparent;
 padding: 0;
 border-radius: .25rem;
 }
+.calendarWrap {
+  display: inline-block;
+  position: relative;
+}
+
+.calendarElement {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40px;
+  border: 1px solid #ccc;
+  z-index: 999;
+}
 
 
 
@@ -315,7 +321,7 @@ footer{
   color: black
 }
 .tr-table{
-  padding: 1rem;
+  padding: .5rem;
   border-bottom: 1px solid #fcfcfc;
 }
 
@@ -331,7 +337,12 @@ td{
   padding: .1rem;
 }
 
-
+.fechared {
+  color: red;
+}
+.fechagreen {
+  color: green;
+}
 table {
   border-radius: 5px;
   background-color: #e0e0e07d;
@@ -340,7 +351,7 @@ table {
   box-shadow: 0 6px 12px 0 rgb(0 0 0 / 20%);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  max-width: 80rem;
+  max-width: 90rem;
   min-width: 20rem;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
@@ -403,34 +414,8 @@ tbody, td, tfoot, th, thead, tr {
   height: 90vh;
   
 }
-.las {
-  position: relative;
-  left: 1rem;
-  padding: .3rem;
-  font-size: 1.5rem;
-}
 
-.cardx {
-  border: none;
-  border-radius: 10px;
-  width: 100%;
-  background-color: #fff
-}
-.card-new {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0,0,0,.125);
-  border-radius: 0.25rem !important;
-  -webkit-border-radius: 0.25rem !important;
-  -moz-border-radius: 0.25rem !important;
-  -ms-border-radius: 0.25rem !important;
-  -o-border-radius: 0.25rem !important;
-}
+
 
 .btn-outline-signin{
   border-color: green;
@@ -442,6 +427,11 @@ tbody, td, tfoot, th, thead, tr {
 
  
 
+}
+
+
+.img-ico{
+  width: 3%;
 }
 .btn-outline-danger{
   padding-top: .1rem !important;
@@ -455,7 +445,15 @@ tbody, td, tfoot, th, thead, tr {
   padding-left: .1rem !important;
   padding-right: .1rem !important;
 }
+.inputUser{
+  width: 95.5%;
+  margin-left: 1rem;
+  
+}
+.calendarWrapSolicitud{
+  margin-left: 1rem;
 
+}
 .btn-cancel{
   background-color: #aaa;
   color: white;
@@ -752,6 +750,7 @@ tbody, td, tfoot, th, thead, tr {
   padding-top: 5px;
   text-transform: capitalize;
 }
+
 .form-horizontal .btn{
   float: right;
   font-size: 14px;

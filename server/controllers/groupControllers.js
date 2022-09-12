@@ -2,7 +2,7 @@ import { pool } from '../database/db.js'
 
 export const getAllGroups = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT * FROM cluster ORDER BY createdAt ASC')
+        const [results] = await pool.query('SELECT cluster.name, date_format(dateInicial, "%d-%m-%Y") AS dateInicial, date_format(dateFinal, "%d-%m-%Y") AS dateFinal, mail.user FROM cluster, mail ORDER BY createdAt ASC')
         res.json(results);
 
     } catch (error) {
@@ -13,7 +13,7 @@ export const getAllGroups = async (req, res) => {
 
 export const getGroup = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT * FROM cluster WHERE id = ?', [req.params.id]);
+        const [result] = await pool.query('SELECT cluster.name, date_format(dateInicial, "%d-%m-%Y") AS dateInicial, date_format(dateFinal, "%d-%m-%Y") AS dateFinal, mail.user FROM cluster, mail WHERE id = ?', [req.params.id]);
         if (result === 0) {
             return res.status(404).json({ message: "Elemento no encontrado" })
         }
@@ -28,12 +28,12 @@ export const getGroup = async (req, res) => {
 export const createGroup = async (req, res) => {
     try {
         console.log(req.body);
-        const { responsible, member, name } = req.body;
-        const newForm = { responsible, member, name };
+        const { name, dateInicial, dateFinal, fk_idmail } = req.body;
+        const newForm = { name, dateInicial, dateFinal, fk_idmail };
 
         const [result] = await pool.query('INSERT INTO cluster set ?', [newForm]);
 
-        res.json({ id: result.insertId, responsible, member, name });
+        res.json({ id: result.insertId, name, dateInicial, dateFinal, fk_idmail});
 
     } catch (error) {
         res.json({ message: error.message });
