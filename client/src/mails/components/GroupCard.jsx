@@ -8,6 +8,8 @@ export default function GroupCard({ group }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  let date = new Date();
+  let output = String(date.getDate()).padStart(2, '0') + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + date.getFullYear();
 
   const { delGroup } = useGroups();
   const navigate = useNavigate();
@@ -15,11 +17,16 @@ export default function GroupCard({ group }) {
   return (
     <>
       <tbody className="text-left mx-auto">
-        <tr>
+        <tr key={group.id}>
           <td className="ml-2">{group.name}</td>
-          <td className="ml-2">{group.user}</td>
-          <td className="ml-2">{group.dateInicial}</td>
-          <td className="ml-2">{group.dateFinal}</td>
+          <td className="ml-2 text-center">{group.dateInicial}</td>
+          { output >= group.dateFinal ? (
+            <td className=" text-center fechared">{group.dateFinal}</td>
+          ):(
+
+            <td className="text-center ">{group.dateFinal}</td>
+          )}
+         
           <td className="text-center">
             <button
               onClick={() => navigate(`/group/edit/${group.id}`)}

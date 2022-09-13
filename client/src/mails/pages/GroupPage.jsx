@@ -19,7 +19,9 @@ export const GroupPage = () => {
           <h1>No Existen Grupos</h1>
         </div>
       );
-    return groups.map((group) => <GroupCard group={group} key={group.id} />);
+    return groups.map(group => (
+    <GroupCard group={group} key={group.id} />
+    ));
   }
 
   return (
@@ -32,11 +34,12 @@ export const GroupPage = () => {
               <th>
                 <span className="ml-2">Grupo</span>
               </th>
+             
               <th>
-                <span className="ml-2">Responsable</span>{" "}
+                <span className="ml-2">Fecha de Vinculacion</span>
               </th>
               <th>
-                <span className="ml-2">Miembros</span>
+                <span className="ml-2">Fecha de Desvinculacion</span>
               </th>
               <th>
                 <span className="ml-2">Accion</span>

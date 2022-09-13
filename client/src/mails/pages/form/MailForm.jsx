@@ -3,25 +3,26 @@ import { Formik, Form } from "formik";
 import Formm from "react-bootstrap/Form";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMails } from "../../hooks/MailProvider";
-import { useDeparts, useRequests, useTypes } from "../../hooks";
+import { useDeparts, useRequests, useTypes, useGroups } from "../../hooks";
 
 export function MailForm() {
   const { crMail, gtMail, upMail } = useMails();
   const { departs, loadDepartaments } = useDeparts();
   const { requests, loadRequests } = useRequests();
   const { types, loadTypes } = useTypes();
+  const { groups, loadGroups } = useGroups();
 
   const [mail, setMail] = useState({
     user: "",
     solicitante: "Talento Humano",
     dateInicial: "",
     dateSolicitud: "",
-    dateFinal: '',
+    dateFinal: "",
     statu: 0,
     fk_idtypeMail: "",
     fk_idrequest: "",
     fk_iddepartament: "",
-    
+    fk_idgroup: "",
   });
   const params = useParams();
   const navigate = useNavigate();
@@ -29,7 +30,6 @@ export function MailForm() {
   useEffect(() => {
     const timer = setTimeout(() => {
       const loadMail = async () => {
-
         if (params.id) {
           const mail = await gtMail(params.id);
 
@@ -43,7 +43,7 @@ export function MailForm() {
             fk_idtypeMail: mail.fk_idtypeMail,
             fk_idrequest: mail.fk_idrequest,
             fk_iddepartament: mail.fk_iddepartament,
-            
+            fk_idgroup: mail.fk_idgroup,
           });
         }
       };
@@ -51,10 +51,17 @@ export function MailForm() {
       loadTypes();
       loadRequests();
       loadDepartaments();
-      }, 1000);
+      loadGroups();
+    }, 1000);
     return () => clearTimeout(timer);
   });
- 
+
+  const clearInput = () => {
+    setMail([]);
+  };
+  const verMails = () => {
+    navigate("/mail/list");
+  };
   return (
     <div className="card mx-auto col-md-9">
       <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
@@ -73,20 +80,23 @@ export function MailForm() {
             errores.user = "Por favor ingrese un correo valido";
           }
 
-          if(!values.dateInicial) {
+          if (!values.dateInicial) {
             errores.dateInicial = "Por favor ingrese la Fecha de Vinculacion";
           }
-          if(!values.dateSolicitud) {
+          if (!values.dateSolicitud) {
             errores.dateSolicitud = "Por favor ingrese la Fecha de Solicitud";
           }
-          if(!values.fk_iddepartament) {
+          if (!values.fk_iddepartament) {
             errores.fk_iddepartament = "Por favor ingrese el departamento";
           }
-          if(!values.fk_idrequest) {
+          if (!values.fk_idrequest) {
             errores.fk_idrequest = "Por favor ingrese el tipo de Solicitud";
           }
-          if(!values.fk_idtypeMail) {
+          if (!values.fk_idtypeMail) {
             errores.fk_idtypeMail = "Por favor ingrese el tipo de Correo";
+          }
+          if (!values.fk_idgroup) {
+            errores.fk_idgroup = "Por favor ingrese al grupo que pertenezca";
           }
 
           return errores;
@@ -99,18 +109,16 @@ export function MailForm() {
           } else {
             await crMail(values);
           }
-          navigate("/mail/list");
           setMail({
             user: "",
             solicitante: "",
-            dateSolicitud: "", 
+            dateSolicitud: "",
             dateInicial: "",
             dateFinal: "",
             statu: "",
             fk_idtypeMail: "",
             fk_idrequest: "",
             fk_iddepartament: "",
-            
           });
         }}
       >
@@ -140,23 +148,25 @@ export function MailForm() {
                 {touched.user && errors.user && (
                   <span className="error pl-5">{errors.user}</span>
                 )}
-                
               </div>
-              
+
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Tipo de Correo
                   <Formm.Select onChange={handleChange} name="fk_idtypeMail">
-                    <option disabled selected value=""> Seleccione</option>
-                    {types.map(type => (
-                      <option key={type.id} value={type.id} >
+                    <option disabled selected value="">
+                      {" "}
+                      Seleccione
+                    </option>
+                    {types.map((type) => (
+                      <option key={type.id} value={type.id}>
                         {type.tipo}
                       </option>
                     ))}
                   </Formm.Select>
                   {touched.fk_idtypeMail && errors.fk_idtypeMail && (
-                      <span className="error pl-5">{errors.fk_idtypeMail}</span>
-                    )}
+                    <span className="error pl-5">{errors.fk_idtypeMail}</span>
+                  )}
                 </label>
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
@@ -167,39 +177,47 @@ export function MailForm() {
                     onBlur={handleBlur}
                     onChange={handleChange}
                   >
-                    <option disabled selected value="">Seleccione</option>
-                    {requests.map(request => (
+                    <option disabled selected value="">
+                      Seleccione
+                    </option>
+                    {requests.map((request) => (
                       <option key={request.id} value={request.id}>
                         {request.solicitud}
                       </option>
                     ))}
                   </Formm.Select>
                   {touched.fk_idrequest && errors.fk_idrequest && (
-                      <span className="error pl-5">{errors.fk_idrequest}</span>
-                    )}
+                    <span className="error pl-5">{errors.fk_idrequest}</span>
+                  )}
                 </label>
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Departamento
-                  <Formm.Select name="fk_iddepartament" type="text" onBlur={handleBlur} onChange={handleChange}>
-                    <option disabled selected value="" > Seleccione</option>
+                  <Formm.Select
+                    name="fk_iddepartament"
+                    type="text"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                  >
+                    <option disabled selected value="">Seleccione</option>
                     {departs.map((departament) => (
-                      <option key={departament.id} value={departament.id} >
+                      <option key={departament.id} value={departament.id}>
                         {departament.departamento}
                       </option>
                     ))}
                   </Formm.Select>
-                    {touched.fk_iddepartament && errors.fk_iddepartament && (
-                      <span className="error pl-5">{errors.fk_iddepartament}</span>
-                    )}
+                  {touched.fk_iddepartament && errors.fk_iddepartament && (
+                    <span className="error pl-5">
+                      {errors.fk_iddepartament}
+                    </span>
+                  )}
                 </label>
               </div>
-          
-             
+
               <div className="form-group col-sm-6 flex-column d-flex">
                 <tr>
-                <label className="form-control-label px-2 mx-1">
+                  <label className="form-control-label px-2 mx-1">
                     Fecha de Solicitud
                   </label>
                   <label className="form-control-label px-3 mx-4">
@@ -214,10 +232,10 @@ export function MailForm() {
                       name="dateSolicitud"
                       onChange={handleChange}
                       value={values.dateSolicitud}
-                    />{touched.dateSolicitud && errors.dateSolicitud && (
+                    />
+                    {touched.dateSolicitud && errors.dateSolicitud && (
                       <span className="error pl-5">{errors.dateSolicitud}</span>
                     )}
-                    
                   </td>
                   <td className="px-4">
                     <input
@@ -225,7 +243,8 @@ export function MailForm() {
                       name="dateInicial"
                       onChange={handleChange}
                       value={values.dateInicial}
-                    />{touched.dateInicial && errors.dateInicial && (
+                    />
+                    {touched.dateInicial && errors.dateInicial && (
                       <span className="error pl-5">{errors.dateInicial}</span>
                     )}
                   </td>
@@ -251,16 +270,50 @@ export function MailForm() {
                 </label>
               </div>
               <div className="form-group col-sm-6 flex-column d-flex ">
-               
+                <label className="form-control-label px-3">
+                  Departamento
+                  <Formm.Select
+                    name="fk_idgroup"
+                    type="text"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                  >
+                    <option disabled selected value="">
+                      {" "}
+                      Seleccione
+                    </option>
+                    {groups.map((group) => (
+                      <option key={group.id} value={group.id}>
+                        {group.name}
+                      </option>
+                    ))}
+                  </Formm.Select>
+                  {touched.fk_idgroup && errors.fk_idgroup && (
+                    <span className="error pl-5">{errors.fk_idgroup}</span>
+                  )}
+                </label>
               </div>
-              <div className="form-group">
-                <button
-                  className="btn btn-primary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Guardando..." : "Guardar"}
-                </button>
+              <div className="form-group  px-3">
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    type="submit"
+                    onClick={verMails}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Guardando..." : "Guardar y Ver"}
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-warning"
+                    type="submit"
+                    disabled={isSubmitting}
+                    onClick={clearInput}
+                  >
+                    {isSubmitting ? "Guardando..." : "Guardar y Continuar"}
+                  </button>
+                </td>
               </div>
             </div>
           </Form>

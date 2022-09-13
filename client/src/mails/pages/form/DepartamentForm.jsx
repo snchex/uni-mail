@@ -25,9 +25,17 @@ export function DepartamentForm() {
     };
     loadDepartament();
   });
+
+  const clearInput = () => {
+    setDepartament([]);
+  };
+  const verDepartament = () => {
+    navigate("/departament/list");
+  };
   return (
-    <>
+    <div className="card mx-auto col-md-4">
       <h1> {params.id ? "Editar Departamento" : "Nuevo Departamento"}</h1>
+      <hr />
       <Formik
         initialValues={depart}
         enableReinitialize={true}
@@ -40,7 +48,6 @@ export function DepartamentForm() {
             navigate("/departament/list");
           } else {
             await crDpt(values);
-            navigate("/departament/list");
           }
           setDepartament({
             departamento: "",
@@ -50,7 +57,7 @@ export function DepartamentForm() {
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
+              <div className="form-group flex-column d-flex">
                 <label className="form-control-label px-2">Departamento</label>
 
                 <input
@@ -60,20 +67,36 @@ export function DepartamentForm() {
                   onChange={handleChange}
                   value={values.departamento}
                 ></input>
-                <p></p>
-                <button
-                  className="btn btn-primary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Guardando..." : "Guardar"}
-                </button>
+               
               </div>
+            
+              <div className="form-group px-3">
+                  <td>
+                    <button
+                      className="btn btn-primary"
+                      type="submit"
+                      onClick={verDepartament}
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Guardando..." : "Guardar y Ver"}
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-warning"
+                      type="submit"
+                      disabled={isSubmitting}
+                      onClick={clearInput}
+                    >
+                      {isSubmitting ? "Guardando..." : "Guardar y Continuar"}
+                    </button>
+                  </td>
+                </div>
             </div>
           </Form>
         )}
       </Formik>
-    </>
+    </div>
   );
 }
 export default DepartamentForm;

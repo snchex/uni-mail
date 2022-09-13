@@ -44,7 +44,7 @@ export const Home = () => {
   return (
     <div className="card">
       <div className="row">
-        <div className="col-5">
+        <div className="col-4">
           <h4>Busqueda</h4>
           <hr />
           <input
@@ -62,7 +62,7 @@ export const Home = () => {
           )}
         </div>
 
-        <div className="col-7">
+        <div className="col-8">
           <h4>Resultado</h4>
           <hr />
           {filteredData.length !== 0 && (
@@ -78,7 +78,10 @@ export const Home = () => {
                   <b>Departamento</b>
                 </td>
                 <td className="px-2">
-                  <b>Tipo de Solicitud</b>
+                  <b>Formato de Solicitud</b>
+                </td>
+                <td className="px-2">
+                  <b>Grupo</b>
                 </td>
                 <td className="px-2">
                   <b>Fecha de Solicitud</b>
@@ -93,13 +96,14 @@ export const Home = () => {
                   <tr className="border-bottom" key={mail.id}>
                     <td>{mail.user} </td>
                     <td>{mail.departamento}</td>
-                    <td className="text-center">{mail.tipo}</td>
+                    <td className="text-center">{mail.solicitud}</td>
+                    <td className="text-center">{mail.name}</td>
                     <td className="text-center">{mail.dateSolicitud}</td>
                     { output >= mail.dateFinal ? (
                       <td className=" text-center fechared">{mail.dateFinal}</td>
                     ):(
 
-                      <td className="text-center fechagreen">{mail.dateFinal}</td>
+                      <td className="text-center">{mail.dateFinal}</td>
                     )}
                   </tr>
                 );

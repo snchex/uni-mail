@@ -51,6 +51,9 @@ export const MailPage = () => {
                 <span className="ml-2">Departamento</span>
               </th>
               <th>
+                <span className="ml-2">Grupo</span>
+              </th>
+              <th>
                 <span className="ml-2">Fecha de Solicitud</span>
               </th>
               <th>

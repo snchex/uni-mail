@@ -27,13 +27,14 @@ export default function MailCard({ mail }) {
           <td className="ml-2">{mail.tipo}</td>
           <td className="ml-2 text-center">{mail.solicitud}</td>
           <td className="ml-2">{mail.departamento}</td>
+          <td className="ml-2">{mail.name}</td>
           <td className="ml-2 text-center">{mail.dateSolicitud}</td>
           <td className="ml-2 text-center">{mail.dateInicial}</td>
           { output >= dateF ? (
             <td className=" text-center fechared">{mail.dateFinal}</td>
           ):(
 
-            <td className="text-center fechagreen">{mail.dateFinal}</td>
+            <td className="text-center ">{mail.dateFinal}</td>
           )}
           
           <td className="text-center">
