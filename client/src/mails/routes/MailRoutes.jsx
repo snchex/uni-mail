@@ -15,7 +15,7 @@ export function MailRoutes() {
         <DepartamentProvider>
         <TypeProvider>
             < Navbar />
-            <div className='container-fluid mx-auto py-4'>
+            <div className='container-fluid'>
 
                 <Routes>
                 <Route path="/" element={<Home />} />
@@ -25,7 +25,7 @@ export function MailRoutes() {
 
                     <Route path="/mailtype/create" element={<TypeForm />} />
                     <Route path="/mailtype/edit/:id" element={<TypeForm />} />
-                    <Route path="/mailtypes/list" element={<TypePage />} />
+                    <Route path="/mailtype/list" element={<TypePage />} />
 
 
                     <Route path="/departament/create" element={<DepartamentForm />} />

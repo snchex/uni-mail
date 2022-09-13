@@ -20,15 +20,15 @@ export const RequestPage = () => {
           <h1>No Existen Solicitudes</h1>
         </div>
       );
-    return requests.map(request => (
+    return requests.map((request) => (
       <RequestCard request={request} key={request.id} />
     ));
   }
 
   return (
-    <>
+    <div div className="card mx-auto col-md-4">
       <h1 className="row justify-content-center py-3">Lista de Solicitudes</h1>
-      <div className="container col-md-4">
+      <div className="container">
         <table className="table table-borderles">
           <thead className="text-center">
             <tr className="border-bottom">
@@ -46,7 +46,7 @@ export const RequestPage = () => {
           {renderMain()}
         </table>
       </div>
-    </>
+    </div>
   );
 };
 export default RequestPage;

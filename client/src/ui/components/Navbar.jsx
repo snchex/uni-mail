@@ -31,7 +31,7 @@ export function Navbar() {
           <li>
             <DropdownButton style={{ margin: 0 }} id="dropdown-basic-button" title="Tipos Correos">
               <Dropdown.Item style={{ margin: 0 }} href="#/action-1"><Link className='dropdown-item' to="/mailtype/create">Crear Tipo Correos</Link></Dropdown.Item>
-              <Dropdown.Item style={{ margin: 0 }} href="#/action-2"><Link className='dropdown-item' to="/mailtypes/list">Lista Tipo Correos</Link></Dropdown.Item>
+              <Dropdown.Item style={{ margin: 0 }} href="#/action-2"><Link className='dropdown-item' to="/mailtype/list">Lista Tipo Correos</Link></Dropdown.Item>
             </DropdownButton>
           </li>
 

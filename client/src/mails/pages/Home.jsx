@@ -8,8 +8,12 @@ export const Home = () => {
   const [wordEntered, setWordEntered] = useState("");
 
   let date = new Date();
-  let output = String(date.getDate()).padStart(2, '0') + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + date.getFullYear();
- 
+  let output =
+    String(date.getDate()).padStart(2, "0") +
+    "-" +
+    String(date.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    date.getFullYear();
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -35,7 +39,7 @@ export const Home = () => {
 
   const showError = filteredData.length === 0;
   const showSearch = filteredData.length !== 0;
-/*
+  /*
   const clearInput = () => {
     setFilteredData([]);
     setWordEntered("");
@@ -55,11 +59,7 @@ export const Home = () => {
             onChange={handleFilter}
           />
 
-          {filteredData.length === 0 ? (
-            <span></span>
-          ) : (
-           <span></span>  
-          )}
+          {filteredData.length === 0 ? <span></span> : <span></span>}
         </div>
 
         <div className="col-8">
@@ -89,7 +89,6 @@ export const Home = () => {
                 <td className="px-2">
                   <b>Fecha de Desvinculacion</b>
                 </td>
-                
               </tr>
               {filteredData.slice(0, 15).map((mail) => {
                 return (
@@ -99,10 +98,11 @@ export const Home = () => {
                     <td className="text-center">{mail.solicitud}</td>
                     <td className="text-center">{mail.name}</td>
                     <td className="text-center">{mail.dateSolicitud}</td>
-                    { output >= mail.dateFinal ? (
-                      <td className=" text-center fechared">{mail.dateFinal}</td>
-                    ):(
-
+                    {output >= mail.dateFinal ? (
+                      <td className=" text-center fechared">
+                        {mail.dateFinal}
+                      </td>
+                    ) : (
                       <td className="text-center">{mail.dateFinal}</td>
                     )}
                   </tr>

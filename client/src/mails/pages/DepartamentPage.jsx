@@ -24,11 +24,11 @@ export function DepartPage() {
     ));
   }
   return (
-    <>
+    <div className="card mx-auto col-md-6">
       <h1 className="row justify-content-center py-3">
         Lista de Departamentos de Correo
       </h1>
-      <div className="container mx-auto col-md-6 ">
+      <div className="container mx-auto ">
         <table className="table table-borderles">
           <thead className="text-center">
             <tr className="border-bottom">
@@ -47,7 +47,7 @@ export function DepartPage() {
           {renderMain()}
         </table>
       </div>
-    </>
+    </div>
   );
 }
 

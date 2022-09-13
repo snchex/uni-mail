@@ -33,12 +33,16 @@ export function GroupForm() {
   const clearInput = () => {
     setGroup([]);
   };
+
   const verGroup = () => {
-    navigate("/group/list");
+    const timer = setTimeout(() => {
+      navigate("/group/list");
+    }, 100);
+    return () => clearTimeout(timer);
   };
 
   return (
-    < div className="card mx-auto col-md-4">
+    <div className="card mx-auto col-md-4">
       <h1>{params.id ? "Editar Tipo de Grupo" : "Nuevo Tipo de Grupo"}</h1>
       <hr />
       <Formik
@@ -131,7 +135,7 @@ export function GroupForm() {
           </Form>
         )}
       </Formik>
-    </ div>
+    </div>
   );
 }
 

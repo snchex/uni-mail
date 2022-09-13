@@ -20,15 +20,13 @@ export const MailPage = () => {
           <h1>No Existen Correos</h1>
         </div>
       );
-    return mails.map(mail => (
-      <MailCard mail={mail} key={mail.id} />
-    ));
+    return mails.map((mail) => <MailCard mail={mail} key={mail.id} />);
   }
 
   return (
-    <>
+    <div className="card mx-auto col-md-11">
       <h1 className="row justify-content-md-center py-3">Lista de Correos</h1>
-      <div className="row justify-content-md-center mx-5 px-4">
+      <div className="row justify-content-md-center mx-auto">
         <table className="table table-borderles ">
           <thead className="text-center">
             <tr className="border-bottom">
@@ -73,7 +71,7 @@ export const MailPage = () => {
           {renderMain()}
         </table>
       </div>
-    </>
+    </div>
   );
 };
 export default MailPage;

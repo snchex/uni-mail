@@ -16,24 +16,36 @@ export function RequestForm() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-        const loadRequest = async () => {
-          if (params.id) {
-            const request = await gtRequest(params.id);
-            setRequest({
-              solicitud: request.solicitud,
-            });
-          } 
-        };
+      const loadRequest = async () => {
+        if (params.id) {
+          const request = await gtRequest(params.id);
+          setRequest({
+            solicitud: request.solicitud,
+          });
+        }
+      };
       loadRequest();
     }, 1000);
     return () => clearTimeout(timer);
   });
-  console.table(request);
+
+  const clearInput = () => {
+    setRequest([]);
+  };
+
+  const verRequest = () => {
+    const timer = setTimeout(() => {
+      navigate("/request/list");
+    }, 100);
+    return () => clearTimeout(timer);
+  };
+
   return (
-    <>
+    <div className="card mx-auto col-md-4">
       <h1>
         {params.id ? "Editar Tipo de Solicitud" : "Nuevo Tipo de Solicitud"}
       </h1>
+      <hr />
       <Formik
         initialValues={request}
         enableReinitialize={true}
@@ -44,7 +56,6 @@ export function RequestForm() {
             navigate("/request/list");
           } else {
             await crRequest(values);
-            navigate("/request/list");
           }
           setRequest({
             solicitud: "",
@@ -54,7 +65,7 @@ export function RequestForm() {
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
+              <div className="form-group flex-column d-flex">
                 <label className="form-control-label px-2">Solicitud</label>
 
                 <input
@@ -64,20 +75,34 @@ export function RequestForm() {
                   onChange={handleChange}
                   value={values.solicitud}
                 ></input>
-                <p></p>
-                <button
-                  className="btn btn-primary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Guardando..." : "Guardar"}
-                </button>
+              </div>
+              <div className="form-group  px-3">
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    type="submit"
+                    onClick={verRequest}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Guardando..." : "Guardar y Ver"}
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-warning"
+                    type="submit"
+                    disabled={isSubmitting}
+                    onClick={clearInput}
+                  >
+                    {isSubmitting ? "Guardando..." : "Guardar y Continuar"}
+                  </button>
+                </td>
               </div>
             </div>
           </Form>
         )}
       </Formik>
-    </>
+    </div>
   );
 }
 

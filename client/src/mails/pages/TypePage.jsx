@@ -24,11 +24,11 @@ export function TypePage() {
     return types.map((type) => <TypeCard type={type} key={type.id} />);
   }
   return (
-    <>
+    <div className="card mx-auto col-md-4">
       <h1 className="row justify-content-center py-3">
         Lista de tipos de Correo
       </h1>
-      <div className="container mx-auto col-md-4">
+      <div className="container mx-auto ">
         <table className="table table-borderles ">
           <thead className="text-center">
             <tr className="border-bottom">
@@ -47,7 +47,7 @@ export function TypePage() {
           {renderMain()}
         </table>
       </div>
-    </>
+    </div>
   );
 }
 

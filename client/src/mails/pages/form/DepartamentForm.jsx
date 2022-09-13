@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDeparts } from "../../hooks/DepartamentProvider";
-import { useEffect, useState } from "react";
 
 export function DepartamentForm() {
   const { crDpt, getDpt, upDpt } = useDeparts();
@@ -29,9 +28,14 @@ export function DepartamentForm() {
   const clearInput = () => {
     setDepartament([]);
   };
+
   const verDepartament = () => {
-    navigate("/departament/list");
+    const timer = setTimeout(() => {
+      navigate("/departament/list");
+    }, 100);
+    return () => clearTimeout(timer);
   };
+
   return (
     <div className="card mx-auto col-md-4">
       <h1> {params.id ? "Editar Departamento" : "Nuevo Departamento"}</h1>
@@ -67,31 +71,30 @@ export function DepartamentForm() {
                   onChange={handleChange}
                   value={values.departamento}
                 ></input>
-               
               </div>
-            
+
               <div className="form-group px-3">
-                  <td>
-                    <button
-                      className="btn btn-primary"
-                      type="submit"
-                      onClick={verDepartament}
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "Guardando..." : "Guardar y Ver"}
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-warning"
-                      type="submit"
-                      disabled={isSubmitting}
-                      onClick={clearInput}
-                    >
-                      {isSubmitting ? "Guardando..." : "Guardar y Continuar"}
-                    </button>
-                  </td>
-                </div>
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    type="submit"
+                    disabled={isSubmitting}
+                    onClick={verDepartament}
+                  >
+                    {isSubmitting ? "Guardando..." : "Guardar y Ver"}
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-warning"
+                    type="submit"
+                    disabled={isSubmitting}
+                    onClick={clearInput}
+                  >
+                    {isSubmitting ? "Guardando..." : "Guardar y Continuar"}
+                  </button>
+                </td>
+              </div>
             </div>
           </Form>
         )}

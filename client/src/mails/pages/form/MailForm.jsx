@@ -59,9 +59,14 @@ export function MailForm() {
   const clearInput = () => {
     setMail([]);
   };
+
   const verMails = () => {
-    navigate("/mail/list");
+    const timer = setTimeout(() => {
+      navigate("/mail/list");
+    }, 100);
+    return () => clearTimeout(timer);
   };
+
   return (
     <div className="card mx-auto col-md-9">
       <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
@@ -200,7 +205,9 @@ export function MailForm() {
                     onBlur={handleBlur}
                     onChange={handleChange}
                   >
-                    <option disabled selected value="">Seleccione</option>
+                    <option disabled selected value="">
+                      Seleccione
+                    </option>
                     {departs.map((departament) => (
                       <option key={departament.id} value={departament.id}>
                         {departament.departamento}
@@ -279,7 +286,6 @@ export function MailForm() {
                     onChange={handleChange}
                   >
                     <option disabled selected value="">
-                      {" "}
                       Seleccione
                     </option>
                     {groups.map((group) => (
