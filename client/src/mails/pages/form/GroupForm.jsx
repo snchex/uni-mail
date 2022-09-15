@@ -48,6 +48,20 @@ export function GroupForm() {
       <Formik
         initialValues={group}
         enableReinitialize={true}
+        validate={(values) => {
+          let errores = {};
+
+          if (!values.name) {
+            errores.name = "Por favor ingrese el nombre del Grupo ";
+          } else if (!/^.{4}[A-z\s]+$/.test(values.name)) {
+            errores.name = "Por favor ingrese un Grupo Valido";
+          }
+
+          if (!values.dateInicial) {
+            errores.dateInicial = "Por favor ingrese la Fecha de Vinculacion";
+          }
+          return errores;
+        }}
         onSubmit={async (values, actions) => {
           if (params.id) {
             console.log("Update");
@@ -64,7 +78,15 @@ export function GroupForm() {
           });
         }}
       >
-        {({ handleChange, handleSubmit, values, isSubmitting }) => (
+        {({
+          handleChange,
+          handleSubmit,
+          values,
+          isSubmitting,
+          touched,
+          handleBlur,
+          errors
+        }) => (
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
               <div className="container-fluid mx-auto px-5">
@@ -75,10 +97,13 @@ export function GroupForm() {
                   <input
                     type="text"
                     name="name"
+                    onBlur={handleBlur}
                     placeholder="Ingrese el nombre de grupo"
                     onChange={handleChange}
                     value={values.name}
-                  ></input>
+                  /> {touched.name && errors.name && (
+                    <span className="error pl-5">{errors.name}</span>
+                  )}
                 </div>
 
                 <div className="form-group flex-column d-flex">
@@ -89,13 +114,16 @@ export function GroupForm() {
                     <label className="form-control-label px-2 mx-4">
                       Fecha de Desvinculacion
                     </label>
-                    <td className="">
+                    <td>
                       <input
                         type="date"
+                        onBlur={handleBlur}
                         name="dateInicial"
                         onChange={handleChange}
                         value={values.dateInicial}
-                      />
+                      /> {touched.dateInicial && errors.dateInicial && (
+                        <span className="error pl-5">{errors.dateInicial}</span>
+                      )}
                     </td>
                     <td className="px-4">
                       <input

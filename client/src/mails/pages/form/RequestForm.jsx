@@ -49,6 +49,17 @@ export function RequestForm() {
       <Formik
         initialValues={request}
         enableReinitialize={true}
+        validate={(values) => {
+          let errores = {};
+
+          if (!values.solicitud) {
+            errores.solicitud = "Por favor ingrese el tipo de Solicitud";
+          } else if (!/^.{3}[A-z)+[A-z]+$/.test(values.solicitud)) {
+            errores.solicitud = "Por favor ingrese un tipo Valido";
+          }
+          return errores;
+        }}
+
         onSubmit={async (values, actions) => {
           if (params.id) {
             console.log("Update");
@@ -62,19 +73,30 @@ export function RequestForm() {
           });
         }}
       >
-        {({ handleChange, handleSubmit, values, isSubmitting }) => (
+        {({
+          handleChange,
+          handleSubmit,
+          values,
+          isSubmitting,
+          errors,
+          touched,
+          handleBlur,
+        }) => (
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
               <div className="form-group flex-column d-flex">
                 <label className="form-control-label px-2">Solicitud</label>
-
                 <input
                   type="text"
                   name="solicitud"
                   placeholder="Ingrese el tipo de Solicitud"
                   onChange={handleChange}
                   value={values.solicitud}
-                ></input>
+                  onBlur={handleBlur}
+                />
+                {touched.solicitud && errors.solicitud && (
+                  <span className="error pl-5">{errors.solicitud}</span>
+                )}
               </div>
               <div className="form-group  px-3">
                 <td>

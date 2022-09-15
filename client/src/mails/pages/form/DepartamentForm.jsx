@@ -43,9 +43,17 @@ export function DepartamentForm() {
       <Formik
         initialValues={depart}
         enableReinitialize={true}
-        onSubmit={async (values, actions) => {
-          console.log(values);
+        validate={(values) => {
+          let errores = {};
 
+          if (!values.departamento) {
+            errores.departamento = "Por favor ingrese un departamento ";
+          } else if (!/^.{2}[A-z\s]+$/.test(values.departamento)) {
+            errores.departamento = "Por favor ingrese un Departamento Valido";
+          }
+          return errores;
+        }}
+        onSubmit={async (values, actions) => {
           if (params.id) {
             console.log("Update");
             await upDpt(params.id, values);
@@ -58,19 +66,30 @@ export function DepartamentForm() {
           });
         }}
       >
-        {({ handleChange, handleSubmit, values, isSubmitting }) => (
+        {({
+          handleChange,
+          handleSubmit,
+          values,
+          isSubmitting,
+          errors,
+          touched,
+          handleBlur,
+        }) => (
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
               <div className="form-group flex-column d-flex">
                 <label className="form-control-label px-2">Departamento</label>
-
                 <input
                   type="text"
                   name="departamento"
                   placeholder="Ingrese el departamento"
                   onChange={handleChange}
                   value={values.departamento}
-                ></input>
+                  onBlur={handleBlur}
+                />
+                {touched.departamento && errors.departamento && (
+                  <span className="error pl-5">{errors.departamento}</span>
+                )}
               </div>
 
               <div className="form-group px-3">

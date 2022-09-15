@@ -78,11 +78,11 @@ export function MailForm() {
           let errores = {};
 
           if (!values.user) {
-            errores.user = "Por favor ingrese su usuario";
+            errores.user = "Por favor ingrese el Correo";
           } else if (
             !/^[.a-za-z0-9]+@(?:[a-za-z0-9]+\.)+[a-za-z]+$/.test(values.user)
           ) {
-            errores.user = "Por favor ingrese un correo valido";
+            errores.user = "Por favor ingrese un Correo valido";
           }
 
           if (!values.dateInicial) {
@@ -92,7 +92,7 @@ export function MailForm() {
             errores.dateSolicitud = "Por favor ingrese la Fecha de Solicitud";
           }
           if (!values.fk_iddepartament) {
-            errores.fk_iddepartament = "Por favor ingrese el departamento";
+            errores.fk_iddepartament = "Por favor ingrese el Departamento";
           }
           if (!values.fk_idrequest) {
             errores.fk_idrequest = "Por favor ingrese el tipo de Solicitud";
@@ -158,11 +158,12 @@ export function MailForm() {
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Tipo de Correo
-                  <Formm.Select onChange={handleChange} name="fk_idtypeMail">
-                    <option disabled selected value="">
-                      {" "}
-                      Seleccione
-                    </option>
+                  <Formm.Select
+                    name="fk_idtypeMail"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                  >
+                    <option disabled selected value="">Seleccion</option>
                     {types.map((type) => (
                       <option key={type.id} value={type.id}>
                         {type.tipo}
