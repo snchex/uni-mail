@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import { AuthContext } from '../../auth/context/AuthContext';
 
 
-export function Navbar() {
-
+export const Navbar = () => {
+  const { user, logout } = useContext( AuthContext );
   const navigate = useNavigate();
 
-
+  console.table(user.name)
   const onLogout = () => {
 
-    navigate('/login', { 
-      replace: true, 
-    } );
+    logout();
+    navigate('/login', {
+        replace: true
+    });
   };
+
   return (
     <>
       <nav>
@@ -56,7 +59,7 @@ export function Navbar() {
           </li>
 
           <li><Link onClick={onLogout} className='btn btn-outline-primary' to="/login">Salir</Link></li>
-          <li><Link className='btn btn-outline-success' to="/login">Inicio Session</Link></li>
+          <li><Link className='btn btn-outline-success' to="/login">{user.name}</Link></li>
 
 
         </ul>
@@ -65,5 +68,4 @@ export function Navbar() {
     </>
   )
 }
-
 export default Navbar;
