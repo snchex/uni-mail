@@ -30,42 +30,18 @@ export const MailPage = () => {
         <table className="table table-borderles ">
           <thead className="text-center">
             <tr className="border-bottom">
-              <th>
-                <span className="ml-2">Usuario</span>
-              </th>
-              <th>
-                <span className="ml-2">Solicitante</span>
-              </th>
-              <th>
-                <span className="ml-2">Estado</span>
-              </th>
-              <th>
-                <span className="ml-2">Tipo</span>
-              </th>
-              <th>
-                <span className="ml-2">Tipo de Solicitudes</span>
-              </th>
-              <th>
-                <span className="ml-2">Departamento</span>
-              </th>
-              <th>
-                <span className="ml-2">Grupo</span>
-              </th>
-              <th>
-                <span className="ml-2">Fecha de Solicitud</span>
-              </th>
-              <th>
-                <span className="ml-2">Fecha de Vinculacion</span>
-              </th>
-              <th>
-                <span className="ml-2">Fecha de Desvinculacion</span>
-              </th>
-              <th>
-                <span className="ml-2">Accion</span>
-              </th>
-              <th>
-                <span className="ml-2">Accion</span>
-              </th>
+              <th>Usuario</th>
+              <th>Solicitante</th>
+              <th>Estado</th>
+              <th>Tipo</th>
+              <th>Tipo de Solicitudes</th>
+              <th>Departamento</th>
+              <th>Grupo</th>
+              <th>Fecha de Solicitud</th>
+              <th>Fecha de Vinculacion</th>
+              <th>Fecha de Desvinculacion</th>
+              <th>Accion</th>
+              <th>Accion</th>
             </tr>
           </thead>
           {renderMain()}

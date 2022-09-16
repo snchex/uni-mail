@@ -164,14 +164,14 @@ export function MailForm(values) {
                     name="fk_idtypeMail"
                     onBlur={handleBlur}
                     onChange={handleChange}
+                    value={values.fk_idtypeMail}
                   >
+                    <option disabled selected value="">
+                      Seleccione
+                    </option>
                     {types.map((type) => (
                       <option key={type.id} value={type.id}>
-                        {type.tipo === mail.tipo ? (
-                          <span>{type.tipo}</span>
-                        ) : (
-                          <span></span>
-                        )}
+                        {type.tipo}
                       </option>
                     ))}
                   </Formm.Select>
@@ -211,6 +211,7 @@ export function MailForm(values) {
                     type="text"
                     onBlur={handleBlur}
                     onChange={handleChange}
+                    value={values.fk_iddepartament}
                   >
                     <option disabled selected value="">
                       Seleccione
@@ -285,12 +286,13 @@ export function MailForm(values) {
               </div>
               <div className="form-group col-sm-6 flex-column d-flex ">
                 <label className="form-control-label px-3">
-                  Departamento
+                  Grupo
                   <Formm.Select
                     name="fk_idgroup"
                     type="text"
                     onBlur={handleBlur}
                     onChange={handleChange}
+                    value={values.fk_idgroup}
                   >
                     <option disabled selected value="">
                       Seleccione

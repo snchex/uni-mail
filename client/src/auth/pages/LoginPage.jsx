@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 export const LoginPage = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-
+// eslint-disable-next-line
   const onLogin = () => {
     
     const lastPath = localStorage.getItem('lastPath') || '/home';

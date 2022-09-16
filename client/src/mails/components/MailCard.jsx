@@ -22,14 +22,14 @@ export default function MailCard({ mail }) {
       <tbody  className="text-left mx-auto">
         <tr key={mail.id} >
           <td className="ml-2">{mail.user}</td>
-          <td className="ml-2">{mail.solicitante}</td>
+          <td className="m-4">{mail.solicitante}</td>
           <td className="ml-2 text-center">{mail.statu === 1 ? "🟢" : "🔴"}</td>
           <td className="ml-2">{mail.tipo}</td>
-          <td className="ml-2 text-center">{mail.solicitud}</td>
-          <td className="ml-2">{mail.departamento}</td>
-          <td className="ml-2">{mail.name}</td>
-          <td className="ml-2 text-center">{mail.dateSolicitud}</td>
-          <td className="ml-2 text-center">{mail.dateInicial}</td>
+          <td className="text-center">{mail.solicitud}</td>
+          <td className="m-4 text-center">{mail.departamento}</td>
+          <td className="ml-2 text-center">{mail.name}</td>
+          <td className="text-center">{mail.dateSolicitud}</td>
+          <td className="text-center">{mail.dateInicial}</td>
           { output >= dateF ? (
             <td className=" text-center fechared">{mail.dateFinal}</td>
           ):(
