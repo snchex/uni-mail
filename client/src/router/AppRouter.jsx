@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { LoginPage } from '../auth';
+import { LoginPage, RegisterPage } from '../auth';
 
 import { MailRoutes } from '../mails';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,7 +14,8 @@ export const AppRouter = () => {
            
             <Routes>
                 
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
                 <Route path="/*" element={<MailRoutes />} />
 
                 

@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useMails } from "../../hooks/MailProvider";
 import { useDeparts, useRequests, useTypes, useGroups } from "../../hooks";
 
-export function MailForm() {
+export function MailForm(values) {
   const { crMail, gtMail, upMail } = useMails();
   const { departs, loadDepartaments } = useDeparts();
   const { requests, loadRequests } = useRequests();
@@ -45,6 +45,9 @@ export function MailForm() {
             fk_iddepartament: mail.fk_iddepartament,
             fk_idgroup: mail.fk_idgroup,
           });
+
+          console.table(mail.tipo);
+          
         }
       };
       loadMail();
@@ -103,7 +106,6 @@ export function MailForm() {
           if (!values.fk_idgroup) {
             errores.fk_idgroup = "Por favor ingrese al grupo que pertenezca";
           }
-
           return errores;
         }}
         onSubmit={async (values, actions) => {
@@ -163,10 +165,13 @@ export function MailForm() {
                     onBlur={handleBlur}
                     onChange={handleChange}
                   >
-                    <option disabled selected value="">Seleccion</option>
                     {types.map((type) => (
                       <option key={type.id} value={type.id}>
-                        {type.tipo}
+                        {type.tipo === mail.tipo ? (
+                          <span>{type.tipo}</span>
+                        ) : (
+                          <span></span>
+                        )}
                       </option>
                     ))}
                   </Formm.Select>
@@ -182,6 +187,7 @@ export function MailForm() {
                     name="fk_idrequest"
                     onBlur={handleBlur}
                     onChange={handleChange}
+                    value={values.fk_idrequest}
                   >
                     <option disabled selected value="">
                       Seleccione

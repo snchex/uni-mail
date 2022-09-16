@@ -13,7 +13,7 @@ export const getAllMails = async (req, res) => {
 
 export const getMail = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT mail.id, mail.user, mail.solicitante, date_format(mail.dateSolicitud, "%Y-%m-%d") AS dateSolicitud, date_format(mail.dateInicial, "%Y-%m-%d") AS dateInicial, date_format(mail.dateFinal, "%Y-%m-%d") AS dateFinal, mail.statu, mailType.tipo, request.solicitud, departament.departamento, cluster.name FROM mail, mailType, departament, cluster, request WHERE mailType.id = mail.fk_idtypeMail AND departament.id = mail.fk_iddepartament AND request.id = mail.fk_idrequest AND cluster.id = mail.fk_idgroup AND mail.id = ?', [req.params.id]);
+        const [result] = await pool.query('SELECT mail.id,mail.fk_idtypeMail, mail.user, mail.solicitante, date_format(mail.dateSolicitud, "%Y-%m-%d") AS dateSolicitud, date_format(mail.dateInicial, "%Y-%m-%d") AS dateInicial, date_format(mail.dateFinal, "%Y-%m-%d") AS dateFinal, mail.statu, mailType.tipo, request.solicitud, departament.departamento, cluster.name FROM mail, mailType, departament, cluster, request WHERE mailType.id = mail.fk_idtypeMail AND departament.id = mail.fk_iddepartament AND request.id = mail.fk_idrequest AND cluster.id = mail.fk_idgroup AND mail.id = ?', [req.params.id]);
         if (result === 0) {
             return res.status(404).json({ message: "Elemento no encontrado" })
         }

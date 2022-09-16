@@ -18,7 +18,7 @@ export function MailRoutes() {
             <div className='container-fluid'>
 
                 <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
                     <Route path="/mail/create" element={<MailForm />} />
                     <Route path="/mail/edit/:id" element={<MailForm />} />
                     <Route path="/mail/list" element={<MailPage />} />
