@@ -6,6 +6,7 @@ import groupRoute from "./routes/groupRoutes.js";
 import departamentRoute from "./routes/departamentRoutes.js";
 import mailRoute from "./routes/mailRoutes.js";
 import requestRoute from "./routes/requestRoutes.js";
+import auth from "./routes/auth.js";
 import flash from 'connect-flash';
 const app = express();  
 
@@ -27,6 +28,7 @@ app.use(groupRoute);
 app.use(departamentRoute)
 app.use(mailRoute);
 app.use(requestRoute);
+app.use(auth);
 
 app.set('port', process.env.PORT || 3030);
 //Starting the server

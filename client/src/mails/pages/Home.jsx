@@ -116,6 +116,7 @@ export const Home = () => {
           >
             No existe usuario <b>{wordEntered}</b>
           </div>
+        
         </div>
       </div>
     </div>

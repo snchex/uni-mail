@@ -5,7 +5,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import { AuthContext } from "../../auth/context/AuthContext";
 
 export const Navbar = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   
@@ -120,14 +120,10 @@ export const Navbar = () => {
 
         <li>
           <Link onClick={onLogout} className="btn btn-outline-primary" to="/">
-            Salir
+          <i class="fa-solid fa-right-from-bracket"></i>
           </Link>
         </li>
-        <li>
-          <Link className="btn btn-outline-success" to="/">
-            { user.name !== "" ? user.name : "Iniciar"}
-          </Link>
-        </li>
+        
       </ul>
     </nav>
    

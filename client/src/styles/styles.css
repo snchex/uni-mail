@@ -325,16 +325,14 @@ footer{
   border-bottom: 1px solid #fcfcfc;
 }
 
-
 tbody, td, tfoot, th, thead, tr {
-  border-color: azure;
+  border-color: inherit;
+  border-top-color: inherit;
+  border-right-color: inherit;
+  border-bottom-color: inherit;
+  border-left-color: inherit;
   border-style: solid;
-  border-width: 0;
-}
-td{
-  border: 1px solid rgba(0,0,0,.15);
-  border-bottom-color: #ccc ;
-  padding: .1rem;
+  border-width: 1px ;
 }
 
 .fechared {
@@ -345,7 +343,7 @@ td{
 }
 table {
   border-radius: 5px;
-  background-color: #e0e0e07d;
+  background-color: #cccccc62;
   width: auto;
   display: table;
   box-shadow: 0 6px 12px 0 rgb(0 0 0 / 20%);
@@ -407,14 +405,6 @@ tbody, td, tfoot, th, thead, tr {
 
 
 }
-.fondIndex {
-  position: relative;
-  left: 0;
-  width: 98.8vw;
-  height: 90vh;
-  
-}
-
 
 
 .btn-outline-signin{
@@ -564,10 +554,7 @@ tbody, td, tfoot, th, thead, tr {
   padding: 10px;
 }
 
-.formP {
-  padding: 10px;
-  padding-top: 70px;
-}
+
 
 
 
@@ -772,43 +759,6 @@ tbody {
 
 }
 /* box */
-.box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding: 0 4rem 2rem;
-}
-
-.box:not(:first-child) {
-  height: 45rem;
-}
-
-.box__title {
-  font-size: 10rem;
-  font-weight: normal;
-  letter-spacing: .8rem;
-  margin-bottom: 2.6rem;
-}
-
-.box__title::first-letter {
-  color: var(--primary);
-}
-
-.box__p,
-.box__info,
-.box__note {
-  font-size: 1.6rem;
-}
-
-.box__info {
-  margin-top: 6rem;
-}
-
-.box__note {
-  line-height: 2;
-}
 
 
 .card {

@@ -42,7 +42,7 @@ export function MailRoutes() {
                     <Route path="/group/list" element={<GroupPage />} />
 
 
-                    <Route path="*" element={<NotFound />} />
+                    <Route path="home/*" element={<NotFound />} />
 
                     
                 </Routes>

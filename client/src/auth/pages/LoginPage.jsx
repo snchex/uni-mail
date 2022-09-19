@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export const LoginPage = () => {
@@ -45,7 +45,7 @@ export const LoginPage = () => {
           </button>
         </div>
         <p className="forgot-password text-right mt-2">
-          Forgot <a href="#">password?</a>
+          Forgot <Link to="#">password?</Link>
         </p>
       </div>
     </form>
