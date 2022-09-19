@@ -20,57 +20,34 @@ export const MailPage = () => {
           <h1>No Existen Correos</h1>
         </div>
       );
-    return mails.map(mail => (
-      <MailCard mail={mail} key={mail.id} />
-    ));
+    return mails.map((mail) => <MailCard mail={mail} key={mail.id} />);
   }
 
   return (
-    <>
+    <div className="card mx-auto col-md-11">
       <h1 className="row justify-content-md-center py-3">Lista de Correos</h1>
-      <div className="row justify-content-md-center mx-5 px-4">
+      <div className="row justify-content-md-center mx-auto">
         <table className="table table-borderles ">
           <thead className="text-center">
             <tr className="border-bottom">
-              <th>
-                <span className="ml-2">Usuario</span>
-              </th>
-              <th>
-                <span className="ml-2">Solicitante</span>
-              </th>
-              <th>
-                <span className="ml-2">Estado</span>
-              </th>
-              <th>
-                <span className="ml-2">Tipo</span>
-              </th>
-              <th>
-                <span className="ml-2">Tipo de Solicitudes</span>
-              </th>
-              <th>
-                <span className="ml-2">Departamento</span>
-              </th>
-              <th>
-                <span className="ml-2">Fecha de Solicitud</span>
-              </th>
-              <th>
-                <span className="ml-2">Fecha de Vinculacion</span>
-              </th>
-              <th>
-                <span className="ml-2">Fecha de Desvinculacion</span>
-              </th>
-              <th>
-                <span className="ml-2">Accion</span>
-              </th>
-              <th>
-                <span className="ml-2">Accion</span>
-              </th>
+              <th>Usuario</th>
+              <th>Solicitante</th>
+              <th>Estado</th>
+              <th>Tipo</th>
+              <th>Tipo de Solicitudes</th>
+              <th>Departamento</th>
+              <th>Grupo</th>
+              <th>Fecha de Solicitud</th>
+              <th>Fecha de Vinculacion</th>
+              <th>Fecha de Desvinculacion</th>
+              <th>Accion</th>
+              <th>Accion</th>
             </tr>
           </thead>
           {renderMain()}
         </table>
       </div>
-    </>
+    </div>
   );
 };
 export default MailPage;

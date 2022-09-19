@@ -1,3 +1,4 @@
+-- SQLBook: Code
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -39,16 +40,9 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`cluster` (
   `name` VARCHAR(60) NOT NULL,
   `dateInicial` DATE NOT NULL,
   `dateFinal` DATE,
-  `member` VARCHAR(200) NOT NULL,
-  `fk_idmail` INT NOT NULL, 
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  INDEX `fk_cluster_mail_idx` (`fk_idmail` ASC) VISIBLE,
-    CONSTRAINT `fk_idmail`
-    FOREIGN KEY (`fk_idmail`)
-    REFERENCES `dbRegistrationService`.`mail` (`id`)
-  )
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -94,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
   `dateFinal` DATE ,
   `statu` TINYINT(1) NOT NULL,
   `fk_idtypeMail` INT NOT NULL,
+  `fk_idgroup` INT NOT NULL,
   `fk_idrequest` INT NOT NULL,
   `fk_iddepartament` INT NOT NULL,
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -115,6 +110,11 @@ CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`mail` (
   CONSTRAINT `fk_idtypeMail`
     FOREIGN KEY (`fk_idtypeMail`)
     REFERENCES `dbRegistrationService`.`mailType` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+     CONSTRAINT `fk_idgroup`
+    FOREIGN KEY (`fk_idgroup`)
+    REFERENCES `dbRegistrationService`.`cluster` (`id`)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
     )

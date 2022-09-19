@@ -1,2 +1,3 @@
 export * from './pages/LoginPage';
-//export * from './context';
+export * from './pages/RegisterPage';
+export * from './context';

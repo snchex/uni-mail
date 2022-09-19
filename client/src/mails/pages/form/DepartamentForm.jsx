@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDeparts } from "../../hooks/DepartamentProvider";
-import { useEffect, useState } from "react";
 
 export function DepartamentForm() {
   const { crDpt, getDpt, upDpt } = useDeparts();
@@ -25,55 +24,101 @@ export function DepartamentForm() {
     };
     loadDepartament();
   });
+
+  const clearInput = () => {
+    setDepartament([]);
+  };
+
+  const verDepartament = () => {
+    const timer = setTimeout(() => {
+      navigate("/departament/list");
+    }, 100);
+    return () => clearTimeout(timer);
+  };
+
   return (
-    <>
+    <div className="card mx-auto col-md-4">
       <h1> {params.id ? "Editar Departamento" : "Nuevo Departamento"}</h1>
+      <hr />
       <Formik
         initialValues={depart}
         enableReinitialize={true}
-        onSubmit={async (values, actions) => {
-          console.log(values);
+        validate={(values) => {
+          let errores = {};
 
+          if (!values.departamento) {
+            errores.departamento = "Por favor ingrese un departamento ";
+          } else if (!/^.{2}[A-z\s]+$/.test(values.departamento)) {
+            errores.departamento = "Por favor ingrese un Departamento Valido";
+          }
+          return errores;
+        }}
+        onSubmit={async (values, actions) => {
           if (params.id) {
             console.log("Update");
             await upDpt(params.id, values);
             navigate("/departament/list");
           } else {
             await crDpt(values);
-            navigate("/departament/list");
           }
           setDepartament({
             departamento: "",
           });
         }}
       >
-        {({ handleChange, handleSubmit, values, isSubmitting }) => (
+        {({
+          handleChange,
+          handleSubmit,
+          values,
+          isSubmitting,
+          errors,
+          touched,
+          handleBlur,
+        }) => (
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
-              <div className="form-group col-sm-6 flex-column d-flex">
+              <div className="form-group flex-column d-flex">
                 <label className="form-control-label px-2">Departamento</label>
-
                 <input
                   type="text"
                   name="departamento"
                   placeholder="Ingrese el departamento"
                   onChange={handleChange}
                   value={values.departamento}
-                ></input>
-                <p></p>
-                <button
-                  className="btn btn-primary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Guardando..." : "Guardar"}
-                </button>
+                  onBlur={handleBlur}
+                />
+                {touched.departamento && errors.departamento && (
+                  <span className="error pl-5">{errors.departamento}</span>
+                )}
+              </div>
+
+              <div className="form-group px-3">
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    type="submit"
+                    disabled={isSubmitting}
+                    onClick={verDepartament}
+                  >
+                    {isSubmitting ? "Guardando..." : "Guardar y Ver"}
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-warning"
+                    type="submit"
+                    disabled={isSubmitting}
+                    onClick={clearInput}
+                  >
+                    {isSubmitting ? "Guardando..." : "Guardar y Continuar"}
+                  </button>
+                </td>
               </div>
             </div>
           </Form>
         )}
       </Formik>
-    </>
+    </div>
   );
 }
 export default DepartamentForm;

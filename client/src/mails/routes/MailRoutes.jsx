@@ -15,17 +15,17 @@ export function MailRoutes() {
         <DepartamentProvider>
         <TypeProvider>
             < Navbar />
-            <div className='container-fluid mx-auto py-4'>
+            <div className='container-fluid'>
 
                 <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
                     <Route path="/mail/create" element={<MailForm />} />
                     <Route path="/mail/edit/:id" element={<MailForm />} />
                     <Route path="/mail/list" element={<MailPage />} />
 
                     <Route path="/mailtype/create" element={<TypeForm />} />
                     <Route path="/mailtype/edit/:id" element={<TypeForm />} />
-                    <Route path="/mailtypes/list" element={<TypePage />} />
+                    <Route path="/mailtype/list" element={<TypePage />} />
 
 
                     <Route path="/departament/create" element={<DepartamentForm />} />
@@ -42,7 +42,7 @@ export function MailRoutes() {
                     <Route path="/group/list" element={<GroupPage />} />
 
 
-                    <Route path="*" element={<NotFound />} />
+                    <Route path="home/*" element={<NotFound />} />
 
                     
                 </Routes>
