@@ -1,70 +1,70 @@
+import express  from "express";
 import { pool } from '../database/db.js'
+import { ValidateToken } from "../middlewares/AuthMiddleware";
+import bcrypt from "bcrypt";
+import { sign } from "jsonwebtoken";
+const router = express.Router();
 
 
-export const getAllUsers = async (req, res) => {
-    try {
-        const [results] = await pool.query('SELECT * FROM user');
-        res.json(results);
-    } catch (error) {
-        res.json({ message: error.message });
-    }
+export const regis  = async (req, res) => {
+
+  const { username, password } = req.body;
+  bcrypt.hash(password, 10).then((hash) => {
+    Users.create({
+      username: username,
+      password: hash,
+    });
+    res.json("SUCCESS");
+  });
 };
 
+export const login  = async (req, res) => {
+  const { username, password } = req.body;
 
-export const getUser = async (req, res) => {
-    try {
-        const [result] = await pool.query('SELECT * FROM user WHERE id = ?', [req.params.id]);
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
-        res.json(result[0]);
+  const user = await Users.findOne({ where: { username: username } });
 
-    } catch (error) {
-        res.json({ message: error.message });
-    }
-}
+  if (!user) res.json({ error: "User Doesn't Exist" });
 
+  bcrypt.compare(password, user.password).then(async (match) => {
+    if (!match) res.json({ error: "Wrong Username And Password Combination" });
 
-export const createUser = async (req, res) => {
-    try {
-        console.log(req.body);
-        const { email, fullname, superuser, password } = req.body;
-        const newForm = { email, fullname, superuser, password };
-
-        const [result] = await pool.query('INSERT INTO user set ?', [newForm]);
-
-        res.json({ id: result.insertId, email, fullname, superuser, password});
-
-    } catch (error) {
-        res.json({ message: error.message });
-    }
-
-}
-
-
-
-export const updateUser = async (req, res) => {
-    try {
-        const result = await pool.query('UPDATE user SET ? WHERE id = ?', [req.body, req.params.id]);
-        res.json(result);
-        
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
-        
-    } catch (error) {
-        res.json({ message: error.message })
-    }
-};
-export const deleteUser = async (req, res) => {
-    try {
-        const [result] = await pool.query('DELETE FROM user WHERE id = ?', [req.params.id]);
-        res.json({ "message": "Usuario eliminado correctamente" });
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
+    const accessToken = sign(
+      { username: user.username, id: user.id },
+      "importantsecret"
+    );
+    res.json({ token: accessToken, username: username, id: user.id });
+  });
 };
 
+router.get("/auth", ValidateToken, (req, res) => {
+  res.json(req.user);
+});
+
+router.get("/basicinfo/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const basicInfo = await Users.findByPk(id, {
+    attributes: { exclude: ["password"] },
+  });
+
+  res.json(basicInfo);
+});
+
+router.put("/changepassword", ValidateToken, async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const user = await Users.findOne({ where: { username: req.user.username } });
+
+  bcrypt.compare(oldPassword, user.password).then(async (match) => {
+    if (!match) res.json({ error: "Wrong Password Entered!" });
+
+    bcrypt.hash(newPassword, 10).then((hash) => {
+      Users.update(
+        { password: hash },
+        { where: { username: req.user.username } }
+      );
+      res.json("SUCCESS");
+    });
+  });
+});
+
+export default router;

@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useMails } from "../../hooks/MailProvider";
 import { useDeparts, useRequests, useTypes, useGroups } from "../../hooks";
 
-export function MailForm(values) {
+export const MailForm = (values) => {
   const { crMail, gtMail, upMail } = useMails();
   const { departs, loadDepartaments } = useDeparts();
   const { requests, loadRequests } = useRequests();
