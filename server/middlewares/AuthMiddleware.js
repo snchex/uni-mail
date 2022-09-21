@@ -1,6 +1,6 @@
-/*import verify from "jsonwebtoken";
+import verify from "jsonwebtoken";
 
-export const ValidateToken = (req, res, next) => {
+export const validateToken = (req, res, next) => {
   const accessToken = req.header("accessToken");
 
   if (!accessToken) return res.json({ error: "User not logged in!" });
@@ -16,5 +16,4 @@ export const ValidateToken = (req, res, next) => {
   }
 };
 
-export default ValidateToken;
-*/
+export default {validateToken};

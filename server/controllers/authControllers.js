@@ -1,12 +1,13 @@
-import express  from "express";
+import express from "express";
 import { pool } from '../database/db.js'
-import { ValidateToken } from "../middlewares/AuthMiddleware";
+import { validateToken } from "../middlewares/AuthMiddleware.js";
 import bcrypt from "bcrypt";
-import { sign } from "jsonwebtoken";
+import pkg from 'jsonwebtoken';
+const { sign } = pkg;
 const router = express.Router();
 
 
-export const regis  = async (req, res) => {
+export const register = async (req, res) => {
 
   const { username, password } = req.body;
   bcrypt.hash(password, 10).then((hash) => {
@@ -18,25 +19,31 @@ export const regis  = async (req, res) => {
   });
 };
 
-export const login  = async (req, res) => {
+export const login = async (req, res) => {
   const { username, password } = req.body;
+  const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+  if (rows.length > 0) {
+    const user = rows[0];
+    const validPassword = await helpers.matchPassword(password, user.password);
+    if (validPassword) {
+      res.json("SUCCESS");
+    } else {
+      res.json({ error: "Wrong Username And Password Combination" });
+    }
 
-  const user = await Users.findOne({ where: { username: username } });
+  } else {
+    res.json({ error: "User Doesn't Exist" });;
+  }
+  const accessToken = sign(
+    { username: user.username, id: user.id },
+    "importantsecret"
+  );
+  res.json({ token: accessToken, username: username, id: user.id });
 
-  if (!user) res.json({ error: "User Doesn't Exist" });
-
-  bcrypt.compare(password, user.password).then(async (match) => {
-    if (!match) res.json({ error: "Wrong Username And Password Combination" });
-
-    const accessToken = sign(
-      { username: user.username, id: user.id },
-      "importantsecret"
-    );
-    res.json({ token: accessToken, username: username, id: user.id });
-  });
 };
 
-router.get("/auth", ValidateToken, (req, res) => {
+
+router.get("/auth", validateToken, (req, res) => {
   res.json(req.user);
 });
 
@@ -49,8 +56,8 @@ router.get("/basicinfo/:id", async (req, res) => {
 
   res.json(basicInfo);
 });
-
-router.put("/changepassword", ValidateToken, async (req, res) => {
+/*
+router.put("/changepassword", validateToken, async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   const user = await Users.findOne({ where: { username: req.user.username } });
 
@@ -65,6 +72,6 @@ router.put("/changepassword", ValidateToken, async (req, res) => {
       res.json("SUCCESS");
     });
   });
-});
+});*/
 
 export default router;
