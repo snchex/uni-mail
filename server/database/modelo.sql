@@ -127,9 +127,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dbRegistrationService`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `fullname` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
-  `superuser` TINYINT NOT NULL,
+  `role` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

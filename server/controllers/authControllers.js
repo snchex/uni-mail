@@ -1,77 +1,82 @@
-import express from "express";
 import { pool } from '../database/db.js'
-import { validateToken } from "../middlewares/AuthMiddleware.js";
-import bcrypt from "bcrypt";
-import pkg from 'jsonwebtoken';
-const { sign } = pkg;
-const router = express.Router();
+import argon2 from 'argon2';
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const [results] = await pool.query('SELECT * FROM user ORDER BY createdAt ASC')
+    res.json(results);
+
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+
+}
+
+export const getUser = async (req, res) => {
+  try {
+    const [result] = await pool.query('SELECT * FROM user WHERE id = ?', [req.params.id]);
+    if (result === 0) {
+      return res.status(404).json({ message: "Elemento no encontrado" })
+    }
+    res.json(result[0]);
+
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+}
 
 
-export const register = async (req, res) => {
+export const createUser = async (req, res) => {
+ 
+  const {username, email, password, confirmPassword, role} = req.body;
 
-  const { username, password } = req.body;
-  bcrypt.hash(password, 10).then((hash) => {
-    Users.create({
-      username: username,
-      password: hash,
-    });
-    res.json("SUCCESS");
-  });
-};
+    if(password !== confirmPassword) return res.status(400).json({msg: "Password dan Confirm Password tidak cocok"});
+    const hashPassword = await argon2.hash(password);
+    console.table(hashPassword)
+    try {
+        const newForm = {
+          username,
+          email,
+          password: hashPassword,
+          role,
+        };
+        const [result] = await pool.query('INSERT INTO user set ?', [newForm]);
 
-export const login = async (req, res) => {
-  const { username, password } = req.body;
-  const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
-  if (rows.length > 0) {
-    const user = rows[0];
-    const validPassword = await helpers.matchPassword(password, user.password);
-    if (validPassword) {
-      res.json("SUCCESS");
-    } else {
-      res.json({ error: "Wrong Username And Password Combination" });
+        res.json({ id: result.insertId, username, email, password, role  });
+        res.status(201).json({msg: "Registro Correcto"});
+    } catch (error) {
+        res.status(400).json({msg: error.message});
+    }
+}
+
+
+export const updateUser = async (req, res) => {
+  try {
+    const result = await pool.query('UPDATE user SET ? WHERE id = ?', [req.body, req.params.id]);
+    
+    let hashPassword;
+    if(password === "" || password === null){
+      hashPassword = user.password
+      res.json({ id: result.insertId, departamento });
+    }else{
+      hashPassword = await argon2.hash(password);
     }
 
-  } else {
-    res.json({ error: "User Doesn't Exist" });;
+  } catch (error) {
+    res.json({ message: error.message })
   }
-  const accessToken = sign(
-    { username: user.username, id: user.id },
-    "importantsecret"
-  );
-  res.json({ token: accessToken, username: username, id: user.id });
-
-};
+}
 
 
-router.get("/auth", validateToken, (req, res) => {
-  res.json(req.user);
-});
+export const deleteUser = async (req, res) => {
+  try {
+    const [result] = await pool.query('DELETE FROM user WHERE id = ?', [req.params.id]);
 
-router.get("/basicinfo/:id", async (req, res) => {
-  const id = req.params.id;
+    if (result === 0) {
+      return res.status(404).json({ mesage: "Elemento no encontrado" })
+    }
+  } catch (error) {
+    res.json({ message: error.message });
+  }
 
-  const basicInfo = await Users.findByPk(id, {
-    attributes: { exclude: ["password"] },
-  });
-
-  res.json(basicInfo);
-});
-/*
-router.put("/changepassword", validateToken, async (req, res) => {
-  const { oldPassword, newPassword } = req.body;
-  const user = await Users.findOne({ where: { username: req.user.username } });
-
-  bcrypt.compare(oldPassword, user.password).then(async (match) => {
-    if (!match) res.json({ error: "Wrong Password Entered!" });
-
-    bcrypt.hash(newPassword, 10).then((hash) => {
-      Users.update(
-        { password: hash },
-        { where: { username: req.user.username } }
-      );
-      res.json("SUCCESS");
-    });
-  });
-});*/
-
-export default router;
+}

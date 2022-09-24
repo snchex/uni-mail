@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-//import session from 'express-session';
+import session from 'express-session';
 //import MysqlStore from 'express-mysql-session';
 import morgan from "morgan";
 import typeRoute from "./routes/typeRoutes.js";
@@ -16,15 +16,19 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 //app.use(morgan('dev'));
-/*
+
 
 app.use(session({
     secret: 'rg2386',
     resave: false,
-    saveUninitialized: false,
-    store: new MysqlStore(pool), //para almacenar la session en la base de datos
+    saveUninitialized: true,
+    cookie: {
+        secure: 'auto'
+
+    }
+   // store: new MysqlStore(pool), //para almacenar la session en la base de datos
 }));
-*/
+
 //routes
 app.use(typeRoute);
 app.use(groupRoute);
@@ -35,6 +39,12 @@ app.use(auth);
 
 app.set('port', process.env.PORT || 3030);
 //Starting the server
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3030' 
+}))
+ 
+app.use(express.json());
 app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
 });
