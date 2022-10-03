@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+/*import React, { useState } from 'react'
 
 export const RegisterPage = () => {
 
@@ -51,4 +51,4 @@ export const RegisterPage = () => {
 }
 
 
-export default RegisterPage;
+export default RegisterPage;*/

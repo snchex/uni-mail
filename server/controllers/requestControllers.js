@@ -1,9 +1,14 @@
-import { pool } from '../database/db.js'
+import Request from '../models/requestModel.js'
 
 export const getAllRequests = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT * FROM request ORDER BY createdAt ASC')
-        res.json(results);
+        let response;     
+        response = await Request.findAll({
+            attributes:['id','solicitud'],
+            
+        });
+       console.table(response);
+        res.status(200).json(response);
 
     } catch (error) {
         res.json({ message: error.message });

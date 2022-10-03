@@ -1,50 +1,54 @@
 import express from "express";
 import cors from "cors";
-import session from 'express-session';
-//import MysqlStore from 'express-mysql-session';
-import morgan from "morgan";
-import typeRoute from "./routes/typeRoutes.js";
-import groupRoute from "./routes/groupRoutes.js";
-import departamentRoute from "./routes/departamentRoutes.js";
-import mailRoute from "./routes/mailRoutes.js";
-import requestRoute from "./routes/requestRoutes.js";
-import auth from "./routes/auth.js";
-//import { pool } from "./database/db"
+import session from "express-session";
+import dotenv from "dotenv";
+import db from "./config/database.js";
+import SequelizeStore from "connect-session-sequelize";
+import userRoute from "./routes/userRoute.js";
+import authRoute from "./routes/authRoute.js";
+import requestRoutes from "./routes/requestRoutes.js";
+dotenv.config();
+
 const app = express();
 
+const sessionStore = SequelizeStore(session.Store);
 
-app.use(express.json());
-app.use(cors());
-//app.use(morgan('dev'));
+const store = new sessionStore({
+    db: db
+});
 
-
-app.use(session({
-    secret: 'rg2386',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: 'auto'
-
-    }
-   // store: new MysqlStore(pool), //para almacenar la session en la base de datos
-}));
-
-//routes
-app.use(typeRoute);
-app.use(groupRoute);
-app.use(departamentRoute)
-app.use(mailRoute);
-app.use(requestRoute);
-app.use(auth);
+/*(async()=>{
+     await db.sync();
+ })();*/
+ 
 
 app.set('port', process.env.PORT || 3030);
-//Starting the server
+/*
+app.use(session({
+    secret: process.env.SESS_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: store,
+    cookie: {
+        secure: 'auto'
+    }
+}));
+
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3030' 
-}))
- 
+    origin: 'http://localhost:3000'
+}));*/
 app.use(express.json());
-app.listen(app.get('port'), () => {
-    console.log('Server on port', app.get('port'));
+app.use(userRoute);
+app.use(authRoute);
+app.use(requestRoutes)
+
+//store.sync();\
+/*
+ app.listen(process.env.APP_PORT, ()=> {
+    console.log('Server up and running...');
+});*/
+
+app.listen(app.get('port'), ()=> {
+    console.log('Server up and running...', app.get('port'));
 });
