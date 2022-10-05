@@ -1,9 +1,19 @@
-import { pool } from '../database/db.js'
+import { Sequelize } from "sequelize";
+
+import Group from "../models/groupModel.js";
 
 export const getAllGroups = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT id, name, date_format(dateInicial, "%d-%m-%Y") AS dateInicial, date_format(dateFinal, "%d-%m-%Y") AS dateFinal FROM cluster ORDER BY createdAt ASC')
-        res.json(results);
+        let response;
+        response = await Group.findAll({
+            attributes: [
+                'id',
+                'description',
+                [Sequelize.fn('date_format', Sequelize.col('dateInicial'), '%d-%m-%Y'), 'dateInicial'],
+                [Sequelize.fn('date_format', Sequelize.col('dateFinal'), '%d-%m-%Y'), 'dateFinal'],],
+        });
+        console.table(response);
+        res.status(200).json(response);
 
     } catch (error) {
         res.json({ message: error.message });
@@ -13,37 +23,44 @@ export const getAllGroups = async (req, res) => {
 
 export const getGroup = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT id, name, date_format(dateInicial, "%Y-%m-%d") AS dateInicial, date_format(dateFinal, "%Y-%m-%d") AS dateFinal FROM cluster WHERE id = ?', [req.params.id]);
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
-        res.json(result[0]);
+        const group = await Group.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!group) return res.status(404).json({ msg: "Contenido no encontrado" });
+        let response;
 
+        response = await Group.findOne({
+            attributes: [
+                'id',
+                'description',
+                [Sequelize.fn('date_format', Sequelize.col('dateInicial'), '%Y-%m-%d'), 'dateInicial'],
+                [Sequelize.fn('date_format', Sequelize.col('dateFinal'), '%Y-%m-%d'), 'dateFinal'],
+            ],
+            where: {
+                id: group.id
+            }
+        });
+
+        res.status(200).json(response);
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 }
 
 
 export const createGroup = async (req, res) => {
+    const { description, dateInicial, dateFinal } = req.body;
     try {
-        console.log(req.body);
-        const { name, dateInicial, dateFinal } = req.body;
-        if (dateFinal === "") {
-
-            const newForm = { name, dateInicial };
-            const [result] = await pool.query('INSERT INTO cluster set ?', [newForm]);
-            res.json({ id: result.insertId, name, dateInicial });
-
-        }else {
-
-            const newForm = { name, dateInicial, dateFinal };
-            const [result] = await pool.query('INSERT INTO cluster set ?', [newForm]);
-            res.json({ id: result.insertId, name, dateInicial, dateFinal });
-        }
-
+        await Group.create({
+            description: description,
+            dateInicial: dateInicial,
+            dateFinal: dateFinal,
+        });
+        res.status(201).json({ msg: "Group Created Successfuly" });
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 
 }
@@ -51,27 +68,44 @@ export const createGroup = async (req, res) => {
 
 export const updateGroup = async (req, res) => {
     try {
-        const result = await pool.query('UPDATE cluster SET ? WHERE id = ?', [req.body, req.params.id]);
-        res.json(result);
+        const group = await Group.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!group) return res.status(404).json({ msg: "Data not found" });
+        const {description, dateInicial, dateFinal } = req.body;
 
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
+        await group.update({ description, dateInicial, dateFinal }, {
+            where: {
+                id: group.id
+            }
+        });
 
+        res.status(200).json({ msg: "group updated successfuly" });
     } catch (error) {
-        res.json({ message: error.message })
+        res.status(500).json({ msg: error.message });
     }
 }
 
 
 export const deleteGroup = async (req, res) => {
     try {
-        const [result] = await pool.query('DELETE FROM cluster WHERE id = ?', [req.params.id]);
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
+        const group = await Group.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!group) return res.status(404).json({ msg: "Data not found" });
+        await Group.destroy({
+            where: {
+                id: group.id
+            }
+        });
+        res.status(200).json({ msg: "Group deleted successfuly" });
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
+
 
 }

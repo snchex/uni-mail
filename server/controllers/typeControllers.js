@@ -1,42 +1,53 @@
-import { pool } from '../database/db.js'
+import MailType from '../models/mailTypeModel.js'
 
 export const getAllMailTypes = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT * FROM mailType ORDER BY createdAt ASC')
-        res.json(results);
+        let response;
+        response = await MailType.findAll({
+            attributes: ['id', 'tipo'],
+
+        });
+        console.table(response);
+        res.status(200).json(response);
 
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        res.json({ message: error.message });
     }
 
 }
 
 export const getMailType = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT * FROM mailType WHERE id = ?', [req.params.id]);
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
-        res.json(result[0]);
+        const mailType = await MailType.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!mailType) return res.status(404).json({ msg: "Contenido no encontrado" });
+        let response;
 
+        response = await MailType.findOne({
+            attributes: ['id', 'tipo'],
+            where: {
+                id: mailType.id
+            }
+        });
+
+        res.status(200).json(response);
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
-};
-
+}
 
 export const createMailType = async (req, res) => {
+    const { tipo } = req.body;
     try {
-        console.log(req.body);
-        const { tipo } = req.body;
-        const newForm = { tipo };
-
-        const [result] = await pool.query('INSERT INTO mailType set ?', [newForm]);
-
-        res.json({ id: result.insertId, tipo });
-
+        await MailType.create({
+            tipo: tipo
+        });
+        res.status(201).json({ msg: "MailType Created Successfuly" });
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 
 }
@@ -44,28 +55,43 @@ export const createMailType = async (req, res) => {
 
 export const updateMailType = async (req, res) => {
     try {
-        const result = await pool.query('UPDATE mailType SET ? WHERE id = ?', [req.body, req.params.id]);
-        res.json(result);
+        const mailType = await MailType.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!mailType) return res.status(404).json({ msg: "Data not found" });
+        const { tipo } = req.body;
 
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
+        await MailType.update({ tipo }, {
+            where: {
+                id: mailType.id
+            }
+        });
 
+        res.status(200).json({ msg: "MailType updated successfuly" });
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 }
 
 
 export const deleteMailType = async (req, res) => {
     try {
-        const [result] = await pool.query('DELETE FROM mailType WHERE id = ?', [req.params.id]);
-        res.json({ "message": "Tipo de correo eliminado correctamente" });
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
+        const mailType = await MailType.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!mailType) return res.status(404).json({ msg: "Data not found" });
+        await MailType.destroy({
+            where: {
+                id: mailType.id
+            }
+        });
+        res.status(200).json({ msg: "MailType deleted successfuly" });
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 
 }

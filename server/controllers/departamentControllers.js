@@ -1,9 +1,14 @@
-import { pool } from '../database/db.js'
+import Departament from '../models/departamentModel.js'
 
 export const getAllDepartaments = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT * FROM departament ORDER BY createdAt ASC')
-        res.json(results);
+        let response;
+        response = await Departament.findAll({
+            attributes: ['id', 'departamento'],
+
+        });
+        console.table(response);
+        res.status(200).json(response);
 
     } catch (error) {
         res.json({ message: error.message });
@@ -13,30 +18,36 @@ export const getAllDepartaments = async (req, res) => {
 
 export const getDepartament = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT * FROM departament WHERE id = ?', [req.params.id]);
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
-        res.json(result[0]);
+        const departament = await Departament.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!departament) return res.status(404).json({ msg: "Contenido no encontrado" });
+        let response;
 
+        response = await Departament.findOne({
+            attributes: ['id', 'departamento'],
+            where: {
+                id: departament.id
+            }
+        });
+
+        res.status(200).json(response);
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 }
 
-
 export const createDepartament = async (req, res) => {
+    const { departamento } = req.body;
     try {
-        console.log(req.body);
-        const { departamento } = req.body;
-        const newForm = { departamento };
-
-        const [result] = await pool.query('INSERT INTO departament set ?', [newForm]);
-
-        res.json({ id: result.insertId, departamento });
-
+        await Departament.create({
+            departamento: departamento
+        });
+        res.status(201).json({ msg: "Departament Created Successfuly" });
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 
 }
@@ -44,29 +55,43 @@ export const createDepartament = async (req, res) => {
 
 export const updateDepartament = async (req, res) => {
     try {
-        const result = await pool.query('UPDATE departament SET ? WHERE id = ?', [req.body, req.params.id]);
-        res.json(result);
+        const departament = await Departament.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!departament) return res.status(404).json({ msg: "Data not found" });
+        const { departamento } = req.body;
 
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
+        await Departament.update({ departamento }, {
+            where: {
+                id: departament.id
+            }
+        });
 
+        res.status(200).json({ msg: "Departament updated successfuly" });
     } catch (error) {
-        res.json({ message: error.message })
+        res.status(500).json({ msg: error.message });
     }
 }
 
 
 export const deleteDepartament = async (req, res) => {
     try {
-        const [result] = await pool.query('DELETE FROM departament WHERE id = ?', [req.params.id]);
-        res.json({ "message": "Tipo de correo eliminado correctamente" });
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
+        const departament = await Departament.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!departament) return res.status(404).json({ msg: "Data not found" });
+        await Departament.destroy({
+            where: {
+                id: departament.id
+            }
+        });
+        res.status(200).json({ msg: "Departament deleted successfuly" });
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
-
 
 }

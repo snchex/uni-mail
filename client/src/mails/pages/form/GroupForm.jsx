@@ -6,7 +6,7 @@ import { useGroups } from "../../hooks/GroupProvider";
 export function GroupForm() {
   const { crGroup, gtGroup, upGroup } = useGroups();
   const [group, setGroup] = useState({
-    name: "",
+    description: "",
     dateInicial: "",
     dateFinal: "",
   });
@@ -19,7 +19,7 @@ export function GroupForm() {
         if (params.id) {
           const group = await gtGroup(params.id);
           setGroup({
-            name: group.name,
+            description: group.description,
             dateInicial: group.dateInicial,
             dateFinal: group.dateFinal,
           });
@@ -51,10 +51,10 @@ export function GroupForm() {
         validate={(values) => {
           let errores = {};
 
-          if (!values.name) {
-            errores.name = "Por favor ingrese el nombre del Grupo ";
-          } else if (!/^.{4}[A-z\s]+$/.test(values.name)) {
-            errores.name = "Por favor ingrese un Grupo Valido";
+          if (!values.description) {
+            errores.description = "Por favor ingrese el nombre del Grupo ";
+          } else if (!/^.{4}[A-z\s]+$/.test(values.description)) {
+            errores.description = "Por favor ingrese un Grupo Valido";
           }
 
           if (!values.dateInicial) {
@@ -72,7 +72,7 @@ export function GroupForm() {
           }
 
           setGroup({
-            name: "",
+            description: "",
             dateInicial: "",
             dateFinal: "",
           });
@@ -96,13 +96,13 @@ export function GroupForm() {
                   </label>
                   <input
                     type="text"
-                    name="name"
+                    name="description"
                     onBlur={handleBlur}
                     placeholder="Ingrese el nombre de grupo"
                     onChange={handleChange}
-                    value={values.name}
-                  /> {touched.name && errors.name && (
-                    <span className="error pl-5">{errors.name}</span>
+                    value={values.description}
+                  /> {touched.description && errors.description && (
+                    <span className="error pl-5">{errors.description}</span>
                   )}
                 </div>
 

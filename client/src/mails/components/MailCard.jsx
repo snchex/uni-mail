@@ -27,7 +27,7 @@ export default function MailCard({ mail }) {
           <td className="ml-2">{mail.tipo}</td>
           <td className="text-center">{mail.solicitud}</td>
           <td className="m-4 text-center">{mail.departamento}</td>
-          <td className="ml-2 text-center">{mail.name}</td>
+          <td className="ml-2 text-center">{mail.description}</td>
           <td className="text-center">{mail.dateSolicitud}</td>
           <td className="text-center">{mail.dateInicial}</td>
           { output >= dateF ? (

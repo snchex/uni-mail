@@ -18,7 +18,7 @@ export default function GroupCard({ group }) {
     <>
       <tbody className="text-left mx-auto">
         <tr key={group.id}>
-          <td className="ml-2">{group.name}</td>
+          <td className="ml-2">{group.description}</td>
           <td className="ml-2 text-center">{group.dateInicial}</td>
           { output >= group.dateFinal ? (
             <td className=" text-center fechared">{group.dateFinal}</td>

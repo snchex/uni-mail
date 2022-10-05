@@ -1,6 +1,6 @@
 import  { Router } from 'express';
-const router = Router();
 import { getAllDepartaments, getDepartament, createDepartament, updateDepartament, deleteDepartament} from '../controllers/departamentControllers.js';
+const router = Router();
 
 router.get('/departaments', getAllDepartaments);
 router.get('/departament/:id', getDepartament);

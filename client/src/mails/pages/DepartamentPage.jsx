@@ -16,7 +16,7 @@ export function DepartPage() {
     if (departs.length === 0)
       return (
         <div className="container">
-          <h1>No exiten Departamentos</h1>
+          <h1>No exiten Departamentos</h1> <button className="btn btn-primary" to="/departament/create" >Crear</button>
         </div>
       );
     return departs.map((depart) => (
