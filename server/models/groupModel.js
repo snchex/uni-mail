@@ -3,7 +3,7 @@ import db from "../config/database.js";
 
 const { DataTypes } = Sequelize;
 
-const Groups = db.define('Groups', {
+const Groups = db.define('groups', {
     
     description:{
         type: DataTypes.STRING,
@@ -12,18 +12,18 @@ const Groups = db.define('Groups', {
             notEmpty: true,
         }
     },
-    dateInicial:{
+    dateInicialG:{
         type: DataTypes.DATE,
         allowNull: false,
         validate:{
             notEmpty: true,
         },
     },
-    dateFinal:{
+    dateFinalG:{
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         validate:{
-            notEmpty: true,
+            notEmpty: false,
         }
     },
 

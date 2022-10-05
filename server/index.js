@@ -9,6 +9,7 @@ import requestRoutes from "./routes/requestRoutes.js";
 import departamentRoutes from "./routes/departamentRoutes.js";
 import typeRoutes from "./routes/typeRoutes.js";
 import groupRoutes from "./routes/groupRoutes.js";
+import mailRoutes from "./routes/mailRoutes.js";
 import db from "./config/database.js";
 
 
@@ -27,8 +28,7 @@ const store = new sessionStore({
 store.sync();
 (async()=>{
      await db.sync();
- })();
-*/
+ })();*/
 
 app.set('port', process.env.PORT || 3030);
 /*
@@ -54,6 +54,8 @@ app.use(requestRoutes)
 app.use(departamentRoutes);
 app.use(typeRoutes);
 app.use(groupRoutes);
+app.use(mailRoutes);
+//app.use(db);
 
 
 

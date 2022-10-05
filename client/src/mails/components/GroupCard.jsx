@@ -19,12 +19,12 @@ export default function GroupCard({ group }) {
       <tbody className="text-left mx-auto">
         <tr key={group.id}>
           <td className="ml-2">{group.description}</td>
-          <td className="ml-2 text-center">{group.dateInicial}</td>
-          { output >= group.dateFinal ? (
-            <td className=" text-center fechared">{group.dateFinal}</td>
+          <td className="ml-2 text-center">{group.dateInicialG}</td>
+          { output >= group.dateFinalG ? (
+            <td className=" text-center fechared">{group.dateFinalG}</td>
           ):(
 
-            <td className="text-center ">{group.dateFinal}</td>
+            <td className="text-center ">{group.dateFinalG}</td>
           )}
          
           <td className="text-center">

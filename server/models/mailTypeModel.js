@@ -1,9 +1,10 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
+//import Mails from "./mailModel.js";
 
 const { DataTypes } = Sequelize;
 
-const MailTypes = db.define('MailTypes', {
+const MailTypes = db.define('mailTypes', {
     
     tipo:{
         type: DataTypes.STRING,
@@ -18,4 +19,5 @@ const MailTypes = db.define('MailTypes', {
 }, {
     freezeTableName: true,
 });
+
 export default MailTypes;

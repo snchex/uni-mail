@@ -120,7 +120,7 @@ export const Navbar = () => {
 
         <li>
           <Link onClick={onLogout} className="btn btn-outline-primary" to="/">
-          <i class="fa-solid fa-right-from-bracket"></i>
+          <i className="fa-solid fa-right-from-bracket"></i>
           </Link>
         </li>
         

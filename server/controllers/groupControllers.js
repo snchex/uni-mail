@@ -9,8 +9,8 @@ export const getAllGroups = async (req, res) => {
             attributes: [
                 'id',
                 'description',
-                [Sequelize.fn('date_format', Sequelize.col('dateInicial'), '%d-%m-%Y'), 'dateInicial'],
-                [Sequelize.fn('date_format', Sequelize.col('dateFinal'), '%d-%m-%Y'), 'dateFinal'],],
+                [Sequelize.fn('date_format', Sequelize.col('dateInicialG'), '%d-%m-%Y'), 'dateInicialG'],
+                [Sequelize.fn('date_format', Sequelize.col('dateFinalG'), '%d-%m-%Y'), 'dateFinalG'],],
         });
         console.table(response);
         res.status(200).json(response);
@@ -35,8 +35,8 @@ export const getGroup = async (req, res) => {
             attributes: [
                 'id',
                 'description',
-                [Sequelize.fn('date_format', Sequelize.col('dateInicial'), '%Y-%m-%d'), 'dateInicial'],
-                [Sequelize.fn('date_format', Sequelize.col('dateFinal'), '%Y-%m-%d'), 'dateFinal'],
+                [Sequelize.fn('date_format', Sequelize.col('dateInicialG'), '%Y-%m-%d'), 'dateInicialG'],
+                [Sequelize.fn('date_format', Sequelize.col('dateFinalG'), '%Y-%m-%d'), 'dateFinalG'],
             ],
             where: {
                 id: group.id
@@ -51,14 +51,26 @@ export const getGroup = async (req, res) => {
 
 
 export const createGroup = async (req, res) => {
-    const { description, dateInicial, dateFinal } = req.body;
     try {
-        await Group.create({
-            description: description,
-            dateInicial: dateInicial,
-            dateFinal: dateFinal,
-        });
-        res.status(201).json({ msg: "Group Created Successfuly" });
+        const { description, dateInicialG, dateFinalG } = req.body;
+        if (!dateFinalG === "") {
+            await Group.create({
+                description: description,
+                dateInicialG: dateInicialG,
+                dateFinalG: dateFinalG,
+            });
+            res.status(201).json({ msg: "Group Created Successfuly" });
+
+        } else {
+
+            await Group.create({
+                description: description,
+                dateInicialG: dateInicialG,
+
+            });
+            res.status(201).json({ msg: "Group Created Successfuly" });
+        }
+
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }
@@ -74,9 +86,9 @@ export const updateGroup = async (req, res) => {
             }
         });
         if (!group) return res.status(404).json({ msg: "Data not found" });
-        const {description, dateInicial, dateFinal } = req.body;
+        const { description, dateInicialG, dateFinalG } = req.body;
 
-        await group.update({ description, dateInicial, dateFinal }, {
+        await group.update({ description, dateInicialG, dateFinalG }, {
             where: {
                 id: group.id
             }

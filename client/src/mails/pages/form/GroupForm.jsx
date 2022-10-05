@@ -7,8 +7,8 @@ export function GroupForm() {
   const { crGroup, gtGroup, upGroup } = useGroups();
   const [group, setGroup] = useState({
     description: "",
-    dateInicial: "",
-    dateFinal: "",
+    dateInicialG: "",
+    dateFinalG: "",
   });
 
   const params = useParams();
@@ -20,8 +20,8 @@ export function GroupForm() {
           const group = await gtGroup(params.id);
           setGroup({
             description: group.description,
-            dateInicial: group.dateInicial,
-            dateFinal: group.dateFinal,
+            dateInicialG: group.dateInicialG,
+            dateFinalG: group.dateFinalG,
           });
         }
       };
@@ -57,8 +57,8 @@ export function GroupForm() {
             errores.description = "Por favor ingrese un Grupo Valido";
           }
 
-          if (!values.dateInicial) {
-            errores.dateInicial = "Por favor ingrese la Fecha de Vinculacion";
+          if (!values.dateInicialG) {
+            errores.dateInicialG = "Por favor ingrese la Fecha de Vinculacion";
           }
           return errores;
         }}
@@ -73,8 +73,8 @@ export function GroupForm() {
 
           setGroup({
             description: "",
-            dateInicial: "",
-            dateFinal: "",
+            dateInicialG: "",
+            dateFinalG: "",
           });
         }}
       >
@@ -118,19 +118,19 @@ export function GroupForm() {
                       <input
                         type="date"
                         onBlur={handleBlur}
-                        name="dateInicial"
+                        name="dateInicialG"
                         onChange={handleChange}
-                        value={values.dateInicial}
-                      /> {touched.dateInicial && errors.dateInicial && (
-                        <span className="error pl-5">{errors.dateInicial}</span>
+                        value={values.dateInicialG}
+                      /> {touched.dateInicialG && errors.dateInicialG && (
+                        <span className="error pl-5">{errors.dateInicialG}</span>
                       )}
                     </td>
                     <td className="px-4">
                       <input
                         type="date"
-                        name="dateFinal"
+                        name="dateFinalG"
                         onChange={handleChange}
-                        value={values.dateFinal}
+                        value={values.dateFinalG}
                       />
                     </td>
                   </tr>

@@ -94,9 +94,9 @@ export const Home = () => {
                 return (
                   <tr className="border-bottom" key={mail.id}>
                     <td>{mail.user} </td>
-                    <td>{mail.departamento}</td>
-                    <td className="text-center">{mail.solicitud}</td>
-                    <td className="text-center">{mail.name}</td>
+                    <td>{mail.departament.departamento}</td>
+                    <td className="text-center">{mail.request.solicitud}</td>
+                    <td className="text-center">{mail.group.description}</td>
                     <td className="text-center">{mail.dateSolicitud}</td>
                     {output >= mail.dateFinal ? (
                       <td className=" text-center fechared">
