@@ -1,6 +1,6 @@
 import {Sequelize} from "sequelize";
 
-const db = new Sequelize('regis-controller', 'root', 'password', {
+const db = new Sequelize('emailMonitoring', 'root', 'password', {
     host: "localhost",
     dialect: "mysql"
 });

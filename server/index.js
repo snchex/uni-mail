@@ -12,26 +12,22 @@ import groupRoutes from "./routes/groupRoutes.js";
 import mailRoutes from "./routes/mailRoutes.js";
 import db from "./config/database.js";
 
-
-
 dotenv.config();
 
 const app = express();
 
 const sessionStore = SequelizeStore(session.Store);
-
 const store = new sessionStore({
     db: db
 });
 
-/*
 store.sync();
+/*
 (async()=>{
      await db.sync();
  })();*/
 
-app.set('port', process.env.PORT || 3030);
-/*
+
 app.use(session({
     secret: process.env.SESS_SECRET,
     resave: false,
@@ -40,7 +36,7 @@ app.use(session({
     cookie: {
         secure: 'auto'
     }
-}));*/
+}));
 
 app.use(cors({
     credentials: true,
@@ -56,9 +52,9 @@ app.use(typeRoutes);
 app.use(groupRoutes);
 app.use(mailRoutes);
 //app.use(db);
+     
 
-
-
-app.listen(app.get('port'), () => {
-    console.log('Server up and running...', app.get('port'));
+app.listen(process.env.APP_PORT, ()=> {
+    console.log('Server up and running...');
 });
+

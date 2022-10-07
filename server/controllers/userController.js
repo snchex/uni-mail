@@ -1,10 +1,11 @@
 import User from "../models/userModel.js";
 import argon2 from "argon2";
 
+
 export const getUsers = async(req, res) =>{
     try {
         const response = await User.findAll({
-            attributes:['id','name','email','role']
+            attributes:['uuid','name','email','role']
         });
         res.status(200).json(response);
     } catch (error) {
@@ -15,9 +16,9 @@ export const getUsers = async(req, res) =>{
 export const getUserById = async(req, res) =>{
     try {
         const response = await User.findOne({
-            attributes:['id','name','email','role'],
+            attributes:['id','uuid','name','email','role'],
             where: {
-                id: req.params.id
+                uuid: req.params.id
             }
         });
         res.status(200).json(response);
@@ -37,7 +38,7 @@ export const createUser = async(req, res) =>{
             password: hashPassword,
             role: role
         });
-        res.status(201).json({msg: "Register Success"});
+        res.status(201).json({msg: "Register Successful"});
     } catch (error) {
         res.status(400).json({msg: error.message});
     }
@@ -46,10 +47,10 @@ export const createUser = async(req, res) =>{
 export const updateUser = async(req, res) =>{
     const user = await User.findOne({
         where: {
-            id: req.params.id
+            uuid: req.params.id
         }
     });
-    if(!user) return res.status(404).json({msg: "User tidak ditemukan"});
+    if(!user) return res.status(404).json({msg: "User not found"});
     const {name, email, password, confPassword, role} = req.body;
     let hashPassword;
     if(password === "" || password === null){
@@ -57,7 +58,7 @@ export const updateUser = async(req, res) =>{
     }else{
         hashPassword = await argon2.hash(password);
     }
-    if(password !== confPassword) return res.status(400).json({msg: "Password dan Confirm Password tidak cocok"});
+    if(password !== confPassword) return res.status(400).json({msg: "Password and Confirm Password do not match"});
     try {
         await User.update({
             name: name,
@@ -78,10 +79,10 @@ export const updateUser = async(req, res) =>{
 export const deleteUser = async(req, res) =>{
     const user = await User.findOne({
         where: {
-            id: req.params.id
+            uuid: req.params.id
         }
     });
-    if(!user) return res.status(404).json({msg: "User tidak ditemukan"});
+    if(!user) return res.status(404).json({msg: "User not found"});
     try {
         await User.destroy({
             where:{
