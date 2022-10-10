@@ -1,9 +1,14 @@
-import { pool } from '../database/db.js'
+import Request from '../models/requestModel.js'
 
 export const getAllRequests = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT * FROM request ORDER BY createdAt ASC')
-        res.json(results);
+        let response;
+        response = await Request.findAll({
+            attributes: ['id', 'solicitud'],
+
+        });
+        console.table(response);
+        res.status(200).json(response);
 
     } catch (error) {
         res.json({ message: error.message });
@@ -13,30 +18,36 @@ export const getAllRequests = async (req, res) => {
 
 export const getRequest = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT * FROM request WHERE id = ?', [req.params.id]);
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
-        res.json(result[0]);
+        const request = await Request.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!request) return res.status(404).json({ msg: "Contenido no encontrado" });
+        let response;
 
+        response = await Request.findOne({
+            attributes: ['id', 'solicitud'],
+            where: {
+                id: request.id
+            }
+        });
+
+        res.status(200).json(response);
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 }
 
-
 export const createRequest = async (req, res) => {
+    const { solicitud } = req.body;
     try {
-        console.log(req.body);
-        const { solicitud } = req.body;
-        const newForm = { solicitud };
-
-        const [result] = await pool.query('INSERT INTO request set ?', [newForm]);
-
-        res.json({ id: result.insertId, solicitud });
-
+        await Request.create({
+            solicitud: solicitud
+        });
+        res.status(201).json({ msg: "Request Created Successfuly" });
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 
 }
@@ -44,28 +55,43 @@ export const createRequest = async (req, res) => {
 
 export const updateRequest = async (req, res) => {
     try {
-        const result = await pool.query('UPDATE request SET ? WHERE id = ?', [req.body, req.params.id]);
-        res.json(result);
+        const request = await Request.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!request) return res.status(404).json({ msg: "Data not found" });
+        const { solicitud } = req.body;
 
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
+        await Request.update({ solicitud }, {
+            where: {
+                id: request.id
+            }
+        });
 
+        res.status(200).json({ msg: "Request updated successfuly" });
     } catch (error) {
-        res.json({ message: error.message })
+        res.status(500).json({ msg: error.message });
     }
 }
 
 
 export const deleteRequest = async (req, res) => {
     try {
-        const [result] = await pool.query('DELETE FROM request WHERE id = ?', [req.params.id]);
-
-        if (result === 0) {
-            return res.status(404).json({ mesage: "Elemento no encontrado" })
-        }
+        const request = await Request.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!request) return res.status(404).json({ msg: "Data not found" });
+        await Request.destroy({
+            where: {
+                id: request.id
+            }
+        });
+        res.status(200).json({ msg: "Request deleted successfuly" });
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 
 }

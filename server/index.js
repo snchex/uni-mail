@@ -1,37 +1,60 @@
-import express  from "express";
+import express from "express";
 import cors from "cors";
-import morgan from "morgan";
-import typeRoute from "./routes/typeRoutes.js";
-import groupRoute from "./routes/groupRoutes.js";
-import departamentRoute from "./routes/departamentRoutes.js";
-import mailRoute from "./routes/mailRoutes.js";
-import requestRoute from "./routes/requestRoutes.js";
-import auth from "./routes/auth.js";
-import flash from 'connect-flash';
-const app = express();  
+import session from "express-session";
+import dotenv from "dotenv";
+import SequelizeStore from "connect-session-sequelize";
+import userRoute from "./routes/userRoute.js";
+import authRoute from "./routes/authRoute.js";
+import requestRoutes from "./routes/requestRoutes.js";
+import departamentRoutes from "./routes/departamentRoutes.js";
+import typeRoutes from "./routes/typeRoutes.js";
+import groupRoutes from "./routes/groupRoutes.js";
+import mailRoutes from "./routes/mailRoutes.js";
+import db from "./config/database.js";
 
+dotenv.config();
 
+const app = express();
 
-
-
-app.use(flash());
-app.use(express.json());
-app.use(cors());
-//app.use(morgan('dev'));
-
-
-
-
-//routes
-app.use(typeRoute);
-app.use(groupRoute);
-app.use(departamentRoute)
-app.use(mailRoute);
-app.use(requestRoute);
-app.use(auth);
-
-app.set('port', process.env.PORT || 3030);
-//Starting the server
-app.listen(app.get('port'), () => {
-    console.log('Server on port', app.get('port'));
+const sessionStore = SequelizeStore(session.Store);
+const store = new sessionStore({
+    db: db
 });
+
+
+(async()=>{
+    await db.sync();
+})();
+
+
+app.use(session({
+    secret: process.env.SESS_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: store,
+    cookie: {
+        secure: 'auto'
+    }
+}));
+
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3000'
+}));
+
+app.use(express.json());
+app.use(userRoute);
+app.use(authRoute);
+app.use(requestRoutes)
+app.use(departamentRoutes);
+app.use(typeRoutes);
+app.use(groupRoutes);
+app.use(mailRoutes);
+//app.use(db);
+
+store.sync();
+
+app.listen(process.env.APP_PORT, ()=> {
+    console.log('Server up and running...');
+});
+

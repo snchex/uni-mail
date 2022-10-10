@@ -1,70 +1,40 @@
-import { pool } from '../database/db.js'
+import User from "../models/userModel.js";
+import argon2 from "argon2";
 
-
-export const getAllUsers = async (req, res) => {
-    try {
-        const [results] = await pool.query('SELECT * FROM user');
-        res.json(results);
-    } catch (error) {
-        res.json({ message: error.message });
-    }
-};
-
-
-export const getUser = async (req, res) => {
-    try {
-        const [result] = await pool.query('SELECT * FROM user WHERE id = ?', [req.params.id]);
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
+export const Login = async (req, res) =>{
+    const user = await User.findOne({
+        where: {
+            email: req.body.email
         }
-        res.json(result[0]);
-
-    } catch (error) {
-        res.json({ message: error.message });
-    }
+    });
+    if(!user) return res.status(404).json({msg: "User not found"});
+    const match = await argon2.verify(user.password, req.body.password);
+    if(!match) return res.status(400).json({msg: "Wrong Password"});
+    req.session.userId = user.uuid;
+    const uuid = user.uuid;
+    const name = user.name;
+    const email = user.email;
+    const role = user.role;
+    res.status(200).json({uuid, name, email, role});
 }
 
-
-export const createUser = async (req, res) => {
-    try {
-        console.log(req.body);
-        const { email, fullname, superuser, password } = req.body;
-        const newForm = { email, fullname, superuser, password };
-
-        const [result] = await pool.query('INSERT INTO user set ?', [newForm]);
-
-        res.json({ id: result.insertId, email, fullname, superuser, password});
-
-    } catch (error) {
-        res.json({ message: error.message });
+export const Me = async (req, res) =>{
+    if(!req.session.userId){
+        return res.status(401).json({msg: "Please login to your account!"});
     }
-
+    const user = await User.findOne({
+        attributes:['uuid','name','email','role'],
+        where: {
+            uuid: req.session.userId
+        }
+    });
+    if(!user) return res.status(404).json({msg: "User not found"});
+    res.status(200).json(user);
 }
 
-
-
-export const updateUser = async (req, res) => {
-    try {
-        const result = await pool.query('UPDATE user SET ? WHERE id = ?', [req.body, req.params.id]);
-        res.json(result);
-        
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
-        
-    } catch (error) {
-        res.json({ message: error.message })
-    }
-};
-export const deleteUser = async (req, res) => {
-    try {
-        const [result] = await pool.query('DELETE FROM user WHERE id = ?', [req.params.id]);
-        res.json({ "message": "Usuario eliminado correctamente" });
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-};
-
+export const logOut = (req, res) =>{
+    req.session.destroy((err)=>{
+        if(err) return res.status(400).json({msg: "Can't logout"});
+        res.status(200).json({msg: "You have logged out"});
+    });
+}

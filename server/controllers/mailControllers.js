@@ -1,9 +1,45 @@
-import { pool } from '../database/db.js'
+import { Sequelize } from "sequelize";
+import Mail from "../models/mailModel.js";
+import MailType from "../models/mailTypeModel.js";
+import Departament from "../models/departamentModel.js";
+import Request from "../models/requestModel.js";
+import Group from "../models/groupModel.js";
 
 export const getAllMails = async (req, res) => {
     try {
-        const [results] = await pool.query('SELECT mail.id, mail.user, mail.solicitante, date_format(mail.dateSolicitud, "%d-%m-%Y") AS dateSolicitud, date_format(mail.dateInicial, "%d-%m-%Y") AS dateInicial, date_format(mail.dateFinal, "%d-%m-%Y") AS dateFinal, mail.statu, mailType.tipo, request.solicitud, departament.departamento, cluster.name FROM mail, mailType, departament, cluster, request WHERE mailType.id = mail.fk_idtypeMail AND departament.id = mail.fk_iddepartament AND request.id = mail.fk_idrequest AND cluster.id = mail.fk_idgroup ORDER BY mail.createdAt DESC')
-        res.json(results);
+        let response;
+        response = await Mail.findAll({
+
+            attributes: [
+                'id',
+                'user',
+                'solicitante',
+                [Sequelize.fn('date_format', Sequelize.col('dateSolicitud'), '%d-%m-%Y'), 'dateSolicitud'],
+                [Sequelize.fn('date_format', Sequelize.col('dateInicial'), '%d-%m-%Y'), 'dateInicial'],
+                [Sequelize.fn('date_format', Sequelize.col('dateFinal'), '%d-%m-%Y'), 'dateFinal'],
+            ],
+            include: [{
+                model: MailType,
+                attributes: ['tipo'],
+                required: true,
+            }, {
+                model: Departament,
+                attributes: ['departamento'],
+                required: true,
+            },
+            {
+                model: Request,
+                attributes: ['solicitud'],
+                required: true,
+            }, {
+                model: Group,
+                attributes: ['description'],
+                required: true,
+            }
+            ]
+        });
+        console.table(response);
+        res.status(200).json(response);
 
     } catch (error) {
         res.json({ message: error.message });
@@ -13,56 +49,85 @@ export const getAllMails = async (req, res) => {
 
 export const getMail = async (req, res) => {
     try {
-        const [result] = await pool.query('SELECT mail.id, mail.fk_idtypeMail, mail.fk_iddepartament, mail.fk_idgroup, mail.fk_idrequest, mail.user, mail.solicitante, date_format(mail.dateSolicitud, "%Y-%m-%d") AS dateSolicitud, date_format(mail.dateInicial, "%Y-%m-%d") AS dateInicial, date_format(mail.dateFinal, "%Y-%m-%d") AS dateFinal, mail.statu, mailType.tipo, request.solicitud, departament.departamento, cluster.name FROM mail, mailType, departament, cluster, request WHERE mailType.id = mail.fk_idtypeMail AND departament.id = mail.fk_iddepartament AND request.id = mail.fk_idrequest AND cluster.id = mail.fk_idgroup AND mail.id = ?', [req.params.id]);
-        if (result === 0) {
-            return res.status(404).json({ message: "Elemento no encontrado" })
-        }
-        res.json(result[0]);
+        const mail = await Mail.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!mail) return res.status(404).json({ msg: "Contenido no encontrado" });
+        let response;
 
+        response = await Mail.findOne({
+            attributes: [
+                'id',
+                'user',
+                'solicitante',
+                [Sequelize.fn('date_format', Sequelize.col('dateInicial'), '%Y-%m-%d'), 'dateInicial'],
+                [Sequelize.fn('date_format', Sequelize.col('dateFinal'), '%Y-%m-%d'), 'dateFinal'],
+                [Sequelize.fn('date_format', Sequelize.col('dateSolicitud'), '%Y-%m-%d'), 'dateSolicitud'],
+            ],
+            where: {
+                id: departament.id
+            },
+            include: [{
+                model: MailType,
+                attributes: ['tipo'],
+
+                model: Departament,
+                attributes: ['departamento'],
+
+                model: Request,
+                attributes: ['solicitante'],
+
+                model: Group,
+                attributes: ['description'],
+
+            }]
+
+        });
+
+        res.status(200).json(response);
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 }
 
 
 export const createMail = async (req, res) => {
     try {
-        const { user, solicitante, dateSolicitud, dateInicial, statu, dateFinal, fk_idtypeMail, fk_idrequest, fk_iddepartament, fk_idgroup } = req.body;
-        if (dateFinal === "") {
-            const newForm = {
-                user,
-                solicitante,
-                dateSolicitud,
-                dateInicial,
-                statu,
-                fk_idtypeMail,
-                fk_idrequest,
-                fk_iddepartament,
-                fk_idgroup,
-            };
-            const [result] = await pool.query('INSERT INTO mail set ?', [newForm]);
-            res.json({ id: result.insertId, user, solicitante, dateSolicitud, dateInicial, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament });
+        const { user, solicitante, dateSolicitud, dateInicial, dateFinal, mailTypeId, requestId, departamentId, groupId } = req.body;
+
+        if (!dateFinal === "") {
+            await Mail.create({
+                user: user,
+                solicitante: solicitante,
+                dateSolicitud: dateSolicitud,
+                dateInicial: dateInicial,
+                dateFinal: dateFinal,
+                mailTypeId: mailTypeId,
+                requestId: requestId,
+                departamentId: departamentId,
+                groupId: groupId
+            });
+            res.status(201).json({ msg: "Product Created Successfuly" });
 
         } else {
-            const newForm = {
-                user,
-                solicitante,
-                dateSolicitud,
-                dateInicial,
-                dateFinal,
-                statu,
-                fk_idtypeMail,
-                fk_idrequest,
-                fk_iddepartament,
-                fk_idgroup,
-            };
-            const [result] = await pool.query('INSERT INTO mail set ?', [newForm]);
-            res.json({ id: result.insertId, user, solicitante, dateSolicitud, dateInicial, dateFinal, statu, fk_idtypeMail, fk_idrequest, fk_iddepartament, fk_idgroup });
+            await Mail.create({
+                user: user,
+                solicitante: solicitante,
+                dateSolicitud: dateSolicitud,
+                dateInicial: dateInicial,
+                mailTypeId: mailTypeId,
+                requestId: requestId,
+                departamentId: departamentId,
+                groupId: groupId
+            });
+            res.status(201).json({ msg: "Product Created Successfuly" });
         }
 
 
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ msg: error.message });
     }
 
 }

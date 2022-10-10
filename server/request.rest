@@ -1,0 +1,51 @@
+
+## get all the users
+GET http://localhost:3030/users
+
+### get userID
+
+GET http://localhost:3030/user/a8f5593e-8c73-463d-a486-c5e7d4daabe5 
+
+###Create a new user
+
+POST http://localhost:3030/user/create HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Juan Perez",
+  "email": "admin@gmail.com",
+  "password": "123456",
+  "confPassword": "123456",
+  "role": "admin"
+}   
+
+### Update a user
+PUT  http://localhost:3030/user/update/a8f5593e-8c73-463d-a486-c5e7d4daabe5 HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Jose Perez",
+  "email": "admin@gmail.com",
+  "password": "123456",
+  "confPassword": "123456",
+  "role": "admin"
+}   
+
+### DELETE
+DELETE  http://localhost:3030/user/delete/a8f5593e-8c73-463d-a486-c5e7d4daabe5
+
+
+### Login
+POST http://localhost:3030/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "admin@gmail.com",
+  "password": "123456"
+}
+
+### user
+GET http://localhost:3030/me
+
+###
+DELETE http://localhost:3030/logout

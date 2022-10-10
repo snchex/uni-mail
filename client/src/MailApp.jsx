@@ -1,13 +1,11 @@
 import React from 'react';
-import { AuthProvider } from './auth';
+import { BrowserRouter } from 'react-router-dom';
 import AppRouter from "./router/AppRouter";
 function MailApp() {
   return (
-    <AuthProvider>
-
+    <BrowserRouter>
       <AppRouter/>
-      
-    </AuthProvider>
+    </BrowserRouter>
   );
 }
 
