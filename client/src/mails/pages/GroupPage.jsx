@@ -24,35 +24,38 @@ export const GroupPage = () => {
   }
 
   return (
-    <div className="card mx-auto col-md-7">
-      <h1 className="row justify-content-center py-3">Lista de Grupos</h1>
-      <div className="container mx-auto ">
-        <table className="table table-borderles">
-          <thead className="text-center">
-            <tr className="border-bottom">
-              <th>
-                Grupo
-              </th>
+    <>
+      <div className="card mx-auto col-md-7">
+        <h1 className="row justify-content-center py-3">Lista de Grupos</h1>
+        <div className="container mx-auto ">
+          <table className="table table-borderles">
+            <thead className="border-bottom text-center">
+              <tr>
+                <th>
+                  Grupo
+                </th>
 
-              <th>
-                Fecha de Vinculacion
-              </th>
-              <th>
-                Fecha de Desvinculacion
-              </th>
-              <th>
-                Accion
-              </th>
-              <th>
-                Accion
-              </th>
-            </tr>
-          </thead>
+                <th>
+                  Fecha de Vinculacion
+                </th>
+                <th>
+                  Fecha de Desvinculacion
+                </th>
+                <th>
+                  Accion
+                </th>
+                <th>
+                  Accion
+                </th>
+              </tr>
+            </thead>
 
-          {renderMain()}
-        </table>
+            {renderMain()}
+          </table>
+        </div>
       </div>
-    </div>
+
+    </>
   );
 };
 export default GroupPage;

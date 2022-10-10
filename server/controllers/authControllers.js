@@ -1,70 +1,40 @@
-import express  from "express";
-import { pool } from '../database/db.js'
-import { ValidateToken } from "../middlewares/AuthMiddleware";
-import bcrypt from "bcrypt";
-import { sign } from "jsonwebtoken";
-const router = express.Router();
+import User from "../models/userModel.js";
+import argon2 from "argon2";
 
-
-export const regis  = async (req, res) => {
-
-  const { username, password } = req.body;
-  bcrypt.hash(password, 10).then((hash) => {
-    Users.create({
-      username: username,
-      password: hash,
+export const Login = async (req, res) =>{
+    const user = await User.findOne({
+        where: {
+            email: req.body.email
+        }
     });
-    res.json("SUCCESS");
-  });
-};
+    if(!user) return res.status(404).json({msg: "User not found"});
+    const match = await argon2.verify(user.password, req.body.password);
+    if(!match) return res.status(400).json({msg: "Wrong Password"});
+    req.session.userId = user.uuid;
+    const uuid = user.uuid;
+    const name = user.name;
+    const email = user.email;
+    const role = user.role;
+    res.status(200).json({uuid, name, email, role});
+}
 
-export const login  = async (req, res) => {
-  const { username, password } = req.body;
-
-  const user = await Users.findOne({ where: { username: username } });
-
-  if (!user) res.json({ error: "User Doesn't Exist" });
-
-  bcrypt.compare(password, user.password).then(async (match) => {
-    if (!match) res.json({ error: "Wrong Username And Password Combination" });
-
-    const accessToken = sign(
-      { username: user.username, id: user.id },
-      "importantsecret"
-    );
-    res.json({ token: accessToken, username: username, id: user.id });
-  });
-};
-
-router.get("/auth", ValidateToken, (req, res) => {
-  res.json(req.user);
-});
-
-router.get("/basicinfo/:id", async (req, res) => {
-  const id = req.params.id;
-
-  const basicInfo = await Users.findByPk(id, {
-    attributes: { exclude: ["password"] },
-  });
-
-  res.json(basicInfo);
-});
-
-router.put("/changepassword", ValidateToken, async (req, res) => {
-  const { oldPassword, newPassword } = req.body;
-  const user = await Users.findOne({ where: { username: req.user.username } });
-
-  bcrypt.compare(oldPassword, user.password).then(async (match) => {
-    if (!match) res.json({ error: "Wrong Password Entered!" });
-
-    bcrypt.hash(newPassword, 10).then((hash) => {
-      Users.update(
-        { password: hash },
-        { where: { username: req.user.username } }
-      );
-      res.json("SUCCESS");
+export const Me = async (req, res) =>{
+    if(!req.session.userId){
+        return res.status(401).json({msg: "Please login to your account!"});
+    }
+    const user = await User.findOne({
+        attributes:['uuid','name','email','role'],
+        where: {
+            uuid: req.session.userId
+        }
     });
-  });
-});
+    if(!user) return res.status(404).json({msg: "User not found"});
+    res.status(200).json(user);
+}
 
-export default router;
+export const logOut = (req, res) =>{
+    req.session.destroy((err)=>{
+        if(err) return res.status(400).json({msg: "Can't logout"});
+        res.status(200).json({msg: "You have logged out"});
+    });
+}

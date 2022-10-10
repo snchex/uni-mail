@@ -18,11 +18,10 @@ export const MailForm = (values) => {
     dateInicial: "",
     dateSolicitud: "",
     dateFinal: "",
-    statu: 0,
-    fk_idtypeMail: "",
-    fk_idrequest: "",
-    fk_iddepartament: "",
-    fk_idgroup: "",
+    mailTypeId: "",
+    requestId: "",
+    departamentId: "",
+    groupId: "",
   });
   const params = useParams();
   const navigate = useNavigate();
@@ -39,15 +38,11 @@ export const MailForm = (values) => {
             dateInicial: mail.dateInicial,
             dateFinal: mail.dateFinal,
             dateSolicitud: mail.dateSolicitud,
-            statu: mail.statu,
-            fk_idtypeMail: mail.fk_idtypeMail,
-            fk_idrequest: mail.fk_idrequest,
-            fk_iddepartament: mail.fk_iddepartament,
-            fk_idgroup: mail.fk_idgroup,
+            mailTypeId: mail.mailTypeId,
+            requestId: mail.requestId,
+            departamentId: mail.departamentId,
+            groupId: mail.groupId,
           });
-
-          console.table(mail.tipo);
-          
         }
       };
       loadMail();
@@ -66,7 +61,7 @@ export const MailForm = (values) => {
   const verMails = () => {
     const timer = setTimeout(() => {
       navigate("/mail/list");
-    }, 100);
+    }, 200);
     return () => clearTimeout(timer);
   };
 
@@ -94,21 +89,22 @@ export const MailForm = (values) => {
           if (!values.dateSolicitud) {
             errores.dateSolicitud = "Por favor ingrese la Fecha de Solicitud";
           }
-          if (!values.fk_iddepartament) {
-            errores.fk_iddepartament = "Por favor ingrese el Departamento";
+          if (!values.departamentId) {
+            errores.departamentId = "Por favor ingrese el Departamento";
           }
-          if (!values.fk_idrequest) {
-            errores.fk_idrequest = "Por favor ingrese el tipo de Solicitud";
+          if (!values.requestId) {
+            errores.requestId = "Por favor ingrese el tipo de Solicitud";
           }
-          if (!values.fk_idtypeMail) {
-            errores.fk_idtypeMail = "Por favor ingrese el tipo de Correo";
+          if (!values.mailTypeId) {
+            errores.mailTypeId = "Por favor ingrese el tipo de Correo";
           }
-          if (!values.fk_idgroup) {
-            errores.fk_idgroup = "Por favor ingrese al grupo que pertenezca";
+          if (!values.groupId) {
+            errores.groupId = "Por favor ingrese al grupo que pertenezca";
           }
           return errores;
         }}
         onSubmit={async (values, actions) => {
+          console.table(values);
           if (params.id) {
             console.log("Update");
             await upMail(params.id, values);
@@ -122,10 +118,9 @@ export const MailForm = (values) => {
             dateSolicitud: "",
             dateInicial: "",
             dateFinal: "",
-            statu: "",
-            fk_idtypeMail: "",
-            fk_idrequest: "",
-            fk_iddepartament: "",
+            mailTypeId: "",
+            requestId: "",
+            departamentId: "",
           });
         }}
       >
@@ -153,18 +148,18 @@ export const MailForm = (values) => {
                   value={values.user}
                 />
                 {touched.user && errors.user && (
-                  <span className="error pl-5">{errors.user}</span>
-                )}
+                  <span className="error pl-5 mx-3 "><b>{errors.user}</b></span>
+                )} 
               </div>
 
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Tipo de Correo
                   <Formm.Select
-                    name="fk_idtypeMail"
+                    name="mailTypeId"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.fk_idtypeMail}
+                    value={values.mailTypeId}
                   >
                     <option disabled selected value="">
                       Seleccione
@@ -175,8 +170,8 @@ export const MailForm = (values) => {
                       </option>
                     ))}
                   </Formm.Select>
-                  {touched.fk_idtypeMail && errors.fk_idtypeMail && (
-                    <span className="error pl-5">{errors.fk_idtypeMail}</span>
+                  {touched.mailTypeId && errors.mailTypeId && (
+                    <span className="error pl-5">{errors.mailTypeId}</span>
                   )}
                 </label>
               </div>
@@ -184,10 +179,10 @@ export const MailForm = (values) => {
                 <label className="form-control-label px-3">
                   Tipo de Solicitud
                   <Formm.Select
-                    name="fk_idrequest"
+                    name="requestId"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.fk_idrequest}
+                    value={values.requestId}
                   >
                     <option disabled selected value="">
                       Seleccione
@@ -198,8 +193,8 @@ export const MailForm = (values) => {
                       </option>
                     ))}
                   </Formm.Select>
-                  {touched.fk_idrequest && errors.fk_idrequest && (
-                    <span className="error pl-5">{errors.fk_idrequest}</span>
+                  {touched.requestId && errors.requestId && (
+                    <span className="error pl-5">{errors.requestId}</span>
                   )}
                 </label>
               </div>
@@ -207,11 +202,11 @@ export const MailForm = (values) => {
                 <label className="form-control-label px-3">
                   Departamento
                   <Formm.Select
-                    name="fk_iddepartament"
+                    name="departamentId"
                     type="text"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.fk_iddepartament}
+                    value={values.departamentId}
                   >
                     <option disabled selected value="">
                       Seleccione
@@ -222,89 +217,78 @@ export const MailForm = (values) => {
                       </option>
                     ))}
                   </Formm.Select>
-                  {touched.fk_iddepartament && errors.fk_iddepartament && (
-                    <span className="error pl-5">
-                      {errors.fk_iddepartament}
-                    </span>
+                  {touched.departamentId && errors.departamentId && (
+                    <span className="error pl-5">{errors.departamentId}</span>
                   )}
                 </label>
               </div>
 
               <div className="form-group col-sm-6 flex-column d-flex">
                 <tr>
-                  <label className="form-control-label px-2 mx-1">
+                  <label className="form-control-label px-2 mx-2">
                     Fecha de Solicitud
+                    <td>
+                      <input
+                        type="date"
+                        name="dateSolicitud"
+                        onChange={handleChange}
+                        value={values.dateSolicitud}
+                      />
+                      {touched.dateSolicitud && errors.dateSolicitud && (
+                        <span className="error pl-5">
+                          {errors.dateSolicitud}
+                        </span>
+                      )}
+                    </td>
                   </label>
-                  <label className="form-control-label px-3 mx-4">
+                  <label className="form-control-label px-2 mx-2">
                     Fecha de Vinculacion
+                    <td>
+                      <input
+                        type="date"
+                        name="dateInicial"
+                        onChange={handleChange}
+                        value={values.dateInicial}
+                      />
+                      {touched.dateInicial && errors.dateInicial && (
+                        <span className="error pl-5">{errors.dateInicial}</span>
+                      )}
+                    </td>
                   </label>
-                  <label className="form-control-label  px-2 mx-2">
+                  <label className="form-control-label px-2 mx-2">
                     Fecha de Desvinculacion
+                    <td>
+                      <input
+                        type="date"
+                        name="dateFinal"
+                        onChange={handleChange}
+                        value={values.dateFinal}
+                      />
+                    </td>
                   </label>
-                  <td>
-                    <input
-                      type="date"
-                      name="dateSolicitud"
-                      onChange={handleChange}
-                      value={values.dateSolicitud}
-                    />
-                    {touched.dateSolicitud && errors.dateSolicitud && (
-                      <span className="error pl-5">{errors.dateSolicitud}</span>
-                    )}
-                  </td>
-                  <td className="px-4">
-                    <input
-                      type="date"
-                      name="dateInicial"
-                      onChange={handleChange}
-                      value={values.dateInicial}
-                    />
-                    {touched.dateInicial && errors.dateInicial && (
-                      <span className="error pl-5">{errors.dateInicial}</span>
-                    )}
-                  </td>
-                  <td className="px-4">
-                    <input
-                      type="date"
-                      name="dateFinal"
-                      onChange={handleChange}
-                      value={values.dateFinal}
-                    />
-                  </td>
                 </tr>
-                <label className="form-control-label px-3">
-                  Activo
-                  <Formm.Check
-                    label="S&iacute;"
-                    className="mb-2"
-                    name="statu"
-                    aria-label="option 1"
-                    onChange={handleChange}
-                    value={1}
-                  />
-                </label>
               </div>
               <div className="form-group col-sm-6 flex-column d-flex ">
                 <label className="form-control-label px-3">
                   Grupo
                   <Formm.Select
-                    name="fk_idgroup"
+                    name="groupId"
                     type="text"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.fk_idgroup}
+                    value={values.groupId}
                   >
                     <option disabled selected value="">
                       Seleccione
                     </option>
                     {groups.map((group) => (
                       <option key={group.id} value={group.id}>
-                        {group.name}
+                        {group.description}
                       </option>
                     ))}
                   </Formm.Select>
-                  {touched.fk_idgroup && errors.fk_idgroup && (
-                    <span className="error pl-5">{errors.fk_idgroup}</span>
+                  {touched.groupId && errors.groupId && (
+                    <span className="error pl-5">{errors.groupId}</span>
                   )}
                 </label>
               </div>
@@ -336,5 +320,5 @@ export const MailForm = (values) => {
       </Formik>
     </div>
   );
-}
+};
 export default MailForm;

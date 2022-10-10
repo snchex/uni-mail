@@ -6,9 +6,9 @@ import { useGroups } from "../../hooks/GroupProvider";
 export function GroupForm() {
   const { crGroup, gtGroup, upGroup } = useGroups();
   const [group, setGroup] = useState({
-    name: "",
-    dateInicial: "",
-    dateFinal: "",
+    description: "",
+    dateInicialG: "",
+    dateFinalG: "",
   });
 
   const params = useParams();
@@ -19,9 +19,9 @@ export function GroupForm() {
         if (params.id) {
           const group = await gtGroup(params.id);
           setGroup({
-            name: group.name,
-            dateInicial: group.dateInicial,
-            dateFinal: group.dateFinal,
+            description: group.description,
+            dateInicialG: group.dateInicialG,
+            dateFinalG: group.dateFinalG,
           });
         }
       };
@@ -51,14 +51,14 @@ export function GroupForm() {
         validate={(values) => {
           let errores = {};
 
-          if (!values.name) {
-            errores.name = "Por favor ingrese el nombre del Grupo ";
-          } else if (!/^.{4}[A-z\s]+$/.test(values.name)) {
-            errores.name = "Por favor ingrese un Grupo Valido";
+          if (!values.description) {
+            errores.description = "Por favor ingrese el nombre del Grupo ";
+          } else if (!/^.{4}[A-z\s]+$/.test(values.description)) {
+            errores.description = "Por favor ingrese un Grupo Valido";
           }
 
-          if (!values.dateInicial) {
-            errores.dateInicial = "Por favor ingrese la Fecha de Vinculacion";
+          if (!values.dateInicialG) {
+            errores.dateInicialG = "Por favor ingrese la Fecha de Vinculacion";
           }
           return errores;
         }}
@@ -72,9 +72,9 @@ export function GroupForm() {
           }
 
           setGroup({
-            name: "",
-            dateInicial: "",
-            dateFinal: "",
+            description: "",
+            dateInicialG: "",
+            dateFinalG: "",
           });
         }}
       >
@@ -96,13 +96,13 @@ export function GroupForm() {
                   </label>
                   <input
                     type="text"
-                    name="name"
+                    name="description"
                     onBlur={handleBlur}
                     placeholder="Ingrese el nombre de grupo"
                     onChange={handleChange}
-                    value={values.name}
-                  /> {touched.name && errors.name && (
-                    <span className="error pl-5">{errors.name}</span>
+                    value={values.description}
+                  /> {touched.description && errors.description && (
+                    <span className="error pl-5">{errors.description}</span>
                   )}
                 </div>
 
@@ -118,19 +118,19 @@ export function GroupForm() {
                       <input
                         type="date"
                         onBlur={handleBlur}
-                        name="dateInicial"
+                        name="dateInicialG"
                         onChange={handleChange}
-                        value={values.dateInicial}
-                      /> {touched.dateInicial && errors.dateInicial && (
-                        <span className="error pl-5">{errors.dateInicial}</span>
+                        value={values.dateInicialG}
+                      /> {touched.dateInicialG && errors.dateInicialG && (
+                        <span className="error pl-5">{errors.dateInicialG}</span>
                       )}
                     </td>
                     <td className="px-4">
                       <input
                         type="date"
-                        name="dateFinal"
+                        name="dateFinalG"
                         onChange={handleChange}
-                        value={values.dateFinal}
+                        value={values.dateFinalG}
                       />
                     </td>
                   </tr>

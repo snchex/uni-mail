@@ -32,7 +32,6 @@ export const MailPage = () => {
             <tr className="border-bottom">
               <th>Usuario</th>
               <th>Solicitante</th>
-              <th>Estado</th>
               <th>Tipo</th>
               <th>Tipo de Solicitudes</th>
               <th>Departamento</th>

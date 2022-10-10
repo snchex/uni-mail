@@ -1,25 +1,27 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { AuthContext } from "../../auth/context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { LogOut, reset } from "../../mails/features/authSlice";
+import logo from "../../assets/logo192.png";
 
 export const Navbar = () => {
-  const { logout } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
-  
-  const onLogout = () => {
-    logout();
-    navigate("/", {
-      replace: true,
-    });
+  const logout = () => {
+    dispatch(LogOut());
+    dispatch(reset());
+    navigate("/");
   };
 
   return (
-   
     <nav>
-      <ul>
+      <img className="logo " src={logo} alt="logo" />
+
+      <ul className="d-flex">
         <li>
           <Link className="active" to="/home">
             Inicio
@@ -117,16 +119,21 @@ export const Navbar = () => {
             </Dropdown.Item>
           </DropdownButton>
         </li>
+        {user && user.role === "admin" && (
+          <li>
+            <Link className="active" to="/users">
+            Administracion
+          </Link>
+          </li>
+        )}
 
         <li>
-          <Link onClick={onLogout} className="btn btn-outline-primary" to="/">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          </Link>
+          <button onClick={logout} className="btn btn-outline-primary" >
+            <i className="fa-solid fa-right-from-bracket"></i>
+          </button>
         </li>
-        
       </ul>
     </nav>
-   
   );
 };
 export default Navbar;

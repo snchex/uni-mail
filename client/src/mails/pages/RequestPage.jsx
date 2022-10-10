@@ -26,7 +26,7 @@ export const RequestPage = () => {
   }
 
   return (
-    <div div className="card mx-auto col-md-4">
+    <div className="card mx-auto col-md-4">
       <h1 className="row justify-content-center py-3">Lista de Solicitudes</h1>
       <div className="container">
         <table className="table table-borderles">
