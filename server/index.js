@@ -21,11 +21,10 @@ const store = new sessionStore({
     db: db
 });
 
-store.sync();
-/*
+
 (async()=>{
-     await db.sync();
- })();*/
+    await db.sync();
+})();
 
 
 app.use(session({
@@ -52,7 +51,8 @@ app.use(typeRoutes);
 app.use(groupRoutes);
 app.use(mailRoutes);
 //app.use(db);
-     
+
+store.sync();
 
 app.listen(process.env.APP_PORT, ()=> {
     console.log('Server up and running...');

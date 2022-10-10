@@ -25,14 +25,15 @@
 nav{
   background: #d7d2d2;
   height: 4.2rem;
-  width: 100%;
+  width: 100vw;
 }
 .logo{
-  color: white;
-  font-size: 35px;
-  line-height: 80px;
-  padding-left: 30px;
-  font-weight: bold;
+
+  width: 4%;
+  justify-content: start;
+  margin-top: -.5rem;
+  margin-left: 1rem;
+
 
 }
 

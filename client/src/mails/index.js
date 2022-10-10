@@ -1,1 +1,1 @@
-export * from './routes/MailRoutes';
+export {MailRoutes} from './routes/MailRoutes';

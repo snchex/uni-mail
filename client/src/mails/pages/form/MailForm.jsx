@@ -148,8 +148,8 @@ export const MailForm = (values) => {
                   value={values.user}
                 />
                 {touched.user && errors.user && (
-                  <span className="error pl-5">{errors.user}</span>
-                )}
+                  <span className="error pl-5 mx-3 "><b>{errors.user}</b></span>
+                )} 
               </div>
 
               <div className="form-group col-sm-6 flex-column d-flex">
@@ -225,45 +225,47 @@ export const MailForm = (values) => {
 
               <div className="form-group col-sm-6 flex-column d-flex">
                 <tr>
-                  <label className="form-control-label px-2 mx-1">
+                  <label className="form-control-label px-2 mx-2">
                     Fecha de Solicitud
+                    <td>
+                      <input
+                        type="date"
+                        name="dateSolicitud"
+                        onChange={handleChange}
+                        value={values.dateSolicitud}
+                      />
+                      {touched.dateSolicitud && errors.dateSolicitud && (
+                        <span className="error pl-5">
+                          {errors.dateSolicitud}
+                        </span>
+                      )}
+                    </td>
                   </label>
-                  <label className="form-control-label px-3 mx-4">
+                  <label className="form-control-label px-2 mx-2">
                     Fecha de Vinculacion
+                    <td>
+                      <input
+                        type="date"
+                        name="dateInicial"
+                        onChange={handleChange}
+                        value={values.dateInicial}
+                      />
+                      {touched.dateInicial && errors.dateInicial && (
+                        <span className="error pl-5">{errors.dateInicial}</span>
+                      )}
+                    </td>
                   </label>
-                  <label className="form-control-label  px-2 mx-2">
+                  <label className="form-control-label px-2 mx-2">
                     Fecha de Desvinculacion
+                    <td>
+                      <input
+                        type="date"
+                        name="dateFinal"
+                        onChange={handleChange}
+                        value={values.dateFinal}
+                      />
+                    </td>
                   </label>
-                  <td>
-                    <input
-                      type="date"
-                      name="dateSolicitud"
-                      onChange={handleChange}
-                      value={values.dateSolicitud}
-                    />
-                    {touched.dateSolicitud && errors.dateSolicitud && (
-                      <span className="error pl-5">{errors.dateSolicitud}</span>
-                    )}
-                  </td>
-                  <td className="px-4">
-                    <input
-                      type="date"
-                      name="dateInicial"
-                      onChange={handleChange}
-                      value={values.dateInicial}
-                    />
-                    {touched.dateInicial && errors.dateInicial && (
-                      <span className="error pl-5">{errors.dateInicial}</span>
-                    )}
-                  </td>
-                  <td className="px-4">
-                    <input
-                      type="date"
-                      name="dateFinal"
-                      onChange={handleChange}
-                      value={values.dateFinal}
-                    />
-                  </td>
                 </tr>
               </div>
               <div className="form-group col-sm-6 flex-column d-flex ">
