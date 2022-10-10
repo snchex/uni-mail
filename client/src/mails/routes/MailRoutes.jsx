@@ -1,5 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { AddUser } from "../pages/AddUser";
+import { EditUser } from "../pages/EditUser";
 
 import {
   TypeForm,
@@ -14,6 +16,7 @@ import {
   MailPage,
   Home,
   NotFound,
+  UserPage,
 } from "../pages";
 import {
   DepartamentProvider,
@@ -61,6 +64,11 @@ export function MailRoutes() {
                   <Route path="/group/create" element={<GroupForm />} />
                   <Route path="/group/edit/:id" element={<GroupForm />} />
                   <Route path="/group/list" element={<GroupPage />} />
+
+
+                  <Route path="/users" element={<UserPage />} />
+                  <Route path="/users/add" element={<AddUser />} />
+                  <Route path="/users/edit/:id" element={<EditUser />} />
 
                   <Route path="home/*" element={<NotFound />} />
                 </Routes>

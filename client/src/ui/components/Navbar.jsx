@@ -14,7 +14,7 @@ export const Navbar = () => {
   const logout = () => {
     dispatch(LogOut());
     dispatch(reset());
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -121,12 +121,9 @@ export const Navbar = () => {
         </li>
         {user && user.role === "admin" && (
           <li>
-            <p className="menu-label">Admin</p>
-            <ul className="menu-list">
-              <li>
-                <Link to={"/users"}> Users</Link>
-              </li>
-            </ul>
+            <Link className="active" to="/users">
+            Administracion
+          </Link>
           </li>
         )}
 

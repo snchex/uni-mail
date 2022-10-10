@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
+import { store } from './mails/app/store';
 import './styles/styles.css';
 import MailApp from './MailApp';
 import axios from "axios";

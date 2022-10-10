@@ -1,8 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useMails } from "../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getMe } from "../features/authSlice";
 
 export const Home = () => {
   const { mails, loadMails } = useMails();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isError } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
+
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/");
+    }
+  }, [isError, navigate]);
 
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
@@ -31,6 +48,7 @@ export const Home = () => {
   };
 
   useEffect(() => {
+  
     const timer = setTimeout(() => {
       loadMails();
     }, 1000);
