@@ -17,16 +17,22 @@ const Users = db.define('users',{
         type: DataTypes.STRING,
         allowNull: false,
         validate:{
-            notEmpty: true,
-            len: [3, 100]
+            notEmpty: false
         }
     },
-    email:{
+    email: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate:{
-            notEmpty: true,
-            isEmail: true
+        unique: {
+            msg: 'Email no valido ya existente'
+        },
+        validate: {
+            isEmail: {
+                msg: 'Email no valido'
+            },
+            notEmpty: {
+                msg: 'Ingrese un email'
+            }
         }
     },
     password:{

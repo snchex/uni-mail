@@ -22,11 +22,7 @@ export const EditUser = () => {
       navigate("/Home");
     }
   }, [isError, user, navigate]);
-  return (
-
-      <FormEditUser/>
-
-  );
+  return <FormEditUser />;
 };
 
 export default EditUser;

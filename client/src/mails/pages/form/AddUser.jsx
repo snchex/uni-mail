@@ -38,7 +38,7 @@ export const FormAddUser = () => {
         <div className="card-content">
           <div className="content">
             <form onSubmit={saveUser}>
-              <p className="has-text-centered">{msg}</p>
+              <p className="error pl-5">{msg}</p>
               <div className="form-group flex-column d-flex">
                 <label className="label">Name</label>
                 
@@ -95,6 +95,7 @@ export const FormAddUser = () => {
                       value={role}
                       onChange={(e) => setRole(e.target.value)}
                     >
+                      <option disabled selected value="">Seleccione</option>
                       <option value="admin">Admin</option>
                       <option value="user">User</option>
                     </Form.Select>

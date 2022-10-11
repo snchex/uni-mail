@@ -12,6 +12,7 @@ const UserCard = () => {
   const getUsers = async () => {
     const response = await axios.get("http://localhost:3030/users");
     setUsers(response.data);
+
   };
 
   const deleteUser = async (userId) => {

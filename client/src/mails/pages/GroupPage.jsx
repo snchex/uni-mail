@@ -17,7 +17,6 @@ export const GroupPage = () => {
       return (
         <div className="container">
           <h1>No Existen Grupos</h1>
-        
         </div>
       );
     return groups.map((group) => <GroupCard group={group} key={group.id} />);
@@ -31,22 +30,12 @@ export const GroupPage = () => {
           <table className="table table-borderles">
             <thead className="border-bottom text-center">
               <tr>
-                <th>
-                  Grupo
-                </th>
+                <th>Grupo</th>
 
-                <th>
-                  Fecha de Vinculacion
-                </th>
-                <th>
-                  Fecha de Desvinculacion
-                </th>
-                <th>
-                  Accion
-                </th>
-                <th>
-                  Accion
-                </th>
+                <th>Fecha de Vinculacion</th>
+                <th>Fecha de Desvinculacion</th>
+                <th>Accion</th>
+                <th>Accion</th>
               </tr>
             </thead>
 
@@ -54,7 +43,6 @@ export const GroupPage = () => {
           </table>
         </div>
       </div>
-
     </>
   );
 };

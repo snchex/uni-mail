@@ -21,11 +21,7 @@ export const AddUser = () => {
       navigate("/home");
     }
   }, [isError, user, navigate]);
-  return (
-
-      <FormAddUser />
-  
-  );
+  return <FormAddUser />;
 };
 
 export default AddUser;
