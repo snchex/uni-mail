@@ -11,8 +11,7 @@ export const FormAddUser = () => {
   const [role, setRole] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
-
-  const saveUser = async (e) => {
+ const saveUser = async (e) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:3030/user/create", {

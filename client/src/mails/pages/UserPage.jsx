@@ -1,18 +1,24 @@
 import React, { useEffect } from "react";
-
-
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";
 import UserCard from "../components/UserCard";
+import { useUsers } from "../context/UserProvider";
 
 export const UserPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isError, user } = useSelector((state) => state.auth);
+  const { users, loadUsers } = useUsers();
 
   useEffect(() => {
     dispatch(getMe());
+    const timer = setTimeout(() => {
+      loadUsers();
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, [dispatch]);
 
   useEffect(() => {
@@ -23,10 +29,30 @@ export const UserPage = () => {
       navigate("/home");
     }
   }, [isError, user, navigate]);
+  function renderMain() {
+    return users.map((user) => <UserCard user={user} key={user.id} />);
+  }
   return (
-
-      <UserCard />
-  
+    <div className="card mx-auto col-md-6">
+      <h1 className="title">Usuarios</h1>
+      <hr />
+      <h2 className="subtitle">Lista de Usuarios</h2>
+      <Link to="/users/add" className="btn btn-primary mb-2">
+        Nuevo Usuario
+      </Link>
+      <table className="table table-borderles">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        {renderMain()}
+      </table>
+    </div>
   );
 };
 
