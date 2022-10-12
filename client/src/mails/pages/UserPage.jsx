@@ -13,24 +13,23 @@ export const UserPage = () => {
   const { users, loadUsers } = useUsers();
 
   useEffect(() => {
-    dispatch(getMe());
     const timer = setTimeout(() => {
+      dispatch(getMe());
       loadUsers();
+      if (isError) {
+        navigate("/");
+      }
+      if (user && user.role !== "admin") {
+        navigate("/home");
+      }
     }, 500);
-
     return () => clearTimeout(timer);
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isError) {
-      navigate("/");
-    }
-    if (user && user.role !== "admin") {
-      navigate("/home");
-    }
-  }, [isError, user, navigate]);
+  }, [isError, user, navigate, dispatch]);
+  
   function renderMain() {
-    return users.map((user) => <UserCard user={user} key={user.id} />);
+    return users.map((usuario) => (
+      <UserCard usuario={usuario} key={usuario.id} />
+    ));
   }
   return (
     <div className="card mx-auto col-md-6">

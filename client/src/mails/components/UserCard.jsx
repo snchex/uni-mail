@@ -2,20 +2,20 @@ import React from "react";
 
 import { useNavigate } from "react-router-dom";
 import { useUsers } from "../context/UserProvider";
-export const UserCard = ({ user }) => {
+export const UserCard = ({ usuario }) => {
   const { delUser } = useUsers();
   const navigate = useNavigate();
   return (
     <> 
       <tbody>
-        <tr key={user.uuid}>
-          <td>{user.id}</td>
-          <td>{user.name}</td>
-          <td>{user.email}</td>
-          <td>{user.role}</td>
+        <tr key={usuario.uuid}>
+          <td>{usuario.id}</td>
+          <td>{usuario.name}</td>
+          <td>{usuario.email}</td>
+          <td>{usuario.role}</td>
           <td>
             <button
-              onClick={() => navigate(`/users/edit/${user.uuid}`)}
+              onClick={() => navigate(`/users/edit/${usuario.uuid}`)}
               className="btn btn-outline-warning"
             >
               <img
@@ -24,7 +24,7 @@ export const UserCard = ({ user }) => {
               />
             </button>
             <button
-              onClick={() => delUser(user.uuid)}
+              onClick={() => delUser(usuario.uuid)}
               className="btn btn-outline-danger mx-2"
             >
               <img
