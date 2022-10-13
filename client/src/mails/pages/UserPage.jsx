@@ -46,7 +46,7 @@ export const UserPage = () => {
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Actions</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         {renderMain()}

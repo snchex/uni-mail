@@ -1,9 +1,5 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { FormAddUser} from "../pages/form/AddUser";
-import { FormEditUser } from "../pages/form/EditUser";
-//import { UserForm } from "../pages/form/UserForm";
-
 
 import {
   TypeForm,
@@ -19,6 +15,8 @@ import {
   Home,
   NotFound,
   UserPage,
+  FormEditUser,
+  FormAddUser,
 } from "../pages";
 import {
   DepartamentProvider,
@@ -26,8 +24,9 @@ import {
   RequestProvider,
   GroupProvider,
   MailProvider,
-} from "../hooks";
-import { UserProvider } from "../context/UserProvider";
+  UserProvider,
+} from "../context";
+
 import { Navbar } from "../../ui";
 
 export function MailRoutes() {

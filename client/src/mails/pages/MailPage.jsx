@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import MailCard from "../components/MailCard";
-import { useMails } from "../hooks/MailProvider";
-//import GetUserSearch from '../helpers/getUserSearch'
-
+import { useMails } from "../context/MailProvider";
+import { useNavigate } from "react-router-dom"
 export const MailPage = () => {
   const { mails, loadMails } = useMails();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
       loadMails();
@@ -26,6 +25,12 @@ export const MailPage = () => {
   return (
     <div className="card mx-auto col-md-11">
       <h1 className="row justify-content-md-center py-3">Lista de Correos</h1>
+      <button
+        className="btn btn-primary mx-3"
+        onClick={() => navigate(`/mail/create`)}
+      >
+        Crear Mail
+      </button>
       <div className="row justify-content-md-center mx-auto">
         <table className="table table-borderles ">
           <thead className="text-center">
@@ -39,8 +44,8 @@ export const MailPage = () => {
               <th>Fecha de Solicitud</th>
               <th>Fecha de Vinculacion</th>
               <th>Fecha de Desvinculacion</th>
-              <th>Accion</th>
-              <th>Accion</th>
+              <th>Acciones</th>
+             
             </tr>
           </thead>
           {renderMain()}

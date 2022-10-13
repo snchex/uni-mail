@@ -57,7 +57,7 @@ export const LoginPage = () => {
           </div>
           <div className="d-grid gap-2 mt-3">
             <button type="submit" className="btn btn-primary">
-              {isLoading ? "Loading..." : "Login"}
+              {isLoading ? "Loading..." : "Iniciar Sesión"}
             </button>
           </div>
         </div>

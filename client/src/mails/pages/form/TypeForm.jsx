@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Formik } from "formik";
 import { useParams, useNavigate } from "react-router-dom";
-import { useTypes } from "../../hooks/TypeProvider";
+import { useTypes } from "../../context/TypeProvider";
 import { useEffect, useState } from "react";
 
 export function TypeForm() {

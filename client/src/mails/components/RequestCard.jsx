@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useRequests } from "../hooks/RequestProvider";
+import { useRequests } from "../context/RequestProvider";
 import { useNavigate } from "react-router-dom";
 
 export default function RequestCard({ request }) {
@@ -19,16 +19,14 @@ export default function RequestCard({ request }) {
           <td className="text-center">
             <button
               onClick={() => navigate(`/request/edit/${request.id}`)}
-              className="btn btn-outline-warning"
+              className=" m-2 btn btn-outline-warning"
             >
               <img
                 src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png"
                 alt=""
               />
             </button>
-          </td>
-          <td className="text-center">
-            <button onClick={handleShow} className="btn btn-outline-danger">
+            <button onClick={handleShow} className="m-2 btn btn-outline-danger">
               <img
                 src="https://img.icons8.com/plasticine/24/000000/filled-trash.png"
                 alt="trash"

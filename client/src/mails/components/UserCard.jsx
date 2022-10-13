@@ -1,10 +1,14 @@
-import React from "react";
-
+import React, {useState} from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import { useUsers } from "../context/UserProvider";
 export const UserCard = ({ usuario }) => {
   const { delUser } = useUsers();
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <> 
       <tbody>
@@ -24,7 +28,7 @@ export const UserCard = ({ usuario }) => {
               />
             </button>
             <button
-              onClick={() => delUser(usuario.uuid)}
+              onClick={handleShow}
               className="btn btn-outline-danger mx-2"
             >
               <img
@@ -35,6 +39,27 @@ export const UserCard = ({ usuario }) => {
           </td>
         </tr>
       </tbody>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Eliminar</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Realmente deseas eliminar? Este proceso no se puede deshacer.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button onClick={() => delUser(usuario.uuid)} variant="primary">
+            Entendido
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

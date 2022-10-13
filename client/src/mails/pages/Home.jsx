@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMails } from "../hooks";
+import { useMails } from "../context";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";
