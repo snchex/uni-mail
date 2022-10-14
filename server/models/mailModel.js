@@ -9,11 +9,19 @@ const { DataTypes } = Sequelize;
 
 const Mails = db.define('mails',{
 
-    user:{
+    user: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate:{
-            notEmpty: true
+        unique: {
+            msg: 'El email ya fue registrado'
+        },
+        validate: {
+            isEmail: {
+                msg: 'Email no valido'
+            },
+            notEmpty: {
+                msg: 'Ingrese un email'
+            }
         }
     },
     solicitante:{

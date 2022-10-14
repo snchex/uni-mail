@@ -1,74 +1,66 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-
-const UserCard = () => {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    getUsers();
-  }, []);
-
-  const getUsers = async () => {
-    const response = await axios.get("http://localhost:3030/users");
-    setUsers(response.data);
-  };
-
-  const deleteUser = async (userId) => {
-    await axios.delete(`http://localhost:3030/user/delete/${userId}`);
-    getUsers();
-  };
-
+import React, {useState} from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { useNavigate } from "react-router-dom";
+import { useUsers } from "../context/UserProvider";
+export const UserCard = ({ usuario }) => {
+  const { delUser } = useUsers();
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
-    <div className="card mx-auto col-md-6">
-      <h1 className="title">Usuarios</h1>
-      <hr />
-      <h2 className="subtitle">Lista de Usuarios</h2>
-      <Link to="/users/add" className="btn btn-primary mb-2">
-        Nuevo Usuario
-      </Link>
-      <table className="table table-borderles">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={user.uuid}>
-              <td>{index + 1}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td>
-                <Link
-                  to={`/users/edit/${user.uuid}`}
-                  className="btn btn-outline-warning"
-                >
-                  <img
+    <> 
+      <tbody>
+        <tr key={usuario.uuid}>
+          <td>{usuario.id}</td>
+          <td>{usuario.name}</td>
+          <td>{usuario.email}</td>
+          <td>{usuario.role}</td>
+          <td>
+            <button
+              onClick={() => navigate(`/users/edit/${usuario.uuid}`)}
+              className="btn btn-outline-warning"
+            >
+              <img
                 src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png"
                 alt=""
               />
-                </Link>
-                <button
-                  onClick={() => deleteUser(user.uuid)}
-                  className="btn btn-outline-danger mx-2"
-                >
-                   <img
+            </button>
+            <button
+              onClick={handleShow}
+              className="btn btn-outline-danger mx-2"
+            >
+              <img
                 src="https://img.icons8.com/plasticine/24/000000/filled-trash.png"
                 alt="trash"
               />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Eliminar</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Realmente deseas eliminar? Este proceso no se puede deshacer.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button onClick={() => delUser(usuario.uuid)} variant="primary">
+            Entendido
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 

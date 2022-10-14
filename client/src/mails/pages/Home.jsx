@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMails } from "../hooks";
+import { useMails } from "../context";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";
@@ -11,15 +11,16 @@ export const Home = () => {
   const { isError } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(getMe());
-  }, [dispatch]);
-
-
-  useEffect(() => {
     if (isError) {
       navigate("/");
     }
-  }, [isError, navigate]);
+    dispatch(getMe());
+
+    const timer = setTimeout(() => {
+      loadMails();
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [dispatch, isError, navigate]);
 
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
@@ -46,14 +47,6 @@ export const Home = () => {
       setFilteredData(newFilter);
     }
   };
-
-  useEffect(() => {
-  
-    const timer = setTimeout(() => {
-      loadMails();
-    }, 1000);
-    return () => clearTimeout(timer);
-  });
 
   const showError = filteredData.length === 0;
   const showSearch = filteredData.length !== 0;
@@ -134,7 +127,6 @@ export const Home = () => {
           >
             No existe usuario <b>{wordEntered}</b>
           </div>
-        
         </div>
       </div>
     </div>

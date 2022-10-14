@@ -1,11 +1,11 @@
 import React from "react";
 import { useEffect } from "react";
 import TypeCard from "../components/TypeCard";
-import { useTypes } from "../hooks/TypeProvider";
-
+import { useTypes } from "../context/TypeProvider";
+import { useNavigate } from "react-router-dom"
 export function TypePage() {
   const { types, loadTypes } = useTypes();
-
+  const navigate = useNavigate(); 
   useEffect(() => {
     const timer = setTimeout(() => {
       loadTypes();
@@ -28,19 +28,18 @@ export function TypePage() {
       <h1 className="row justify-content-center py-3">
         Lista de tipos de Correo
       </h1>
+      <button
+        className="btn btn-primary mx-3"
+        onClick={() => navigate(`/mailtype/create`)}
+      >
+        Crear Tipo de Correo
+      </button>
       <div className="container mx-auto ">
         <table className="table table-borderles ">
           <thead className="text-center">
             <tr className="border-bottom">
-              <th>
-                <span>Tipo de Correo</span>
-              </th>
-              <th>
-                <span>Accion</span>
-              </th>
-              <th>
-                <span>Accion</span>
-              </th>
+              <th>Tipo de Correo</th>
+              <th>Acciones</th>
             </tr>
           </thead>
 

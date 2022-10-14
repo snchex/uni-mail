@@ -6,7 +6,7 @@ export const verifyUser = async (req, res, next) =>{
     }
     const user = await User.findOne({
         where: {
-            id: req.session.userId
+            uuid: req.session.userId
         }
     });
     if(!user) return res.status(404).json({msg: "User not found"});
@@ -18,7 +18,7 @@ export const verifyUser = async (req, res, next) =>{
 export const adminOnly = async (req, res, next) =>{
     const user = await User.findOne({
         where: {
-            id: req.session.userId
+            uuid: req.session.userId
         }
     });
     if(!user) return res.status(404).json({msg: "User not found"});

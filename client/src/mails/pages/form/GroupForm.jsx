@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { useParams, useNavigate } from "react-router-dom";
-import { useGroups } from "../../hooks/GroupProvider";
+import { useGroups } from "../../context/GroupProvider";
 
 export function GroupForm() {
   const { crGroup, gtGroup, upGroup } = useGroups();
