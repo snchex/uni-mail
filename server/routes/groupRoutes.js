@@ -1,12 +1,12 @@
 import  { Router } from 'express';
+import { verifyUser } from "../middlewares/authUser.js";
+import { getAllGroups, getGroup, createGroup, updateGroup, deleteGroup } from '../controllers/groupControllers.js';
 const router = Router();
 
-import { getAllGroups, getGroup, createGroup, updateGroup, deleteGroup } from '../controllers/groupControllers.js';
-
-router.get('/groups', getAllGroups);
-router.get('/group/:id', getGroup);
-router.post('/group/create', createGroup);
-router.put('/group/update/:id', updateGroup);
-router.delete('/group/delete/:id', deleteGroup);
+router.get('/groups',verifyUser, getAllGroups);
+router.get('/group/:id',verifyUser, getGroup);
+router.post('/group/create',verifyUser, createGroup);
+router.put('/group/update/:id',verifyUser, updateGroup);
+router.delete('/group/delete/:id',verifyUser, deleteGroup);
 
 export default router;
