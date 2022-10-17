@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import Formm from "react-bootstrap/Form";
 import { useParams, useNavigate } from "react-router-dom";
-import { useMails } from "../../hooks/MailProvider";
-import { useDeparts, useRequests, useTypes, useGroups } from "../../hooks";
+import { useMails } from "../../context/MailProvider";
+import { useDeparts, useRequests, useTypes, useGroups } from "../../context";
 
 export const MailForm = (values) => {
   const { crMail, gtMail, upMail } = useMails();

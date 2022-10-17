@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { LogOut, reset } from "../../mails/features/authSlice";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { useDispatch, useSelector } from "react-redux";
-import { LogOut, reset } from "../../mails/features/authSlice";
 import logo from "../../assets/logo192.png";
 
 export const Navbar = () => {

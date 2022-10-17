@@ -1,7 +1,5 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { AddUser } from "../pages/AddUser";
-import { EditUser } from "../pages/EditUser";
 
 import {
   TypeForm,
@@ -17,6 +15,8 @@ import {
   Home,
   NotFound,
   UserPage,
+  FormEditUser,
+  FormAddUser,
 } from "../pages";
 import {
   DepartamentProvider,
@@ -24,12 +24,14 @@ import {
   RequestProvider,
   GroupProvider,
   MailProvider,
-} from "../hooks";
+  UserProvider,
+} from "../context";
 
 import { Navbar } from "../../ui";
 
 export function MailRoutes() {
   return (
+    <UserProvider>
     <MailProvider>
       <GroupProvider>
         <RequestProvider>
@@ -67,10 +69,10 @@ export function MailRoutes() {
 
 
                   <Route path="/users" element={<UserPage />} />
-                  <Route path="/users/add" element={<AddUser />} />
-                  <Route path="/users/edit/:id" element={<EditUser />} />
+                  <Route path="/users/add" element={<FormAddUser />} />
+                  <Route path="/users/edit/:id" element={<FormEditUser />} />
 
-                  <Route path="home/*" element={<NotFound />} />
+                  <Route path="/*" element={<NotFound />} />
                 </Routes>
               </div>
             </TypeProvider>
@@ -78,6 +80,7 @@ export function MailRoutes() {
         </RequestProvider>
       </GroupProvider>
     </MailProvider>
+   </UserProvider>
   );
 }
 export default MailRoutes;

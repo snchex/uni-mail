@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import DepartCard from "../components/DepartamentCard";
-import { useDeparts } from "../hooks/DepartamentProvider";
-
+import { useDeparts } from "../context/DepartamentProvider";
+import { useNavigate } from "react-router-dom";
 export function DepartPage() {
   const { departs, loadDepartaments } = useDeparts();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
       loadDepartaments();
@@ -16,7 +16,7 @@ export function DepartPage() {
     if (departs.length === 0)
       return (
         <div className="container">
-          <h1>No exiten Departamentos</h1> <button className="btn btn-primary" to="/departament/create" >Crear</button>
+          <h1>No existen Departamentos</h1>
         </div>
       );
     return departs.map((depart) => (
@@ -24,23 +24,23 @@ export function DepartPage() {
     ));
   }
   return (
-    <div className="card mx-auto col-md-6">
+    <div className="card mx-auto col-md-5">
       <h1 className="row justify-content-center py-3">
         Lista de Departamentos de Correo
       </h1>
+      <button
+        className="btn btn-primary mx-3"
+        onClick={() => navigate(`/departament/create`)}
+      >
+        Crear Departamento
+      </button>
       <div className="container mx-auto ">
         <table className="table table-borderles">
           <thead className="text-center">
             <tr className="border-bottom">
-              <th>
-                <span className="ml-2">Departamentos</span>
-              </th>
-              <th>
-                <span className="ml-2">Accion</span>
-              </th>
-              <th>
-                <span className="ml-2">Accion</span>
-              </th>
+              <th>Departamentos</th>
+              <th>Acciones</th>
+     
             </tr>
           </thead>
 

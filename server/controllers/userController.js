@@ -5,7 +5,7 @@ import argon2 from "argon2";
 export const getUsers = async (req, res) => {
     try {
         const response = await User.findAll({
-            attributes: ['uuid', 'name', 'email', 'role']
+            attributes: ['uuid', 'id', 'name', 'email', 'role']
         });
         res.status(200).json(response);
     } catch (error) {
@@ -28,17 +28,9 @@ export const getUserById = async (req, res) => {
 }
 
 export const createUser = async (req, res) => {
-    const { response } = await User.findAll({
-        attributes: ['email']
-    });
 
     const { name, email, password, confPassword, role } = req.body;
-
-
-    if (email === response) {
-        return res.status(400).json({ msg: 'Email already exists' });
-
-    } else if (password !== confPassword) return res.status(400).json({ msg: "Password and Confirm Password do not match" });
+    if (password !== confPassword) return res.status(400).json({ msg: "Password and Confirm Password do not match" });
     const hashPassword = await argon2.hash(password);
     try {
         await User.create({
@@ -67,8 +59,8 @@ export const updateUser = async (req, res) => {
     } else {
         hashPassword = await argon2.hash(password);
     }
-    if (password !== confPassword) return res.status(400).json({ msg: "Password and Confirm Password do not match" });
     try {
+    if (password !== confPassword) return res.status(400).json({ msg: "Password and Confirm Password do not match" });
         await User.update({
             name: name,
             email: email,
