@@ -20,12 +20,12 @@ const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
     db: db
 });
-/*
+
 
 (async()=>{
     await db.sync();
 })();
-*/
+
 
 app.use(session({
     secret: process.env.SESS_SECRET,
@@ -50,7 +50,7 @@ app.use(departamentRoutes);
 app.use(typeRoutes);
 app.use(groupRoutes);
 app.use(mailRoutes);
-//app.use(db);
+
 
 store.sync();
 

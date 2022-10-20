@@ -26,7 +26,7 @@ export const MailPage = () => {
     <div className="card mx-auto col-md-11">
       <h1 className="row justify-content-md-center py-3">Lista de Correos</h1>
       <button
-        className="btn btn-primary mx-3"
+        className="btn btn-primary"
         onClick={() => navigate(`/mail/create`)}
       >
         Crear Mail

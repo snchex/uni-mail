@@ -65,6 +65,7 @@ export const MailForm = (values) => {
     return () => clearTimeout(timer);
   };
 
+  let errores = {};
   return (
     <div className="card mx-auto col-md-9">
       <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
@@ -73,8 +74,7 @@ export const MailForm = (values) => {
         initialValues={mail}
         enableReinitialize={true}
         validate={(values) => {
-          let errores = {};
-
+          
           if (!values.user) {
             errores.user = "Por favor ingrese el Correo";
           } else if (
@@ -108,8 +108,7 @@ export const MailForm = (values) => {
           if (params.id) {
             console.log("Update");
             await upMail(params.id, values);
-            navigate("/mail/list");
-          } else {
+          } else if(errores) {
             await crMail(values);
           }
           setMail({
@@ -148,8 +147,10 @@ export const MailForm = (values) => {
                   value={values.user}
                 />
                 {touched.user && errors.user && (
-                  <span className="error pl-5 mx-3 "><b>{errors.user}</b></span>
-                )} 
+                  <span className="error pl-5 mx-3 ">
+                    <b>{errors.user}</b>
+                  </span>
+                )}
               </div>
 
               <div className="form-group col-sm-6 flex-column d-flex">
@@ -231,6 +232,7 @@ export const MailForm = (values) => {
                       <input
                         type="date"
                         name="dateSolicitud"
+                        onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.dateSolicitud}
                       />
@@ -261,6 +263,7 @@ export const MailForm = (values) => {
                       <input
                         type="date"
                         name="dateFinal"
+                        onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.dateFinal}
                       />
@@ -297,6 +300,7 @@ export const MailForm = (values) => {
                   <button
                     className="btn btn-primary"
                     type="submit"
+                    onChange={handleChange}
                     onClick={verMails}
                     disabled={isSubmitting}
                   >
@@ -307,6 +311,7 @@ export const MailForm = (values) => {
                   <button
                     className="btn btn-warning"
                     type="submit"
+                    onChange={handleChange}
                     disabled={isSubmitting}
                     onClick={clearInput}
                   >

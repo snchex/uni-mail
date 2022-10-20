@@ -29,7 +29,7 @@ export const LoginPage = () => {
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Inicio Sesi&oacute;n</h3>
 
-          {isError && <p className="has-text-centered">{message}</p>}
+          {isError && <p className="error pl-5">{message}</p>}
 
           <div className="form-group mt-3">
             <label className="label">Email</label>

@@ -32,7 +32,7 @@ Content-Type: application/json
 }   
 
 ### DELETE
-DELETE  http://localhost:3030/user/delete/a8f5593e-8c73-463d-a486-c5e7d4daabe5
+DELETE  http://localhost:3030/user/delete/1df6de62-ec55-43e5-9a7d-e405892c6fa5
 
 
 ### Login
@@ -60,3 +60,6 @@ Content-Type: application/json
   "solicitud": "backend",
 
 }
+### get all the users
+GET  http://localhost:3030/mails
+

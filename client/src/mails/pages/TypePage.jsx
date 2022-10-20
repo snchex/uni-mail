@@ -17,7 +17,7 @@ export function TypePage() {
     if (types.length === 0)
       return (
         <div className="container">
-          <h1>No exiten Tipos</h1>
+          <h1>No existen Tipos</h1>
         </div>
       );
 
