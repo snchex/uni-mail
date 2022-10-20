@@ -42,7 +42,7 @@ const Mails = db.define('mails',{
         type: DataTypes.DATE,
         allowNull: true,
         validate:{
-            notEmpty: false,
+            notEmpty: true,
         }
     },
     dateSolicitud:{
@@ -96,6 +96,6 @@ Departaments.hasMany(Mails);
 Mails.belongsTo(Departaments, {foreignKey: 'departamentId'});
 
 Requests.hasMany(Mails);
-Mails.belongsTo(Requests, {foreignKey: 'departamentId'});
+Mails.belongsTo(Requests, {foreignKey: 'requestId'});
 
 export default Mails;

@@ -53,7 +53,7 @@ export const getGroup = async (req, res) => {
 export const createGroup = async (req, res) => {
     try {
         const { description, dateInicialG, dateFinalG } = req.body;
-        if (!dateFinalG === "") {
+        if (dateFinalG) {
             await Group.create({
                 description: description,
                 dateInicialG: dateInicialG,

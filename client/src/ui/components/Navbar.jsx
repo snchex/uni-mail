@@ -33,12 +33,12 @@ export const Navbar = () => {
             id="dropdown-basic-button"
             title="Correos"
           >
-            <Dropdown.Item style={{ margin: 0 }} href="#/action-1">
+            <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/mail/create">
                 Crear Correos
               </Link>
             </Dropdown.Item>
-            <Dropdown.Item style={{ margin: 0 }} href="#/action-2">
+            <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/mail/list">
                 Lista Correos
               </Link>
@@ -51,12 +51,12 @@ export const Navbar = () => {
             id="dropdown-basic-button"
             title="Tipos Correos"
           >
-            <Dropdown.Item style={{ margin: 0 }} href="#/action-1">
+            <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/mailtype/create">
                 Crear Tipo Correos
               </Link>
             </Dropdown.Item>
-            <Dropdown.Item style={{ margin: 0 }} href="#/action-2">
+            <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/mailtype/list">
                 Lista Tipo Correos
               </Link>
@@ -70,12 +70,12 @@ export const Navbar = () => {
             id="dropdown-basic-button"
             title="Departamentos"
           >
-            <Dropdown.Item style={{ margin: 0 }} href="#/action-1">
+            <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/departament/create">
                 Crear Departamentos
               </Link>
             </Dropdown.Item>
-            <Dropdown.Item style={{ margin: 0 }} href="#/action-2">
+            <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/departament/list">
                 Lista Departamentos
               </Link>
@@ -89,12 +89,12 @@ export const Navbar = () => {
             id="dropdown-basic-button"
             title="Solicitudes"
           >
-            <Dropdown.Item style={{ margin: 0 }} href="#/action-1">
+            <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/request/create">
                 Crear Tipo de Solicitud
               </Link>
             </Dropdown.Item>
-            <Dropdown.Item style={{ margin: 0 }} href="#/action-2">
+            <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/request/list">
                 Lista Tipo de Solicitud
               </Link>
@@ -107,12 +107,12 @@ export const Navbar = () => {
             id="dropdown-basic-button"
             title="Grupos"
           >
-            <Dropdown.Item style={{ margin: 0 }} href="#/action-1">
+            <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/group/create">
                 Crear Grupos
               </Link>
             </Dropdown.Item>
-            <Dropdown.Item style={{ margin: 0 }} href="#/action-2">
+            <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/group/list">
                 Lista de Grupos
               </Link>
