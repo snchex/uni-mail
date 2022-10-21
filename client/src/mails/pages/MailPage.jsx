@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import MailCard from "../components/MailCard";
 import { useMails } from "../context/MailProvider";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 export const MailPage = () => {
   const { mails, loadMails } = useMails();
   const navigate = useNavigate();
@@ -25,13 +25,13 @@ export const MailPage = () => {
   return (
     <div className="card mx-auto col-md-11">
       <h1 className="row justify-content-md-center py-3">Lista de Correos</h1>
-      <button
-        className="btn btn-primary"
-        onClick={() => navigate(`/mail/create`)}
-      >
-        Crear Mail
-      </button>
       <div className="row justify-content-md-center mx-auto">
+        <button
+          className="btn btn-primary mx-auto"
+          onClick={() => navigate(`/mail/create`)}
+        >
+          Crear Mail
+        </button>
         <table className="table table-borderles ">
           <thead className="text-center">
             <tr className="border-bottom">
@@ -45,7 +45,6 @@ export const MailPage = () => {
               <th>Fecha de Vinculacion</th>
               <th>Fecha de Desvinculacion</th>
               <th>Acciones</th>
-             
             </tr>
           </thead>
           {renderMain()}

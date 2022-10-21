@@ -23,7 +23,7 @@ const Groups = db.define('groups', {
         type: DataTypes.DATE,
         allowNull: true,
         validate:{
-            notEmpty: true,
+            notEmpty: false,
         }
     },
 

@@ -42,7 +42,7 @@ const Mails = db.define('mails',{
         type: DataTypes.DATE,
         allowNull: true,
         validate:{
-            notEmpty: true,
+            notEmpty: false,
         }
     },
     dateSolicitud:{
