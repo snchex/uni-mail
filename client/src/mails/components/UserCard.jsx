@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import { useUsers } from "../context/UserProvider";
+
 export const UserCard = ({ usuario }) => {
   const { delUser } = useUsers();
   const navigate = useNavigate();
@@ -22,9 +23,7 @@ export const UserCard = ({ usuario }) => {
               onClick={() => navigate(`/users/edit/${usuario.uuid}`)}
               className="btn btn-outline-warning"
             >
-              <img
-                src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png"
-                alt=""
+              <img alt="Editar" src="https://img.icons8.com/fluency/24/000000/edit.png"
               />
             </button>
             <button

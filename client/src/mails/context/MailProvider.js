@@ -15,6 +15,7 @@ export const useMails = () => {
 export const MailProvider = ({ children }) => {
 
     const [mails, setMails] = useState([]);
+    const [msg, setMsg] = useState("");
 
     async function loadMails() {
         const response = await getAllMails();
@@ -36,7 +37,7 @@ export const MailProvider = ({ children }) => {
             const response = await createMail(mail);
             console.log(response);
         } catch (error) {
-            console.error(error);
+            setMsg(error.response.data.msg);
 
         }
     }
@@ -62,7 +63,7 @@ export const MailProvider = ({ children }) => {
 
 
     return (
-        <MailContext.Provider value={{ mails, loadMails, gtMail, crMail, upMail, delMail }} >
+        <MailContext.Provider value={{ mails, msg, loadMails, gtMail, crMail, upMail, delMail }} >
             {children}
         </MailContext.Provider>
     )

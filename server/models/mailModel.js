@@ -13,7 +13,7 @@ const Mails = db.define('mails',{
         type: DataTypes.STRING,
         allowNull: false,
         unique: {
-            msg: 'El email ya fue registrado'
+            msg: 'El email ya fue registrado anteriormente registre uno nuevo'
         },
         validate: {
             isEmail: {

@@ -4,14 +4,17 @@ import Formm from "react-bootstrap/Form";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMails } from "../../context/MailProvider";
 import { useDeparts, useRequests, useTypes, useGroups } from "../../context";
-
+import nuevo from "../../../assets/nuevo.png";
 export const MailForm = (values) => {
-  const { crMail, gtMail, upMail } = useMails();
+  const { msg, crMail, gtMail, upMail } = useMails();
   const { departs, loadDepartaments } = useDeparts();
   const { requests, loadRequests } = useRequests();
   const { types, loadTypes } = useTypes();
   const { groups, loadGroups } = useGroups();
 
+  //let gp = false;
+
+  //seteo de datos por defecto
   const [mail, setMail] = useState({
     user: "",
     solicitante: "Talento Humano",
@@ -30,6 +33,7 @@ export const MailForm = (values) => {
     const timer = setTimeout(() => {
       const loadMail = async () => {
         if (params.id) {
+          //Inyecta las datos en esas variables para mostrar
           const mail = await gtMail(params.id);
 
           setMail({
@@ -50,31 +54,43 @@ export const MailForm = (values) => {
       loadRequests();
       loadDepartaments();
       loadGroups();
-    }, 1000);
+    }, 500);
     return () => clearTimeout(timer);
   });
 
   const clearInput = () => {
-    setMail([]);
+    if (!msg.length) {
+      setMail([]);
+    }
   };
+
+  if(!msg.length){
+    console.table("Hola no hay errores")
+  }else{
+    console.table("Hola si lo hay errores")
+  }
 
   const verMails = () => {
     const timer = setTimeout(() => {
-      navigate("/mail/list");
-    }, 200);
+      if (!msg.length) {
+      
+        navigate("/mail/list");
+      }
+
+    }, 1000);
     return () => clearTimeout(timer);
   };
-
-  let errores = {};
+console.log(msg);
   return (
     <div className="card mx-auto col-md-9">
       <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
+      <p className="error pl-5">{msg}</p>
       <hr />
       <Formik
         initialValues={mail}
         enableReinitialize={true}
         validate={(values) => {
-          
+          let errores = {};
           if (!values.user) {
             errores.user = "Por favor ingrese el Correo";
           } else if (
@@ -105,12 +121,16 @@ export const MailForm = (values) => {
         }}
         onSubmit={async (values, actions) => {
           console.table(values);
-          if (params.id) {
-            console.log("Update");
-            await upMail(params.id, values);
-          } else if(errores) {
-            await crMail(values);
-          }
+         
+            if (params.id) {
+              console.log("Update");
+              await upMail(params.id, values);
+              
+            } else {
+              await crMail(values);
+              
+            }
+        
           setMail({
             user: "",
             solicitante: "",
@@ -146,6 +166,7 @@ export const MailForm = (values) => {
                   onChange={handleChange}
                   value={values.user}
                 />
+
                 {touched.user && errors.user && (
                   <span className="error pl-5 mx-3 ">
                     <b>{errors.user}</b>
@@ -171,6 +192,12 @@ export const MailForm = (values) => {
                       </option>
                     ))}
                   </Formm.Select>
+                  <div
+                    type="button"
+                    onClick={() => navigate(`/mailtype/create`)}
+                  >
+                    <img alt="nuevo" className="nuevo" src={nuevo} />
+                  </div>
                   {touched.mailTypeId && errors.mailTypeId && (
                     <span className="error pl-5">{errors.mailTypeId}</span>
                   )}
@@ -185,6 +212,7 @@ export const MailForm = (values) => {
                     onChange={handleChange}
                     value={values.requestId}
                   >
+                    <img alt="nuevo" className="nuevo" src={nuevo} />
                     <option disabled selected value="">
                       Seleccione
                     </option>
@@ -218,6 +246,12 @@ export const MailForm = (values) => {
                       </option>
                     ))}
                   </Formm.Select>
+                  <div
+                    type="button"
+                    onClick={() => navigate(`/departament/create`)}
+                  >
+                    <img alt="nuevo" className="nuevo" src={nuevo} />
+                  </div>
                   {touched.departamentId && errors.departamentId && (
                     <span className="error pl-5">{errors.departamentId}</span>
                   )}
@@ -236,12 +270,10 @@ export const MailForm = (values) => {
                         onChange={handleChange}
                         value={values.dateSolicitud}
                       />
-                      {touched.dateSolicitud && errors.dateSolicitud && (
-                        <span className="error pl-5">
-                          {errors.dateSolicitud}
-                        </span>
-                      )}
                     </td>
+                    {touched.dateSolicitud && errors.dateSolicitud && (
+                      <span className="error pl-5">{errors.dateSolicitud}</span>
+                    )}
                   </label>
                   <label className="form-control-label px-2 mx-2">
                     Fecha de Vinculacion
@@ -250,12 +282,13 @@ export const MailForm = (values) => {
                         type="date"
                         name="dateInicial"
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         value={values.dateInicial}
                       />
-                      {touched.dateInicial && errors.dateInicial && (
-                        <span className="error pl-5">{errors.dateInicial}</span>
-                      )}
                     </td>
+                    {touched.dateInicial && errors.dateInicial && (
+                      <span className="error ">{errors.dateInicial}</span>
+                    )}
                   </label>
                   <label className="form-control-label px-2 mx-2">
                     Fecha de Desvinculacion
@@ -290,6 +323,9 @@ export const MailForm = (values) => {
                       </option>
                     ))}
                   </Formm.Select>
+                  <div type="button" onClick={() => navigate(`/group/create`)}>
+                    <img alt="nuevo" className="nuevo" src={nuevo} />
+                  </div>
                   {touched.groupId && errors.groupId && (
                     <span className="error pl-5">{errors.groupId}</span>
                   )}
@@ -304,6 +340,7 @@ export const MailForm = (values) => {
                     onClick={verMails}
                     disabled={isSubmitting}
                   >
+                    
                     {isSubmitting ? "Guardando..." : "Guardar y Ver"}
                   </button>
                 </td>

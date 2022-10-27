@@ -21,7 +21,7 @@ export function GroupForm() {
           setGroup({
             description: group.description,
             dateInicialG: group.dateInicialG,
-            dateFinalG: group.dateFinalG,
+            dateFinalG: group.dateFinalG, 
           });
         }
       };
@@ -119,12 +119,12 @@ export function GroupForm() {
                           onChange={handleChange}
                           value={values.dateInicialG}
                         />{" "}
+                      </label>
                         {touched.dateInicialG && errors.dateInicialG && (
                           <span className="error pl-5">
                             {errors.dateInicialG}
                           </span>
                         )}
-                      </label>
                     </td>
                     <td>
                       <label className="form-control-label px-2 mx-4">

@@ -153,8 +153,10 @@ dropdown-item:active {
   background-color: var(--bs-dropdown-link-active-bg);
 }
 
-
 @media (max-width: 952px){
+  label.nuevo{
+    font-size: 30px;
+  }
   label.logo{
     font-size: 30px;
     padding-left: 50px;
