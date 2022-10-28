@@ -22,9 +22,7 @@ export default function TypeCard({ type }) {
               onClick={() => navigate(`/mailtype/edit/${type.id}`)}
               className="m-2 btn btn-outline-warning"
             >
-              <img
-                src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png"
-                alt=""
+              <img alt="Editar" src="https://img.icons8.com/fluency/24/000000/edit.png"
               />
             </button>
            

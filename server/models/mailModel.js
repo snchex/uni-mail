@@ -13,7 +13,7 @@ const Mails = db.define('mails',{
         type: DataTypes.STRING,
         allowNull: false,
         unique: {
-            msg: 'El email ya fue registrado'
+            msg: 'El email ya fue registrado anteriormente registre uno nuevo'
         },
         validate: {
             isEmail: {
@@ -42,7 +42,7 @@ const Mails = db.define('mails',{
         type: DataTypes.DATE,
         allowNull: true,
         validate:{
-            notEmpty: true,
+            notEmpty: false,
         }
     },
     dateSolicitud:{
@@ -61,9 +61,9 @@ const Mails = db.define('mails',{
     },
     groupId:{
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         validate:{
-            notEmpty: true
+            notEmpty: false
         }
     },
     departamentId:{

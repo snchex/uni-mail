@@ -11,7 +11,6 @@ const MailTypes = db.define('mailTypes', {
         allowNull: false,
         validate:{
             notEmpty: true,
-            len: [3, 100]
         }
     },
 

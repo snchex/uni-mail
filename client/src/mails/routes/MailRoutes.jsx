@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getMe } from "../features/authSlice";
 import {
   TypeForm,
   TypePage,
@@ -30,6 +32,17 @@ import {
 import { Navbar } from "../../ui";
 
 export function MailRoutes() {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isError } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/");
+    }
+    dispatch(getMe());
+  }, [dispatch, isError, navigate]);
   return (
     <UserProvider>
     <MailProvider>

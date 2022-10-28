@@ -32,7 +32,7 @@ export function RequestForm() {
   const clearInput = () => {
     setRequest([]);
   };
-
+  
   const verRequest = () => {
     const timer = setTimeout(() => {
       navigate("/request/list");
@@ -59,12 +59,10 @@ export function RequestForm() {
           }
           return errores;
         }}
-
         onSubmit={async (values, actions) => {
           if (params.id) {
             console.log("Update");
             await upRequest(params.id, values);
-            navigate("/request/list");
           } else {
             await crRequest(values);
           }
@@ -113,6 +111,7 @@ export function RequestForm() {
                   <button
                     className="btn btn-warning"
                     type="submit"
+
                     disabled={isSubmitting}
                     onClick={clearInput}
                   >

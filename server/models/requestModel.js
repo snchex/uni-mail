@@ -10,7 +10,6 @@ const Requests = db.define('requests',{
         allowNull: false,
         validate:{
             notEmpty: true,
-            len: [3, 100]
         }
     },
 },{

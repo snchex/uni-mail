@@ -10,7 +10,6 @@ const Departaments = db.define('departaments', {
         allowNull: false,
         validate:{
             notEmpty: true,
-            len: [3, 100]
         }
     },
 

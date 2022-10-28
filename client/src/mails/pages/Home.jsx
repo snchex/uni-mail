@@ -50,11 +50,6 @@ export const Home = () => {
 
   const showError = filteredData.length === 0;
   const showSearch = filteredData.length !== 0;
-  /*
-  const clearInput = () => {
-    setFilteredData([]);
-    setWordEntered("");
-  };**/
 
   return (
     <div className="card">

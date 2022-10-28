@@ -32,12 +32,11 @@ export default function GroupCard({ group }) {
               onClick={() => navigate(`/group/edit/${group.id}`)}
               className="m-2 btn btn-outline-warning"
             >
-              <img
-                src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png"
-                alt=""
+              <img alt="Editar"  src="https://img.icons8.com/fluency/24/000000/edit.png"
               />
             </button>
             <button onClick={handleShow} className="btn btn-outline-danger">
+            
               <img
                 src="https://img.icons8.com/plasticine/24/000000/filled-trash.png"
                 alt="trash"

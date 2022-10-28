@@ -87,12 +87,21 @@ export const updateGroup = async (req, res) => {
         });
         if (!group) return res.status(404).json({ msg: "Data not found" });
         const { description, dateInicialG, dateFinalG } = req.body;
+        if(dateFinalG){
 
-        await group.update({ description, dateInicialG, dateFinalG }, {
-            where: {
-                id: group.id
-            }
-        });
+            await Group.update({ description, dateInicialG, dateFinalG }, {
+                where: {
+                    id: group.id
+                }
+            });
+        }else{
+
+            await Group.update({ description, dateInicialG }, {
+                where: {
+                    id: group.id
+                }
+            });
+        }
 
         res.status(200).json({ msg: "group updated successfuly" });
     } catch (error) {

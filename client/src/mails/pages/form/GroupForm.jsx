@@ -21,7 +21,7 @@ export function GroupForm() {
           setGroup({
             description: group.description,
             dateInicialG: group.dateInicialG,
-            dateFinalG: group.dateFinalG,
+            dateFinalG: group.dateFinalG, 
           });
         }
       };
@@ -85,7 +85,7 @@ export function GroupForm() {
           isSubmitting,
           touched,
           handleBlur,
-          errors
+          errors,
         }) => (
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
@@ -101,37 +101,41 @@ export function GroupForm() {
                     placeholder="Ingrese el nombre de grupo"
                     onChange={handleChange}
                     value={values.description}
-                  /> {touched.description && errors.description && (
+                  />{" "}
+                  {touched.description && errors.description && (
                     <span className="error pl-5">{errors.description}</span>
                   )}
                 </div>
 
                 <div className="form-group flex-column d-flex">
                   <tr>
-                    <label className="form-control-label mx-2">
-                      Fecha de Vinculacion
-                    </label>
-                    <label className="form-control-label px-2 mx-4">
-                      Fecha de Desvinculacion
-                    </label>
                     <td>
-                      <input
-                        type="date"
-                        onBlur={handleBlur}
-                        name="dateInicialG"
-                        onChange={handleChange}
-                        value={values.dateInicialG}
-                      /> {touched.dateInicialG && errors.dateInicialG && (
-                        <span className="error pl-5">{errors.dateInicialG}</span>
-                      )}
+                      <label className="form-control-label mx-2">
+                        Fecha de Vinculacion
+                        <input
+                          type="date"
+                          onBlur={handleBlur}
+                          name="dateInicialG"
+                          onChange={handleChange}
+                          value={values.dateInicialG}
+                        />{" "}
+                      </label>
+                        {touched.dateInicialG && errors.dateInicialG && (
+                          <span className="error pl-5">
+                            {errors.dateInicialG}
+                          </span>
+                        )}
                     </td>
-                    <td className="px-4">
-                      <input
-                        type="date"
-                        name="dateFinalG"
-                        onChange={handleChange}
-                        value={values.dateFinalG}
-                      />
+                    <td>
+                      <label className="form-control-label px-2 mx-4">
+                        Fecha de Desvinculacion
+                        <input
+                          type="date"
+                          name="dateFinalG"
+                          onChange={handleChange}
+                          value={values.dateFinalG}
+                        />
+                      </label>
                     </td>
                   </tr>
                 </div>

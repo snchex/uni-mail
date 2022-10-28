@@ -40,13 +40,11 @@ export default function MailCard({ mail }) {
           )}
 
           <td className="text-center">
-            <button
-              onClick={() => navigate(`/mail/edit/${mail.id}`)}
-              className="m-2 btn btn-outline-warning"
-            >
-              <img
-                src="https://img.icons8.com/parakeet/24/000000/experimental-edit-parakeet.png"
-                alt=""
+              <button
+                onClick={() => navigate(`/mail/edit/${mail.id}`)}
+                className="m-2 btn btn-outline-warning"
+              >
+              <img alt="Editar" src="https://img.icons8.com/fluency/24/000000/edit.png"
               />
             </button>
 
