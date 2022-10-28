@@ -5,13 +5,45 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useMails } from "../../context/MailProvider";
 import { useDeparts, useRequests, useTypes, useGroups } from "../../context";
 import nuevo from "../../../assets/nuevo.png";
+import axios from "axios";
 
 export const MailForm = (values) => {
-  const { gp, msg, loadMails, mails, crMail, gtMail, upMail } = useMails();
+
+  const [ user, setUser] = useState("");
+  const [ solicitante, setSolicitante] = useState("");
+  const [ dateInicial, setDateInicial] = useState("");
+  const [ dateFinal, setDateFinal] = useState("");
+  const [msg, setMsg] = useState("");
+
+  const saveMail = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:3030/mail/create", {
+        user: mail.user,
+        solicitante: solicitante,
+        dateInicial: dateInicial,
+        dateFinal: dateFinal,
+        dateSolicitud: dateSolicitud,
+        mailTypeId: mailTypeId,
+        requestId: requestId,
+        departamentId: departamentId,
+        groupId: groupId,
+      })
+      gp = true;
+    } catch (error){
+      if (error.response) {
+        setMsg(error.response.data.msg);
+      }
+    }
+  }
+
+  const { crMail, gtMail, upMail } = useMails();
   const { departs, loadDepartaments } = useDeparts();
   const { requests, loadRequests } = useRequests();
   const { types, loadTypes } = useTypes();
   const { groups, loadGroups } = useGroups();
+
+  let gp = false;
 
   //seteo de datos por defecto
   const [mail, setMail] = useState({
@@ -27,7 +59,7 @@ export const MailForm = (values) => {
   });
   const params = useParams();
   const navigate = useNavigate();
-  console.log(gp);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       const loadMail = async () => {
@@ -53,16 +85,9 @@ export const MailForm = (values) => {
       loadRequests();
       loadDepartaments();
       loadGroups();
-      loadMails();
     }, 500);
     return () => clearTimeout(timer);
   });
-  if (gp) {
-    console.log('holaa si gp');
-  }else{
-    console.log('negative')
-
-  }
 
   const clearInput = () => {
     if (gp === true) {
@@ -70,9 +95,15 @@ export const MailForm = (values) => {
     }
   };
 
+
+  if (!msg.length) {
+    console.table("No existen errores");
+  } else {
+    console.table("si existen errores");
+  }
+
   const verMails = () => {
     const timer = setTimeout(() => {
-      
       if (gp === true) {
         navigate("/mail/list");
       }
@@ -90,32 +121,19 @@ export const MailForm = (values) => {
         enableReinitialize={true}
         validate={(values) => {
           let errores = {};
-            if (!values.user) {
-              errores.user = "Por favor ingrese el Correo";
-            } else if (
-              !/^[.a-za-z0-9]+@(?:[a-za-z0-9]+\.)+[a-za-z]+$/.test(values.user)
-            ) {
-              errores.user = "Por favor ingrese un Correo valido";
-            }else
-            { mails.map((email) => (
-             <span key={email.id}>{email.user === values.user ? (
-              errores.user = "El correo ya está en uso, escriba uno diferente"
-              ):(
-                ""
-              )
-                }</span> 
-            ))}
-            
-            if (!values.dateSolicitud) {
-              errores.dateSolicitud = "Por favor ingrese la Fecha de Solicitud";
-            }else if (values.dateSolicitud >= values.dateInicial){
-              errores.dateInicial = "La Fecha de Solicitud debe ser anterior o igual, a la Fecha de Vinculacion";
-            }
-            
+          if (!values.user) {
+            errores.user = "Por favor ingrese el Correo";
+          } else if (
+            !/^[.a-za-z0-9]+@(?:[a-za-z0-9]+\.)+[a-za-z]+$/.test(values.user)
+          ) {
+            errores.user = "Por favor ingrese un Correo valido";
+          }
+
           if (!values.dateInicial) {
             errores.dateInicial = "Por favor ingrese la Fecha de Vinculacion";
-          }else if (values.dateInicial <= values.dateSolicitud){
-            errores.dateInicial = "La Fecha de Vinculacion no puede ser anterior a la Fecha de Solicitud";
+          }
+          if (!values.dateSolicitud) {
+            errores.dateSolicitud = "Por favor ingrese la Fecha de Solicitud";
           }
           if (!values.departamentId) {
             errores.departamentId = "Por favor ingrese el Departamento";
@@ -135,8 +153,10 @@ export const MailForm = (values) => {
           if (params.id) {
             console.log("Update");
             await upMail(params.id, values);
+            gp = true;
           } else {
             await crMail(values);
+            gp = true;
           }
 
           setMail({

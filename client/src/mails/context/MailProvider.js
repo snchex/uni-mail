@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { getAllMails, getMail,createMail, updateMail, deleteMail } from "../api/mailApi";
+import { getAllMails, getMail, createMail, updateMail, deleteMail } from "../api/mailApi";
 
 import { MailContext } from "../context/MailContext";
 
@@ -13,13 +13,14 @@ export const useMails = () => {
 }
 
 export const MailProvider = ({ children }) => {
-
     const [mails, setMails] = useState([]);
+    const [ gp, setGp ] = useState(false);
     const [msg, setMsg] = useState("");
 
     async function loadMails() {
         const response = await getAllMails();
         setMails(response.data);
+       
     }
 
     const gtMail = async (id) => {
@@ -30,23 +31,27 @@ export const MailProvider = ({ children }) => {
             console.error(error);
 
         }
-    }
+        
+    }   
 
     const crMail = async (mail) => {
         try {
             const response = await createMail(mail);
             console.log(response);
+            setGp(true);
         } catch (error) {
             setMsg(error.response.data.msg);
-
+            setGp(false);
         }
     }
     const upMail = async (id, newFields) => {
         try {
             const response = await updateMail(id, newFields);
             console.log(response)
+            setGp(true);
         } catch (error) {
-            console.error(error);
+            setMsg(error.response.data.msg);
+            setGp(false);
         }
     }
 
@@ -63,7 +68,7 @@ export const MailProvider = ({ children }) => {
 
 
     return (
-        <MailContext.Provider value={{ mails, msg, loadMails, gtMail, crMail, upMail, delMail }} >
+        <MailContext.Provider value={{ gp, mails, msg, loadMails, gtMail, crMail, upMail, delMail }} >
             {children}
         </MailContext.Provider>
     )
