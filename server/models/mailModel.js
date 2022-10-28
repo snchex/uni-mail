@@ -61,9 +61,9 @@ const Mails = db.define('mails',{
     },
     groupId:{
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         validate:{
-            notEmpty: true
+            notEmpty: false
         }
     },
     departamentId:{

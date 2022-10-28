@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useMails } from "../../context/MailProvider";
 import { useDeparts, useRequests, useTypes, useGroups } from "../../context";
 import nuevo from "../../../assets/nuevo.png";
+
 export const MailForm = (values) => {
   const { msg, crMail, gtMail, upMail } = useMails();
   const { departs, loadDepartaments } = useDeparts();
@@ -12,7 +13,7 @@ export const MailForm = (values) => {
   const { types, loadTypes } = useTypes();
   const { groups, loadGroups } = useGroups();
 
-  //let gp = false;
+  let gp = false;
 
   //seteo de datos por defecto
   const [mail, setMail] = useState({
@@ -59,28 +60,27 @@ export const MailForm = (values) => {
   });
 
   const clearInput = () => {
-    if (!msg.length) {
+    if (gp === true) {
       setMail([]);
     }
   };
 
-  if(!msg.length){
-    console.table("Hola no hay errores")
-  }else{
-    console.table("Hola si lo hay errores")
+
+  if (!msg.length) {
+    console.table("No existen errores");
+  } else {
+    console.table("si existen errores");
   }
 
   const verMails = () => {
     const timer = setTimeout(() => {
-      if (!msg.length) {
-      
+      if (gp === true) {
         navigate("/mail/list");
       }
-
-    }, 1000);
+    }, 500);
     return () => clearTimeout(timer);
   };
-console.log(msg);
+
   return (
     <div className="card mx-auto col-md-9">
       <h1>{params.id ? "Editar Correo" : "Nuevo Correo"}</h1>
@@ -114,23 +114,21 @@ console.log(msg);
           if (!values.mailTypeId) {
             errores.mailTypeId = "Por favor ingrese el tipo de Correo";
           }
-          if (!values.groupId) {
-            errores.groupId = "Por favor ingrese al grupo que pertenezca";
-          }
+          
           return errores;
         }}
         onSubmit={async (values, actions) => {
           console.table(values);
-         
-            if (params.id) {
-              console.log("Update");
-              await upMail(params.id, values);
-              
-            } else {
-              await crMail(values);
-              
-            }
-        
+
+          if (params.id) {
+            console.log("Update");
+            await upMail(params.id, values);
+            gp = true;
+          } else {
+            await crMail(values);
+            gp = true;
+          }
+
           setMail({
             user: "",
             solicitante: "",
@@ -140,6 +138,7 @@ console.log(msg);
             mailTypeId: "",
             requestId: "",
             departamentId: "",
+            groupId: "",
           });
         }}
       >
@@ -160,7 +159,6 @@ console.log(msg);
                   className="inputUser"
                   type="text"
                   name="user"
-                  autoFocus={true}
                   placeholder="Ingrese el correo"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -192,12 +190,12 @@ console.log(msg);
                       </option>
                     ))}
                   </Formm.Select>
-                  <div
+                  <span
                     type="button"
                     onClick={() => navigate(`/mailtype/create`)}
                   >
                     <img alt="nuevo" className="nuevo" src={nuevo} />
-                  </div>
+                  </span>
                   {touched.mailTypeId && errors.mailTypeId && (
                     <span className="error pl-5">{errors.mailTypeId}</span>
                   )}
@@ -246,12 +244,12 @@ console.log(msg);
                       </option>
                     ))}
                   </Formm.Select>
-                  <div
+                  <span
                     type="button"
                     onClick={() => navigate(`/departament/create`)}
                   >
                     <img alt="nuevo" className="nuevo" src={nuevo} />
-                  </div>
+                  </span>
                   {touched.departamentId && errors.departamentId && (
                     <span className="error pl-5">{errors.departamentId}</span>
                   )}
@@ -323,12 +321,10 @@ console.log(msg);
                       </option>
                     ))}
                   </Formm.Select>
-                  <div type="button" onClick={() => navigate(`/group/create`)}>
+                  <span type="button" onClick={() => navigate(`/group/create`)}>
                     <img alt="nuevo" className="nuevo" src={nuevo} />
-                  </div>
-                  {touched.groupId && errors.groupId && (
-                    <span className="error pl-5">{errors.groupId}</span>
-                  )}
+                  </span>
+                  
                 </label>
               </div>
               <div className="form-group  px-3">
@@ -340,7 +336,6 @@ console.log(msg);
                     onClick={verMails}
                     disabled={isSubmitting}
                   >
-                    
                     {isSubmitting ? "Guardando..." : "Guardar y Ver"}
                   </button>
                 </td>

@@ -104,7 +104,7 @@ export const createMail = async (req, res) => {
     try {
         const { user, solicitante, dateSolicitud, dateInicial, dateFinal, mailTypeId, requestId, departamentId, groupId } = req.body;
 
-        if (dateFinal) {
+        if (dateFinal && groupId) {
             await Mail.create({
                 user: user,
                 solicitante: solicitante,
@@ -118,7 +118,31 @@ export const createMail = async (req, res) => {
             });
             res.status(201).json({ msg: "Mail Created Successfuly" });
 
-        } else {
+        }else if(!dateFinal && !groupId){
+            await Mail.create({
+                user: user,
+                solicitante: solicitante,
+                dateSolicitud: dateSolicitud,
+                dateInicial: dateInicial,
+                mailTypeId: mailTypeId,
+                requestId: requestId,
+                departamentId: departamentId,
+            });
+            res.status(201).json({ msg: "Mail Created Successfuly" });
+        } else if (!groupId || dateFinal) {
+            await Mail.create({
+                user: user,
+                solicitante: solicitante,
+                dateSolicitud: dateSolicitud,
+                dateInicial: dateInicial,
+                dateFinal: dateFinal,
+                mailTypeId: mailTypeId,
+                requestId: requestId,
+                departamentId: departamentId,
+               
+            });
+            res.status(201).json({ msg: "Mail Created Successfuly" });
+        } else if(!dateFinal || groupId){
             await Mail.create({
                 user: user,
                 solicitante: solicitante,
