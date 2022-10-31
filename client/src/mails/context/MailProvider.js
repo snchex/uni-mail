@@ -38,20 +38,30 @@ export const MailProvider = ({ children }) => {
         try {
             const response = await createMail(mail);
             console.log(response);
-            setGp(true);
+            if(response.status === 201){
+                
+                setGp(true);
+            }else{
+                setGp(false);
+            }
         } catch (error) {
             setMsg(error.response.data.msg);
-            setGp(false);
+            
         }
     }
     const upMail = async (id, newFields) => {
         try {
             const response = await updateMail(id, newFields);
             console.log(response)
-            setGp(true);
+            if(response.status === 200){
+               
+                setGp(true);
+            }else{
+                setGp(false);
+            }
         } catch (error) {
             setMsg(error.response.data.msg);
-            setGp(false);
+          
         }
     }
 

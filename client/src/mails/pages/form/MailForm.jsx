@@ -27,7 +27,7 @@ export const MailForm = (values) => {
   });
   const params = useParams();
   const navigate = useNavigate();
-  console.log(gp);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       const loadMail = async () => {
@@ -54,30 +54,32 @@ export const MailForm = (values) => {
       loadDepartaments();
       loadGroups();
       loadMails();
+      
     }, 500);
     return () => clearTimeout(timer);
   });
+  /*
   if (gp) {
     console.log('holaa si gp');
   }else{
     console.log('negative')
 
-  }
+  }*/
 
   const clearInput = () => {
     if (gp === true) {
       setMail([]);
     }
   };
-
+ 
+console.log(msg);
   const verMails = () => {
-    const timer = setTimeout(() => {
-      
-      if (gp === true) {
+    if (msg === "") {
+      const timer = setTimeout(() => {
         navigate("/mail/list");
-      }
-    }, 500);
-    return () => clearTimeout(timer);
+      }, 800);
+      return () => clearTimeout(timer);
+    }
   };
 
   return (
@@ -90,32 +92,31 @@ export const MailForm = (values) => {
         enableReinitialize={true}
         validate={(values) => {
           let errores = {};
-            if (!values.user) {
-              errores.user = "Por favor ingrese el Correo";
-            } else if (
-              !/^[.a-za-z0-9]+@(?:[a-za-z0-9]+\.)+[a-za-z]+$/.test(values.user)
-            ) {
-              errores.user = "Por favor ingrese un Correo valido";
-            }else
-            { mails.map((email) => (
-             <span key={email.id}>{email.user === values.user ? (
-              errores.user = "El correo ya está en uso, escriba uno diferente"
-              ):(
-                ""
-              )
-                }</span> 
-            ))}
-            
-            if (!values.dateSolicitud) {
-              errores.dateSolicitud = "Por favor ingrese la Fecha de Solicitud";
-            }else if (values.dateSolicitud >= values.dateInicial){
-              errores.dateInicial = "La Fecha de Solicitud debe ser anterior o igual, a la Fecha de Vinculacion";
-            }
-            
+          if (!values.user) {
+            errores.user = "Por favor ingrese el Correo";
+          } else if (
+            !/^[.a-za-z0-9]+@(?:[a-za-z0-9]+\.)+[a-za-z]+$/.test(values.user)
+          ) {
+            errores.user = "Por favor ingrese un Correo valido";
+          } else {
+            mails.map((email) => (
+              <span key={email.id}>
+                {email.user === values.user
+                  ? (errores.user =
+                      "El correo ya está en uso, escriba uno diferente")
+                  : ""}
+              </span>
+            ));
+          }
+
+          if (!values.dateSolicitud) {
+            errores.dateSolicitud = "Por favor ingrese la Fecha de Solicitud";
+          }
           if (!values.dateInicial) {
             errores.dateInicial = "Por favor ingrese la Fecha de Vinculacion";
-          }else if (values.dateInicial <= values.dateSolicitud){
-            errores.dateInicial = "La Fecha de Vinculacion no puede ser anterior a la Fecha de Solicitud";
+          } else if (values.dateInicial < values.dateSolicitud) {
+            errores.dateInicial =
+              "La Fecha de Vinculacion no puede ser anterior a la Fecha de Solicitud";
           }
           if (!values.departamentId) {
             errores.departamentId = "Por favor ingrese el Departamento";
@@ -126,7 +127,11 @@ export const MailForm = (values) => {
           if (!values.mailTypeId) {
             errores.mailTypeId = "Por favor ingrese el tipo de Correo";
           }
-          
+          if (values.dateFinal && values.dateFinal < values.dateInicial) {
+            errores.dateFinal =
+              "La Fecha de Desvinculacion no puede ser anterior a la Fecha de Vinculacion";
+          }
+
           return errores;
         }}
         onSubmit={async (values, actions) => {
@@ -138,7 +143,6 @@ export const MailForm = (values) => {
           } else {
             await crMail(values);
           }
-
           setMail({
             user: "",
             solicitante: "",
@@ -279,9 +283,6 @@ export const MailForm = (values) => {
                         value={values.dateSolicitud}
                       />
                     </td>
-                    {touched.dateSolicitud && errors.dateSolicitud && (
-                      <span className="error pl-5">{errors.dateSolicitud}</span>
-                    )}
                   </label>
                   <label className="form-control-label px-2 mx-2">
                     Fecha de Vinculacion
@@ -294,9 +295,6 @@ export const MailForm = (values) => {
                         value={values.dateInicial}
                       />
                     </td>
-                    {touched.dateInicial && errors.dateInicial && (
-                      <span className="error ">{errors.dateInicial}</span>
-                    )}
                   </label>
                   <label className="form-control-label px-2 mx-2">
                     Fecha de Desvinculacion
@@ -334,8 +332,27 @@ export const MailForm = (values) => {
                   <span type="button" onClick={() => navigate(`/group/create`)}>
                     <img alt="nuevo" className="nuevo" src={nuevo} />
                   </span>
-                  
                 </label>
+              </div>
+              <div className="messages">
+                <tr>
+                  <td>
+                    {touched.dateSolicitud && errors.dateSolicitud && (
+                      <span className="error pl-5">{errors.dateSolicitud}</span>
+                    )}
+                  </td>
+                  <td>
+                    {touched.dateInicial && errors.dateInicial && (
+                      <span className="error ">{errors.dateInicial}</span>
+                    )}
+                  </td>
+
+                  <td>
+                    {touched.dateFinal && errors.dateFinal && (
+                      <span className="error ">{errors.dateFinal}</span>
+                    )}
+                  </td>
+                </tr>
               </div>
               <div className="form-group  px-3">
                 <td>
