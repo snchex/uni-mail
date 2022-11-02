@@ -68,16 +68,16 @@ export const Navbar = () => {
           <DropdownButton
             style={{ margin: 0 }}
             id="dropdown-basic-button"
-            title="Departamentos"
+            title="Dependencias"
           >
             <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/departament/create">
-                Crear Departamentos
+                Crear Dependencia
               </Link>
             </Dropdown.Item>
             <Dropdown.Item style={{ margin: 0 }} >
               <Link className="dropdown-item" to="/departament/list">
-                Lista Departamentos
+                Lista de Dependencias
               </Link>
             </Dropdown.Item>
           </DropdownButton>

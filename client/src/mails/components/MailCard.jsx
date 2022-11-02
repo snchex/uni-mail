@@ -20,7 +20,7 @@ export default function MailCard({ mail }) {
 
   const { delMail } = useMails();
   const navigate = useNavigate();
-
+ 
   return (
     <>
       <tbody className="text-left mx-auto">
@@ -30,7 +30,11 @@ export default function MailCard({ mail }) {
           <td className="ml-2">{mail.mailType.tipo}</td>
           <td className="text-center">{mail.request.solicitud}</td>
           <td className="m-4 text-center">{mail.departament.departamento}</td>
-          <td className="ml-2 text-center">{mail.group.description}</td>
+          {mail.group ? (
+            <td className="ml-2 text-center">{mail.group.description}</td>
+          ): (
+            <td></td>
+          )}
           <td className="text-center">{mail.dateSolicitud}</td>
           <td className="text-center">{mail.dateInicial}</td>
           {output >= dateF ? (

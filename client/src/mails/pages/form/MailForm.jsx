@@ -54,32 +54,19 @@ export const MailForm = (values) => {
       loadDepartaments();
       loadGroups();
       loadMails();
-      
     }, 500);
     return () => clearTimeout(timer);
   });
-  /*
-  if (gp) {
-    console.log('holaa si gp');
-  }else{
-    console.log('negative')
-
-  }*/
 
   const clearInput = () => {
     if (gp === true) {
       setMail([]);
     }
   };
- 
-console.log(msg);
+
+  //console.log(msg);
   const verMails = () => {
-    if (msg === "") {
-      const timer = setTimeout(() => {
-        navigate("/mail/list");
-      }, 800);
-      return () => clearTimeout(timer);
-    }
+    navigate("/mail/list");
   };
 
   return (
@@ -119,7 +106,7 @@ console.log(msg);
               "La Fecha de Vinculacion no puede ser anterior a la Fecha de Solicitud";
           }
           if (!values.departamentId) {
-            errores.departamentId = "Por favor ingrese el Departamento";
+            errores.departamentId = "Por favor ingrese la Dependencia";
           }
           if (!values.requestId) {
             errores.requestId = "Por favor ingrese el tipo de Solicitud";
@@ -195,7 +182,7 @@ console.log(msg);
                     onChange={handleChange}
                     value={values.mailTypeId}
                   >
-                    <option disabled selected value="">
+                    <option disabled value="">
                       Seleccione
                     </option>
                     {types.map((type) => (
@@ -225,7 +212,7 @@ console.log(msg);
                     value={values.requestId}
                   >
                     <img alt="nuevo" className="nuevo" src={nuevo} />
-                    <option disabled selected value="">
+                    <option disabled value="">
                       Seleccione
                     </option>
                     {requests.map((request) => (
@@ -241,7 +228,7 @@ console.log(msg);
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
-                  Departamento
+                  Dependencia
                   <Formm.Select
                     name="departamentId"
                     type="text"
@@ -249,7 +236,7 @@ console.log(msg);
                     onChange={handleChange}
                     value={values.departamentId}
                   >
-                    <option disabled selected value="">
+                    <option disabled value="">
                       Seleccione
                     </option>
                     {departs.map((departament) => (
@@ -320,7 +307,7 @@ console.log(msg);
                     onChange={handleChange}
                     value={values.groupId}
                   >
-                    <option disabled selected value="">
+                    <option disabled value="">
                       Seleccione
                     </option>
                     {groups.map((group) => (
@@ -360,21 +347,15 @@ console.log(msg);
                     className="btn btn-primary"
                     type="submit"
                     onChange={handleChange}
-                    onClick={verMails}
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Guardando..." : "Guardar y Ver"}
-                  </button>
-                </td>
-                <td>
-                  <button
-                    className="btn btn-warning"
-                    type="submit"
-                    onChange={handleChange}
                     disabled={isSubmitting}
                     onClick={clearInput}
                   >
-                    {isSubmitting ? "Guardando..." : "Guardar y Continuar"}
+                    {isSubmitting ? "Guardando..." : "Guardar "}
+                  </button>
+                </td>
+                <td>
+                  <button className="btn btn-warning" onClick={verMails}>
+                    Ver lista
                   </button>
                 </td>
               </div>
