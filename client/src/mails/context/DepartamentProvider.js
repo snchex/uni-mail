@@ -36,7 +36,6 @@ export const DepartamentProvider = ({ children }) => {
         try {
             const response = await createDepartament(depart);
             console.log(response);
-
         } catch (error) {
             console.error(error);
         }

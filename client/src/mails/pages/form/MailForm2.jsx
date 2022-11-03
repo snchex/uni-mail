@@ -5,13 +5,45 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useMails } from "../../context/MailProvider";
 import { useDeparts, useRequests, useTypes, useGroups } from "../../context";
 import nuevo from "../../../assets/nuevo.png";
+import axios from "axios";
 
 export const MailForm = (values) => {
-  const { gp, msg, loadMails, mails, crMail, gtMail, upMail } = useMails();
+
+  const [ user, setUser] = useState("");
+  const [ solicitante, setSolicitante] = useState("");
+  const [ dateInicial, setDateInicial] = useState("");
+  const [ dateFinal, setDateFinal] = useState("");
+  const [msg, setMsg] = useState("");
+
+  const saveMail = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:3030/mail/create", {
+        user: mail.user,
+        solicitante: solicitante,
+        dateInicial: dateInicial,
+        dateFinal: dateFinal,
+        dateSolicitud: dateSolicitud,
+        mailTypeId: mailTypeId,
+        requestId: requestId,
+        departamentId: departamentId,
+        groupId: groupId,
+      })
+      gp = true;
+    } catch (error){
+      if (error.response) {
+        setMsg(error.response.data.msg);
+      }
+    }
+  }
+
+  const { crMail, gtMail, upMail } = useMails();
   const { departs, loadDepartaments } = useDeparts();
   const { requests, loadRequests } = useRequests();
   const { types, loadTypes } = useTypes();
   const { groups, loadGroups } = useGroups();
+
+  let gp = false;
 
   //seteo de datos por defecto
   const [mail, setMail] = useState({
@@ -53,7 +85,6 @@ export const MailForm = (values) => {
       loadRequests();
       loadDepartaments();
       loadGroups();
-      loadMails();
     }, 500);
     return () => clearTimeout(timer);
   });
@@ -64,9 +95,20 @@ export const MailForm = (values) => {
     }
   };
 
-  //console.log(msg);
+
+  if (!msg.length) {
+    console.table("No existen errores");
+  } else {
+    console.table("si existen errores");
+  }
+
   const verMails = () => {
-    navigate("/mail/list");
+    const timer = setTimeout(() => {
+      if (gp === true) {
+        navigate("/mail/list");
+      }
+    }, 500);
+    return () => clearTimeout(timer);
   };
 
   return (
@@ -85,28 +127,16 @@ export const MailForm = (values) => {
             !/^[.a-za-z0-9]+@(?:[a-za-z0-9]+\.)+[a-za-z]+$/.test(values.user)
           ) {
             errores.user = "Por favor ingrese un Correo valido";
-          } else {
-            mails.map((email) => (
-              <span key={email.id}>
-                {email.user === values.user
-                  ? (errores.user =
-                      "El correo ya está en uso, escriba uno diferente")
-                  : ""}
-              </span>
-            ));
           }
 
+          if (!values.dateInicial) {
+            errores.dateInicial = "Por favor ingrese la Fecha de Vinculacion";
+          }
           if (!values.dateSolicitud) {
             errores.dateSolicitud = "Por favor ingrese la Fecha de Solicitud";
           }
-          if (!values.dateInicial) {
-            errores.dateInicial = "Por favor ingrese la Fecha de Vinculacion";
-          } else if (values.dateInicial < values.dateSolicitud) {
-            errores.dateInicial =
-              "La Fecha de Vinculacion no puede ser anterior a la Fecha de Solicitud";
-          }
           if (!values.departamentId) {
-            errores.departamentId = "Por favor ingrese la Dependencia";
+            errores.departamentId = "Por favor ingrese el Departamento";
           }
           if (!values.requestId) {
             errores.requestId = "Por favor ingrese el tipo de Solicitud";
@@ -114,11 +144,7 @@ export const MailForm = (values) => {
           if (!values.mailTypeId) {
             errores.mailTypeId = "Por favor ingrese el tipo de Correo";
           }
-          if (values.dateFinal && values.dateFinal < values.dateInicial) {
-            errores.dateFinal =
-              "La Fecha de Desvinculacion no puede ser anterior a la Fecha de Vinculacion";
-          }
-
+          
           return errores;
         }}
         onSubmit={async (values, actions) => {
@@ -127,9 +153,12 @@ export const MailForm = (values) => {
           if (params.id) {
             console.log("Update");
             await upMail(params.id, values);
+            gp = true;
           } else {
             await crMail(values);
+            gp = true;
           }
+
           setMail({
             user: "",
             solicitante: "",
@@ -182,7 +211,7 @@ export const MailForm = (values) => {
                     onChange={handleChange}
                     value={values.mailTypeId}
                   >
-                    <option disabled value="">
+                    <option disabled selected value="">
                       Seleccione
                     </option>
                     {types.map((type) => (
@@ -212,7 +241,7 @@ export const MailForm = (values) => {
                     value={values.requestId}
                   >
                     <img alt="nuevo" className="nuevo" src={nuevo} />
-                    <option disabled value="">
+                    <option disabled selected value="">
                       Seleccione
                     </option>
                     {requests.map((request) => (
@@ -228,7 +257,7 @@ export const MailForm = (values) => {
               </div>
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
-                  Dependencia
+                  Departamento
                   <Formm.Select
                     name="departamentId"
                     type="text"
@@ -236,7 +265,7 @@ export const MailForm = (values) => {
                     onChange={handleChange}
                     value={values.departamentId}
                   >
-                    <option disabled value="">
+                    <option disabled selected value="">
                       Seleccione
                     </option>
                     {departs.map((departament) => (
@@ -270,6 +299,9 @@ export const MailForm = (values) => {
                         value={values.dateSolicitud}
                       />
                     </td>
+                    {touched.dateSolicitud && errors.dateSolicitud && (
+                      <span className="error pl-5">{errors.dateSolicitud}</span>
+                    )}
                   </label>
                   <label className="form-control-label px-2 mx-2">
                     Fecha de Vinculacion
@@ -282,6 +314,9 @@ export const MailForm = (values) => {
                         value={values.dateInicial}
                       />
                     </td>
+                    {touched.dateInicial && errors.dateInicial && (
+                      <span className="error ">{errors.dateInicial}</span>
+                    )}
                   </label>
                   <label className="form-control-label px-2 mx-2">
                     Fecha de Desvinculacion
@@ -307,7 +342,7 @@ export const MailForm = (values) => {
                     onChange={handleChange}
                     value={values.groupId}
                   >
-                    <option disabled value="">
+                    <option disabled selected value="">
                       Seleccione
                     </option>
                     {groups.map((group) => (
@@ -319,27 +354,8 @@ export const MailForm = (values) => {
                   <span type="button" onClick={() => navigate(`/group/create`)}>
                     <img alt="nuevo" className="nuevo" src={nuevo} />
                   </span>
+                  
                 </label>
-              </div>
-              <div className="messages">
-                <tr>
-                  <td>
-                    {touched.dateSolicitud && errors.dateSolicitud && (
-                      <span className="error pl-5">{errors.dateSolicitud}</span>
-                    )}
-                  </td>
-                  <td>
-                    {touched.dateInicial && errors.dateInicial && (
-                      <span className="error ">{errors.dateInicial}</span>
-                    )}
-                  </td>
-
-                  <td>
-                    {touched.dateFinal && errors.dateFinal && (
-                      <span className="error ">{errors.dateFinal}</span>
-                    )}
-                  </td>
-                </tr>
               </div>
               <div className="form-group  px-3">
                 <td>
@@ -347,15 +363,21 @@ export const MailForm = (values) => {
                     className="btn btn-primary"
                     type="submit"
                     onChange={handleChange}
+                    onClick={verMails}
                     disabled={isSubmitting}
-                    onClick={clearInput}
                   >
-                    {isSubmitting ? "Guardando..." : "Guardar "}
+                    {isSubmitting ? "Guardando..." : "Guardar y Ver"}
                   </button>
                 </td>
                 <td>
-                  <button className="btn btn-warning" onClick={verMails}>
-                    Ver lista
+                  <button
+                    className="btn btn-warning"
+                    type="submit"
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    onClick={clearInput}
+                  >
+                    {isSubmitting ? "Guardando..." : "Guardar y Continuar"}
                   </button>
                 </td>
               </div>

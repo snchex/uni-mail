@@ -53,7 +53,7 @@ export function GroupForm() {
 
           if (!values.description) {
             errores.description = "Por favor ingrese el nombre del Grupo ";
-          } else if (!/^.{4}[A-z\s]+$/.test(values.description)) {
+          } else if (!/^.{2}[A-z\s]+$/.test(values.description)) {
             errores.description = "Por favor ingrese un Grupo Valido";
           }
 

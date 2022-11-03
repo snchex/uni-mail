@@ -38,7 +38,7 @@ export function DepartamentForm() {
 
   return (
     <div className="card mx-auto col-md-4">
-      <h1> {params.id ? "Editar Departamento" : "Nuevo Departamento"}</h1>
+      <h1> {params.id ? "Editar Dependencia" : "Nueva Dependencia"}</h1>
       <hr />
       <Formik
         initialValues={depart}
@@ -78,11 +78,11 @@ export function DepartamentForm() {
           <Form onSubmit={handleSubmit}>
             <div className="row justify-content-center text-left">
               <div className="form-group flex-column d-flex">
-                <label className="form-control-label px-2">Departamento</label>
+                <label className="form-control-label px-2">Dependencia</label>
                 <input
                   type="text"
                   name="departamento"
-                  placeholder="Ingrese el departamento"
+                  placeholder="Ingrese la dependencia"
                   onChange={handleChange}
                   value={values.departamento}
                   onBlur={handleBlur}
