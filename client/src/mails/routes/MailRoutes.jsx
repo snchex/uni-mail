@@ -11,6 +11,7 @@ import {
   RequestPage,
   RequestForm,
   GroupPage,
+  GroupUserPage,
   GroupForm,
   MailForm,
   MailPage,
@@ -79,7 +80,7 @@ export function MailRoutes() {
                   <Route path="/group/create" element={<GroupForm />} />
                   <Route path="/group/edit/:id" element={<GroupForm />} />
                   <Route path="/group/list" element={<GroupPage />} />
-
+                  <Route path="/group/list/user" element={<GroupUserPage />} />
 
                   <Route path="/users" element={<UserPage />} />
                   <Route path="/users/add" element={<FormAddUser />} />

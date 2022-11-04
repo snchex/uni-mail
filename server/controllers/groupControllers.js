@@ -8,6 +8,7 @@ export const getAllGroups = async (req, res) => {
         response = await Group.findAll({
             attributes: [
                 'id',
+                'email',
                 'description',
                 [Sequelize.fn('date_format', Sequelize.col('dateInicialG'), '%d-%m-%Y'), 'dateInicialG'],
                 [Sequelize.fn('date_format', Sequelize.col('dateFinalG'), '%d-%m-%Y'), 'dateFinalG'],],
@@ -35,6 +36,7 @@ export const getGroup = async (req, res) => {
         response = await Group.findOne({
             attributes: [
                 'id',
+                'email',
                 'description',
                 [Sequelize.fn('date_format', Sequelize.col('dateInicialG'), '%Y-%m-%d'), 'dateInicialG'],
                 [Sequelize.fn('date_format', Sequelize.col('dateFinalG'), '%Y-%m-%d'), 'dateFinalG'],
@@ -53,9 +55,10 @@ export const getGroup = async (req, res) => {
 
 export const createGroup = async (req, res) => {
     try {
-        const { description, dateInicialG, dateFinalG } = req.body;
+        const { email, description, dateInicialG, dateFinalG } = req.body;
         if (dateFinalG) {
             await Group.create({
+                email: email,
                 description: description,
                 dateInicialG: dateInicialG,
                 dateFinalG: dateFinalG,
@@ -65,6 +68,7 @@ export const createGroup = async (req, res) => {
         } else {
 
             await Group.create({
+                email: email,
                 description: description,
                 dateInicialG: dateInicialG,
 
@@ -87,17 +91,17 @@ export const updateGroup = async (req, res) => {
             }
         });
         if (!group) return res.status(404).json({ msg: "Data not found" });
-        const { description, dateInicialG, dateFinalG } = req.body;
+        const { email, description, dateInicialG, dateFinalG } = req.body;
         if(dateFinalG){
 
-            await Group.update({ description, dateInicialG, dateFinalG }, {
+            await Group.update({ email, description, dateInicialG, dateFinalG }, {
                 where: {
                     id: group.id
                 }
             });
         }else{
 
-            await Group.update({ description, dateInicialG }, {
+            await Group.update({ email, description, dateInicialG }, {
                 where: {
                     id: group.id
                 }

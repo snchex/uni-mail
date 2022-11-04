@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import MailCard from "../components/MailCard";
 import { useMails } from "../context/MailProvider";
 import { useNavigate } from "react-router-dom";
+import GroupUserCard from "../components/GroupUserCard";
 export const MailPage = () => {
   const { mails, loadMails } = useMails();
   const navigate = useNavigate();
@@ -19,7 +20,13 @@ export const MailPage = () => {
           <h1>No Existen Correos</h1>
         </div>
       );
-    return mails.map((mail) => <MailCard mail={mail} key={mail.id} />);
+    return (
+      mails.map((mail) => <MailCard mail={mail} key={mail.id} />),
+      mails.map((mail) => <GroupUserCard mail={mail} key={mail.id} />)
+      
+      
+      )
+
   }
 
   return (

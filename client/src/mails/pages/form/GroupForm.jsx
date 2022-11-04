@@ -4,8 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useGroups } from "../../context/GroupProvider";
 
 export function GroupForm() {
-  const { crGroup, gtGroup, upGroup } = useGroups();
+  const { groups, crGroup, gtGroup, upGroup } = useGroups();
   const [group, setGroup] = useState({
+    email: "",
     description: "",
     dateInicialG: "",
     dateFinalG: "",
@@ -19,9 +20,10 @@ export function GroupForm() {
         if (params.id) {
           const group = await gtGroup(params.id);
           setGroup({
+            email: group.email,
             description: group.description,
             dateInicialG: group.dateInicialG,
-            dateFinalG: group.dateFinalG, 
+            dateFinalG: group.dateFinalG,
           });
         }
       };
@@ -51,6 +53,22 @@ export function GroupForm() {
         validate={(values) => {
           let errores = {};
 
+          if (!values.email) {
+            errores.email = "Por favor ingrese el Correo";
+          } else if (
+            !/^[.a-za-z0-9]+@(?:[a-za-z0-9]+\.)+[a-za-z]+$/.test(values.email)
+          ) {
+            errores.email = "Por favor ingrese un Correo valido";
+          } else {
+            groups.map((group) => (
+              <span key={group.id}>
+                {group.email === values.email
+                  ? (errores.email =
+                      "El correo ya está en uso, escriba uno diferente")
+                  : ""}
+              </span>
+            ));
+          }
           if (!values.description) {
             errores.description = "Por favor ingrese el nombre del Grupo ";
           } else if (!/^.{2}[A-z Á-ź\s]+$/.test(values.description)) {
@@ -66,12 +84,13 @@ export function GroupForm() {
           if (params.id) {
             console.log("Update");
             await upGroup(params.id, values);
-            navigate("/group/list");
+         
           } else {
             await crGroup(values);
           }
 
           setGroup({
+            email: "",
             description: "",
             dateInicialG: "",
             dateFinalG: "",
@@ -92,13 +111,29 @@ export function GroupForm() {
               <div className="container-fluid mx-auto px-5">
                 <div className="form-group  flex-column d-flex">
                   <label className="form-control-label px-3">
-                    Detalles de Grupo
+                    Correo de Grupo
+                  </label>
+                  <input
+                    type="text"
+                    name="email"
+                    onBlur={handleBlur}
+                    placeholder="Ingrese el correo de grupo"
+                    onChange={handleChange}
+                    value={values.email}
+                  />{" "}
+                  {touched.email && errors.email && (
+                    <span className="error pl-5">{errors.email}</span>
+                  )}
+                </div>
+                <div className="form-group  flex-column d-flex">
+                  <label className="form-control-label px-3">
+                    Detalle de Grupo
                   </label>
                   <input
                     type="text"
                     name="description"
                     onBlur={handleBlur}
-                    placeholder="Ingrese el nombre de grupo"
+                    placeholder="Ingrese el detalle de grupo"
                     onChange={handleChange}
                     value={values.description}
                   />{" "}
@@ -120,11 +155,11 @@ export function GroupForm() {
                           value={values.dateInicialG}
                         />{" "}
                       </label>
-                        {touched.dateInicialG && errors.dateInicialG && (
-                          <span className="error pl-5">
-                            {errors.dateInicialG}
-                          </span>
-                        )}
+                      {touched.dateInicialG && errors.dateInicialG && (
+                        <span className="error pl-5">
+                          {errors.dateInicialG}
+                        </span>
+                      )}
                     </td>
                     <td>
                       <label className="form-control-label px-2 mx-4">

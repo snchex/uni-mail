@@ -56,13 +56,12 @@ export const getAllGroupsMails = async (req, res) => {
         response = await Mail.findAll({
             attributes: [
                 'user',
-                'solicitante',
             ],
             include: [
                 {
                     model: Group,
                     attributes: ['id', 'email', 'description'],
-                    required: false,
+                    required: true,
                 }
             ]
 

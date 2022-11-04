@@ -36,8 +36,8 @@ export const GroupPage = () => {
           <table className="table table-borderles">
             <thead className="border-bottom text-center">
               <tr>
-                <th>Grupo</th>
-
+                <th>Correos de Grupos</th>
+                <th> Detalle de Grupos</th>
                 <th>Fecha de Vinculacion</th>
                 <th>Fecha de Desvinculacion</th>
                 <th>Acciones</th>
