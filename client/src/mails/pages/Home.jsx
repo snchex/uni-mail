@@ -102,7 +102,11 @@ export const Home = () => {
                     <td>{mail.user} </td>
                     <td>{mail.departament.departamento}</td>
                     <td className="text-center">{mail.request.solicitud}</td>
-                    <td className="text-center">{mail.group.description}</td>
+                    {mail.group ? (
+                      <td className="ml-2 text-center">{mail.group.description}</td>
+                    ): (
+                      <td></td>
+                    )}
                     <td className="text-center">{mail.dateSolicitud}</td>
                     {output >= mail.dateFinal ? (
                       <td className=" text-center fechared">

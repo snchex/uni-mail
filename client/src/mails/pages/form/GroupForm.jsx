@@ -53,7 +53,7 @@ export function GroupForm() {
 
           if (!values.description) {
             errores.description = "Por favor ingrese el nombre del Grupo ";
-          } else if (!/^.{2}[A-z\s]+$/.test(values.description)) {
+          } else if (!/^.{2}[A-z Á-ź\s]+$/.test(values.description)) {
             errores.description = "Por favor ingrese un Grupo Valido";
           }
 
@@ -92,7 +92,7 @@ export function GroupForm() {
               <div className="container-fluid mx-auto px-5">
                 <div className="form-group  flex-column d-flex">
                   <label className="form-control-label px-3">
-                    Nombre de Grupo
+                    Detalles de Grupo
                   </label>
                   <input
                     type="text"

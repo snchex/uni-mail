@@ -21,6 +21,7 @@ export const getAllGroups = async (req, res) => {
 
 }
 
+
 export const getGroup = async (req, res) => {
     try {
         const group = await Group.findOne({

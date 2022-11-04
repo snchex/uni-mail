@@ -50,7 +50,31 @@ export const getAllMails = async (req, res) => {
     }
 
 }
+export const getAllGroupsMails = async (req, res) => {
+    try {
+        let response;
+        response = await Mail.findAll({
+            attributes: [
+                'user',
+                'solicitante',
+            ],
+            include: [
+                {
+                    model: Group,
+                    attributes: ['id', 'email', 'description'],
+                    required: false,
+                }
+            ]
 
+        });
+        console.table(response);
+        res.status(200).json(response);
+
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+
+}
 export const getMail = async (req, res) => {
     try {
         const mail = await Mail.findOne({

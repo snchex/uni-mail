@@ -48,7 +48,7 @@ export function DepartamentForm() {
 
           if (!values.departamento) {
             errores.departamento = "Por favor ingrese un departamento ";
-          } else if (!/^.{2}[A-z\s]+$/.test(values.departamento)) {
+          } else if (!/^.{2}[A-z Á-ź\s]+$/.test(values.departamento)) {
             errores.departamento = "Por favor ingrese un Departamento Valido";
           }
           return errores;
