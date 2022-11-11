@@ -1,31 +1,30 @@
 import React, { useEffect } from "react";
 import { useMails } from "../context/MailProvider";
 import GroupUserCard from "../components/GroupUserCard";
-import { useGroups } from "../context/GroupProvider";
 
 export const GroupUserPage = () => {
-  const { groups, loadGroups } = useGroups();
-  const { mails } = useMails();
+
+  const { mails, loadMailUser } = useMails();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      loadGroups();
+
+      loadMailUser();
     }, 500);
     return () => clearTimeout(timer);
   });
-
   function renderMain() {
-    if (groups.length === 0 || mails.length === 0){
-
+    if (mails.group) {
       return (
         <div className="container">
           <h1>No Existen Grupos con Usuarios</h1>
         </div>
       );
     }
-    return groups.map((group) => (
-      <GroupUserCard group={group} key={group.id} />
-    ));
+    return (
+
+      mails.map((mail) => <GroupUserCard mail={mail} key={mail.id} />)
+    );
   }
 
   return (
@@ -39,7 +38,7 @@ export const GroupUserPage = () => {
               <tr>
                 <th>Usuarios</th>
                 <th>Correo de Grupos</th>
-                <th>Detalle deGrupo</th>
+                <th>Detalle de Grupo</th>
               </tr>
             </thead>
 
