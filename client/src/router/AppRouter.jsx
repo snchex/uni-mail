@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MailRoutes from "../mails/routes/MailRoutes";
 
 export const AppRouter = () => {
+  
   return (
     <>
       <Routes>
