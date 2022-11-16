@@ -22,7 +22,7 @@ export const UserPage = () => {
       if (user && user.role !== "admin") {
         navigate("/home");
       }
-    }, 500);
+    }, 300);
     return () => clearTimeout(timer);
   }, [isError, user, navigate, dispatch]);
   

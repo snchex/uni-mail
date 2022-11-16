@@ -36,7 +36,7 @@ export const getAllMails = async (req, res) => {
                 },
                 {
                     model: Group,
-                    attributes: ['id', 'description'],
+                    attributes: ['id', 'email', 'description'],
                     required: false,
                 }
             ]
@@ -48,9 +48,56 @@ export const getAllMails = async (req, res) => {
     } catch (error) {
         res.json({ message: error.message });
     }
+}
+
+export const getMailUser = async (req, res) => {
+    try {
+        let response;
+        response = await Mail.findAll({
+            attributes: ['id', 'user'],
+            include: [
+                {
+                    model: Group,
+                    attributes: ['id', 'email', 'description'],
+                    order: ['description', 'ASC'],
+                    required: true,
+                }
+            ]
+        });
+        res.status(200).json(response);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
 
 }
 
+
+
+
+export const getAllGroupsMails = async (req, res) => {
+    try {
+        let response;
+        response = await Mail.findAll({
+            attributes: [
+                'user',
+            ],
+            include: [
+                {
+                    model: Group,
+                    attributes: ['id', 'email', 'description'],
+                    required: true,
+                }
+            ]
+
+        });
+        console.table(response);
+        res.status(200).json(response);
+
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+
+}
 export const getMail = async (req, res) => {
     try {
         const mail = await Mail.findOne({

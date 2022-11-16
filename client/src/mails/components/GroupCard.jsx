@@ -18,6 +18,7 @@ export default function GroupCard({ group }) {
     <>
       <tbody className="text-left mx-auto">
         <tr key={group.id}>
+        <td className="ml-2">{group.email}</td>
           <td className="ml-2">{group.description}</td>
           <td className="ml-2 text-center">{group.dateInicialG}</td>
           { output >= group.dateFinalG ? (

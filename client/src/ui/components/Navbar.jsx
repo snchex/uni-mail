@@ -117,6 +117,11 @@ export const Navbar = () => {
                 Lista de Grupos
               </Link>
             </Dropdown.Item>
+            <Dropdown.Item style={{ margin: 0 }} >
+              <Link className="dropdown-item" to="/group/list/user">
+                Lista de Grupos - Usuarios
+              </Link>
+            </Dropdown.Item>
           </DropdownButton>
         </li>
         {user && user.role === "admin" && (

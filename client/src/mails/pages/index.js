@@ -8,5 +8,6 @@ export * from './RequestPage';
 export * from './TypePage';
 export * from './GroupPage';
 export * from './MailPage';
-export * from './UserPage'
+export * from './UserPage';
+export * from './GroupUserPage';
 

@@ -11,15 +11,15 @@ export const Home = () => {
   const { isError } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (isError) {
-      navigate("/");
-    }
-    dispatch(getMe());
-
     const timer = setTimeout(() => {
+      if (isError) {
+        navigate("/");
+      }
+      dispatch(getMe());
+
       loadMails();
-    }, 1000);
-    return () => clearTimeout(timer);
+    }, 50);
+    return () => clearTimeout(timer); 
   }, [dispatch, isError, navigate]);
 
   const [filteredData, setFilteredData] = useState([]);
@@ -102,7 +102,13 @@ export const Home = () => {
                     <td>{mail.user} </td>
                     <td>{mail.departament.departamento}</td>
                     <td className="text-center">{mail.request.solicitud}</td>
-                    <td className="text-center">{mail.group.description}</td>
+                    {mail.group ? (
+                      <td className="ml-2 text-center">
+                        {mail.group.description}
+                      </td>
+                    ) : (
+                      <td></td>
+                    )}
                     <td className="text-center">{mail.dateSolicitud}</td>
                     {output >= mail.dateFinal ? (
                       <td className=" text-center fechared">

@@ -21,8 +21,7 @@ const store = new sessionStore({
     db: db
 });
 
-
-(async()=>{
+(async () => {
     await db.sync();
 })();
 
@@ -51,10 +50,14 @@ app.use(typeRoutes);
 app.use(groupRoutes);
 app.use(mailRoutes);
 
-
 store.sync();
 
-app.listen(process.env.APP_PORT, ()=> {
-    console.log('Server up and running...');
+const nDate = new Date().toLocaleString('es-ES', {
+    timeZone: 'America/Asuncion'
+});
+
+
+app.listen(process.env.APP_PORT, () => {
+    console.log('Server up and running...', `${nDate}`);
 });
 

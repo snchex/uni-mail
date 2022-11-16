@@ -20,6 +20,7 @@ export default function MailCard({ mail }) {
 
   const { delMail } = useMails();
   const navigate = useNavigate();
+
  
   return (
     <>

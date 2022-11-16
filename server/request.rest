@@ -12,10 +12,10 @@ POST http://localhost:3030/user/create HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Admin Admin",
-  "email": "admin@gmail.com",
-  "password": "123456",
-  "confPassword": "123456",
+  "name": "Dpto Informatica",
+  "email": "informatica@uni.edu.py",
+  "password": "uniadmin1996",
+  "confPassword": "uniadmin1996",
   "role": "admin"
 }   
 
@@ -40,8 +40,8 @@ POST http://localhost:3030/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "admin@gmail.com",
-  "password": "123456"
+  "email": "informatica@uni.edu.py",
+  "password": "uniadmin1996"
 }
 
 ### user

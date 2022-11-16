@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { getAllMails, getMail, createMail, updateMail, deleteMail } from "../api/mailApi";
+import { getAllMails, getMailUser, getMail, createMail, updateMail, deleteMail } from "../api/mailApi";
 
 import { MailContext } from "../context/MailContext";
 
@@ -23,6 +23,11 @@ export const MailProvider = ({ children }) => {
        
     }
 
+    async function loadMailUser(){
+        const response = await getMailUser();
+        setMails(response.data);
+    }
+
     const gtMail = async (id) => {
         try {
             const response = await getMail(id);
@@ -33,6 +38,7 @@ export const MailProvider = ({ children }) => {
         }
         
     }   
+     
 
     const crMail = async (mail) => {
         try {
@@ -78,7 +84,7 @@ export const MailProvider = ({ children }) => {
 
 
     return (
-        <MailContext.Provider value={{ gp, mails, msg, loadMails, gtMail, crMail, upMail, delMail }} >
+        <MailContext.Provider value={{ gp, mails, msg, loadMails, loadMailUser, gtMail, crMail, upMail, delMail }} >
             {children}
         </MailContext.Provider>
     )
