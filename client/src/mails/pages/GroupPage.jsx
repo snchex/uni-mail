@@ -8,7 +8,7 @@ export const GroupPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       loadGroups();
-    }, 500);
+    }, 100);
     return () => clearTimeout(timer);
   });
 

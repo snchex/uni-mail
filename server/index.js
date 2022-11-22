@@ -58,6 +58,6 @@ const nDate = new Date().toLocaleString('es-ES', {
 
 
 app.listen(process.env.APP_PORT, () => {
-    console.log('Server up and running...', `${nDate}`);
+    console.log('Server up and running...',` DateTime ${nDate}`);
 });
 
