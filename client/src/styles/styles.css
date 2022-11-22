@@ -72,9 +72,8 @@ nav ul li a{
 
 a.active{
   background-color: transparent;
-  padding-top: .3rem;
-  padding-right: .9rem;
-  padding-left: .9rem;
+  padding: .3rem .9rem .3rem .9rem;
+  line-height: 3.65rem;
 
 }
 tr{
@@ -86,7 +85,7 @@ a.active:hover{
   color: white;
   transition: .3s;
   padding-top: .3rem;
-  padding-bottom: .45rem;
+  padding-bottom: .3rem;
   padding-right: .9rem;
   padding-left: .9rem;
   border-radius: .25rem;

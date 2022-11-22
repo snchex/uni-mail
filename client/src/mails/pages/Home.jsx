@@ -18,7 +18,7 @@ export const Home = () => {
       dispatch(getMe());
 
       loadMails();
-    }, 50);
+    }, 100);
     return () => clearTimeout(timer); 
   }, [dispatch, isError, navigate]);
 
@@ -68,11 +68,11 @@ export const Home = () => {
           {filteredData.length === 0 ? <span></span> : <span></span>}
         </div>
 
-        <div className="col-8">
+        <div className="col-7">
           <h4>Resultado</h4>
           <hr />
           {filteredData.length !== 0 && (
-            <div
+            <table
               className="table table-borderles"
               style={{ display: showSearch ? "" : "none" }}
             >
@@ -120,7 +120,7 @@ export const Home = () => {
                   </tr>
                 );
               })}
-            </div>
+            </table>
           )}
           <div
             className="alert alert-danger animate__animated animate__fadeIn"
