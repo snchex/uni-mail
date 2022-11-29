@@ -12,20 +12,21 @@ import groupRoutes from "./routes/groupRoutes.js";
 import mailRoutes from "./routes/mailRoutes.js";
 import db from "./config/database.js";
 
+const hostname = 'localhost';
 dotenv.config();
 
 const app = express();
 
 const sessionStore = SequelizeStore(session.Store);
+
 const store = new sessionStore({
     db: db
 });
-
+/*
 (async () => {
     await db.sync();
 })();
-
-
+*/
 app.use(session({
     secret: process.env.SESS_SECRET,
     resave: false,
@@ -50,14 +51,14 @@ app.use(typeRoutes);
 app.use(groupRoutes);
 app.use(mailRoutes);
 
-store.sync();
+//store.sync();
 
 const nDate = new Date().toLocaleString('es-ES', {
     timeZone: 'America/Asuncion'
 });
 
 
-app.listen(process.env.APP_PORT, () => {
-    console.log('Server up and running...',` DateTime ${nDate}`);
+app.listen(process.env.APP_PORT, hostname, () => {
+    console.log(`Server running at http://${hostname}:${process.env.APP_PORT}/`);
 });
 

@@ -42,7 +42,7 @@ export const UserPage = () => {
       <table className="table table-borderles">
         <thead>
           <tr>
-            <th>No</th>
+            <th>Nª</th>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>

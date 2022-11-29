@@ -24,7 +24,7 @@ export default function MailCard({ mail }) {
  
   return (
     <>
-      <tbody className="text-left mx-auto">
+      <tbody className="text-left">
         <tr key={mail.id}>
           <td className="ml-2">{mail.user}</td>
           <td className="m-4">{mail.solicitante}</td>
@@ -34,7 +34,7 @@ export default function MailCard({ mail }) {
           {mail.group ? (
             <td className="ml-2 text-center">{mail.group.description}</td>
           ): (
-            <td></td>
+            <td>Sin Grupo</td>
           )}
           <td className="text-center">{mail.dateSolicitud}</td>
           <td className="text-center">{mail.dateInicial}</td>
