@@ -22,7 +22,7 @@ Link {
   margin-top: 1rem;
 }
 nav {
-  background: #d7d2d2;
+  background: rgb(0 0 0 / 20%);
   height: 4.2rem;
   width: 100vw;
 }
@@ -517,16 +517,6 @@ tr {
 
 .form-control {
   padding: 10px;
-}
-
-.containerxc {
-  margin-top: 20px;
-}
-
-.footer-basic {
-  padding: 40px 0;
-  background-color: #ffffff;
-  color: #4b4c4d;
 }
 
 .footer-basic ul {

@@ -54,7 +54,7 @@ export const FormAddUser = () => {
   };
 
   return (
-    <div className="card mx-auto col-md-4">
+    <div className="card col-md-4 mx-auto ">
       <h1 className="title">Usuario</h1>
       <hr />
       <h2 className="subtitle">A&ntilde;adir Nuevo Usuario</h2>

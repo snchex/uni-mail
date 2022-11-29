@@ -10,7 +10,7 @@ export const GroupUserPage = () => {
     const timer = setTimeout(() => {
 
       loadMailUser();
-    }, 200);
+    }, 100);
     return () => clearTimeout(timer);
   });
   function renderMain() {

@@ -27,7 +27,7 @@ export const GroupPage = () => {
       <div className="card mx-auto col-md-7">
         <h1 className="row justify-content-center py-3">Lista de Grupos</h1>
         <button
-        className="btn btn-primary mx-3"
+        className="btn btn-primary mb-2 mx-3"
         onClick={() => navigate(`/group/create`)}
       >
         Crear Grupo

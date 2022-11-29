@@ -31,6 +31,7 @@ import {
 } from "../context";
 
 import { Navbar } from "../../ui";
+import { Footer } from "../../ui/components/Footer";
 
 export function MailRoutes() {
 
@@ -52,6 +53,7 @@ export function MailRoutes() {
           <DepartamentProvider>
             <TypeProvider>
               <Navbar />
+              <Footer />
               <div className="container-fluid">
                 <Routes>
                   <Route path="/home" element={<Home />} />
