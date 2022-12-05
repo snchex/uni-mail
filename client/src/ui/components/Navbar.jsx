@@ -19,8 +19,8 @@ export const Navbar = () => {
 
   return (
     <nav>
+     
       <img className="logo " src={logo} alt="logo" />
-
       <ul className="d-flex">
         <li>
           <Link className="active" to="/home">
