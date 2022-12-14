@@ -1,0 +1,1 @@
+export {Footer, Navbar} from './components';

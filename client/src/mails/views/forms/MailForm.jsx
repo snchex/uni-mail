@@ -4,7 +4,7 @@ import Formm from "react-bootstrap/Form";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMails } from "../../context/MailProvider";
 import { useDeparts, useRequests, useTypes, useGroups } from "../../context";
-import nuevo from "../../../assets/nuevo.png";
+import nuevo from "../../assets/nuevo.png";
 
 export const MailForm = (values) => {
   const { gp, msg, loadMails, mails, crMail, gtMail, upMail } = useMails();

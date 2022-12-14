@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
-import TypeCard from "../components/TypeCard";
-import { useTypes } from "../context/TypeProvider";
+import TypeCard from "../../components/TypeCard";
+import { useTypes } from "../../context/TypeProvider";
 import { useNavigate } from "react-router-dom"
 export function TypePage() {
   const { types, loadTypes } = useTypes();

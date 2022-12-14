@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import GroupCard from "../components/GroupCard";
-import { useGroups } from "../context/GroupProvider";
+import GroupCard from "../../components/GroupCard";
+import { useGroups } from "../../context/GroupProvider";
 import { useNavigate } from "react-router-dom";
 export const GroupPage = () => {
   const { groups, loadGroups } = useGroups();

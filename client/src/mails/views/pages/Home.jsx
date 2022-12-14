@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useMails } from "../context";
+import { useMails } from "../../context";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getMe } from "../features/authSlice";
+import { getMe } from "../../auth/authSlice";
 
 export const Home = () => {
   const { mails, loadMails } = useMails();

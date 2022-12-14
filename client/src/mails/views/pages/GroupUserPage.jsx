@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { useMails } from "../context/MailProvider";
-import GroupUserCard from "../components/GroupUserCard";
+import { useMails } from "../../context/MailProvider";
+import GroupUserCard from "../../components/GroupUserCard";
 
 export const GroupUserPage = () => {
 

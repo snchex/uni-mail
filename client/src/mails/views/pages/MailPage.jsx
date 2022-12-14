@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import MailCard from "../components/MailCard";
-import { useMails } from "../context/MailProvider";
+import MailCard from "../../components/MailCard";
+import { useMails } from "../../context/MailProvider";
 import { useNavigate } from "react-router-dom";
 
 export const MailPage = () => {

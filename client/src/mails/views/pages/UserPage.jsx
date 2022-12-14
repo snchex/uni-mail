@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getMe } from "../features/authSlice";
-import UserCard from "../components/UserCard";
-import { useUsers } from "../context/UserProvider";
+import { getMe } from "../../auth/authSlice";
+import UserCard from "../../components/UserCard";
+import { useUsers } from "../../context/UserProvider";
 
 export const UserPage = () => {
   const dispatch = useDispatch();

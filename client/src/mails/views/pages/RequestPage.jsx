@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import RequestCard from "../components/RequestCard";
-import { useRequests } from "../context/RequestProvider";
+import RequestCard from "../../components/RequestCard";
+import { useRequests } from "../../context/RequestProvider";
 import { useNavigate } from "react-router-dom"
 export const RequestPage = () => {
   const { requests, loadRequests } = useRequests();
