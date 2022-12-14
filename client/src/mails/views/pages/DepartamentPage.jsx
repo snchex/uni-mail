@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import DepartCard from "../components/DepartamentCard";
-import { useDeparts } from "../context/DepartamentProvider";
+import DepartCard from "../../components/DepartamentCard";
+import { useDeparts } from "../../context/DepartamentProvider";
 import { useNavigate } from "react-router-dom";
 export function DepartPage() {
   const { departs, loadDepartaments } = useDeparts();
@@ -29,7 +29,7 @@ export function DepartPage() {
         Lista de Departamentos de Correo
       </h1>
       <button
-        className="btn btn-primary mx-3"
+        className="btn btn-primary mx-3 mb-2"
         onClick={() => navigate(`/departament/create`)}
       >
         Crear Departamento

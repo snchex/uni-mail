@@ -4,7 +4,7 @@ import Formm from "react-bootstrap/Form";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMails } from "../../context/MailProvider";
 import { useDeparts, useRequests, useTypes, useGroups } from "../../context";
-import nuevo from "../../../assets/nuevo.png";
+import nuevo from "../../assets/nuevo.png";
 
 export const MailForm = (values) => {
   const { gp, msg, loadMails, mails, crMail, gtMail, upMail } = useMails();
@@ -12,7 +12,6 @@ export const MailForm = (values) => {
   const { requests, loadRequests } = useRequests();
   const { types, loadTypes } = useTypes();
   const { groups, loadGroups } = useGroups();
-
 
   //seteo de datos por defecto
   const [mail, setMail] = useState({
@@ -33,7 +32,6 @@ export const MailForm = (values) => {
     const timer = setTimeout(() => {
       const loadMail = async () => {
         if (params.id) {
-          //Inyecta las datos en esas variables para mostrar
           const mail = await gtMail(params.id);
 
           setMail({
@@ -65,11 +63,9 @@ export const MailForm = (values) => {
     }
   };
 
-  //console.log(msg);
   const verMails = () => {
     navigate("/mail/list");
   };
-  
 
   return (
     <div className="card mx-auto col-md-9">
@@ -230,14 +226,13 @@ export const MailForm = (values) => {
               <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Dependencia
-        
                   <Formm.Select
-                  name="departamentId"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.departamentId}
+                    name="departamentId"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.departamentId}
                   >
-                     <option value="">Seleccione</option>
+                    <option value="">Seleccione</option>
                     {departs.map((departament) => (
                       <option key={departament.id} value={departament.id}>
                         {departament.departamento}
@@ -295,7 +290,7 @@ export const MailForm = (values) => {
                   </label>
                 </tr>
               </div>
-              <div className="form-group col-sm-6 flex-column d-flex ">
+              <div className="form-group col-sm-6 flex-column d-flex">
                 <label className="form-control-label px-3">
                   Grupo
                   <Formm.Select
@@ -360,12 +355,8 @@ export const MailForm = (values) => {
             </div>
           </Form>
         )}
-        
       </Formik>
-      
     </div>
-
-
   );
 };
 export default MailForm;

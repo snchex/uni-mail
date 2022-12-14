@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import MailCard from "../components/MailCard";
-import { useMails } from "../context/MailProvider";
+import MailCard from "../../components/MailCard";
+import { useMails } from "../../context/MailProvider";
 import { useNavigate } from "react-router-dom";
 
 export const MailPage = () => {
@@ -28,7 +28,7 @@ export const MailPage = () => {
       <h1 className="row justify-content-md-center py-3">Lista de Correos</h1>
       <div className="row justify-content-md-center mx-auto">
         <button
-          className="btn btn-primary mx-auto"
+          className="btn btn-primary mx-auto mb-2"
           onClick={() => navigate(`/mail/create`)}
         >
           Crear Mail

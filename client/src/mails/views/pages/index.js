@@ -1,5 +1,3 @@
-export { DepartamentForm, TypeForm, RequestForm, GroupForm, MailForm, FormAddUser, FormEditUser} from './form';
-
 export * from './DepartamentPage';
 
 export {Home} from './Home';

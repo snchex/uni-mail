@@ -1,11 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LogOut, reset } from "../../mails/features/authSlice";
+import { LogOut, reset } from "../../../../auth/authSlice";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { useDispatch, useSelector } from "react-redux";
-import logo from "../../assets/logo192.png";
-
+import logo from "../../../../assets/logo192.png";
 export const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

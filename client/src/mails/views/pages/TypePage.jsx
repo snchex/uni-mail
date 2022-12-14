@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
-import TypeCard from "../components/TypeCard";
-import { useTypes } from "../context/TypeProvider";
+import TypeCard from "../../components/TypeCard";
+import { useTypes } from "../../context/TypeProvider";
 import { useNavigate } from "react-router-dom"
 export function TypePage() {
   const { types, loadTypes } = useTypes();
@@ -9,7 +9,7 @@ export function TypePage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       loadTypes();
-    }, 500);
+    }, 100);
     return () => clearTimeout(timer);
   });
 
@@ -29,7 +29,7 @@ export function TypePage() {
         Lista de tipos de Correo
       </h1>
       <button
-        className="btn btn-primary mx-3"
+        className="btn btn-primary mb-2 mx-3"
         onClick={() => navigate(`/mailtype/create`)}
       >
         Crear Tipo de Correo

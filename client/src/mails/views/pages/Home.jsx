@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useMails } from "../context";
+import { useMails } from "../../context";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getMe } from "../features/authSlice";
+import { getMe } from "../../auth/authSlice";
 
 export const Home = () => {
   const { mails, loadMails } = useMails();
@@ -19,7 +19,7 @@ export const Home = () => {
 
       loadMails();
     }, 100);
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, [dispatch, isError, navigate]);
 
   const [filteredData, setFilteredData] = useState([]);
@@ -61,6 +61,7 @@ export const Home = () => {
             className="form-control"
             type="text"
             placeholder="Digite el correo"
+            autoFocus={true}
             value={wordEntered}
             onChange={handleFilter}
           />
@@ -68,7 +69,7 @@ export const Home = () => {
           {filteredData.length === 0 ? <span></span> : <span></span>}
         </div>
 
-        <div className="col-7">
+        <div className="mx-auto col-7">
           <h4>Resultado</h4>
           <hr />
           {filteredData.length !== 0 && (
@@ -122,12 +123,18 @@ export const Home = () => {
               })}
             </table>
           )}
-          <div
-            className="alert alert-danger animate__animated animate__fadeIn"
-            style={{ display: showError ? "" : "none" }}
-          >
-            No existe usuario <b>{wordEntered}</b>
-          </div>
+          {wordEntered === "" ? (
+            <div className="alert alert-success animate_animated">
+              Escriba el Usuario
+            </div>
+          ) : (
+            <div
+              className="alert alert-danger animate__animated animate__fadeIn"
+              style={{ display: showError ? "" : "none" }}
+            >
+              No Existe el Usuario: <b>{wordEntered}</b>
+            </div>
+          )}
         </div>
       </div>
     </div>

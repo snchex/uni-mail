@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import GroupCard from "../components/GroupCard";
-import { useGroups } from "../context/GroupProvider";
+import GroupCard from "../../components/GroupCard";
+import { useGroups } from "../../context/GroupProvider";
 import { useNavigate } from "react-router-dom";
 export const GroupPage = () => {
   const { groups, loadGroups } = useGroups();
@@ -27,7 +27,7 @@ export const GroupPage = () => {
       <div className="card mx-auto col-md-7">
         <h1 className="row justify-content-center py-3">Lista de Grupos</h1>
         <button
-        className="btn btn-primary mx-3"
+        className="btn btn-primary mb-2 mx-3"
         onClick={() => navigate(`/group/create`)}
       >
         Crear Grupo

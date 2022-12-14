@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import RequestCard from "../components/RequestCard";
-import { useRequests } from "../context/RequestProvider";
+import RequestCard from "../../components/RequestCard";
+import { useRequests } from "../../context/RequestProvider";
 import { useNavigate } from "react-router-dom"
 export const RequestPage = () => {
   const { requests, loadRequests } = useRequests();
@@ -8,7 +8,7 @@ export const RequestPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       loadRequests();
-    }, 500);
+    }, 100);
 
     return () => clearTimeout(timer);
   });
@@ -29,7 +29,7 @@ export const RequestPage = () => {
     <div className="card mx-auto col-md-4">
       <h1 className="row justify-content-center py-3">Lista de Solicitudes</h1>
       <button
-        className="btn btn-primary mx-3"
+        className="btn btn-primary mb-2 mx-3"
         onClick={() => navigate(`/request/create`)}
       >
         Crear Solicitudes

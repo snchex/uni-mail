@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getMe } from "../features/authSlice";
-import UserCard from "../components/UserCard";
-import { useUsers } from "../context/UserProvider";
+import { getMe } from "../../auth/authSlice";
+import UserCard from "../../components/UserCard";
+import { useUsers } from "../../context/UserProvider";
 
 export const UserPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export const UserPage = () => {
       if (user && user.role !== "admin") {
         navigate("/home");
       }
-    }, 300);
+    }, 200);
     return () => clearTimeout(timer);
   }, [isError, user, navigate, dispatch]);
   
@@ -42,7 +42,7 @@ export const UserPage = () => {
       <table className="table table-borderles">
         <thead>
           <tr>
-            <th>No</th>
+            <th>Nª</th>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
