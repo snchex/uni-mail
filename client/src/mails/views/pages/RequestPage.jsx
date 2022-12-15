@@ -1,17 +1,21 @@
-import React, { useEffect } from "react";
-import RequestCard from "../../components/RequestCard";
+import React, { useEffect, lazy, Suspense } from "react";
+//import RequestCard from "../../components/RequestCard";
 import { useRequests } from "../../context/RequestProvider";
 import { useNavigate } from "react-router-dom"
+import Loader from "../layouts/loader/Loader";
+const RequestCard = lazy(() => import('../../components/RequestCard'));
+
+
 export const RequestPage = () => {
   const { requests, loadRequests } = useRequests();
   const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
       loadRequests();
-    }, 100);
+    }, 500);
 
     return () => clearTimeout(timer);
-  });
+  },[]);
 
   function renderMain() {
     if (requests.length === 0)
@@ -26,26 +30,29 @@ export const RequestPage = () => {
   }
 
   return (
-    <div className="card mx-auto col-md-4">
-      <h1 className="row justify-content-center py-3">Lista de Solicitudes</h1>
-      <button
-        className="btn btn-primary mb-2 mx-3"
-        onClick={() => navigate(`/request/create`)}
-      >
-        Crear Solicitudes
-      </button>
-      <div className="container">
-        <table className="table table-borderles">
-          <thead className="text-center">
-            <tr className="border-bottom">
-              <th>Tipo de Solicitud</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          {renderMain()}
-        </table>
+    <Suspense fallback={Loader}>
+      <div className="card mx-auto col-md-4">
+        <h1 className="row justify-content-center py-3">Lista de Solicitudes</h1>
+        <button
+          className="btn btn-primary mb-2 mx-3"
+          onClick={() => navigate(`/request/create`)}
+        >
+          Crear Solicitudes
+        </button>
+        <div className="container">
+          <table className="table table-borderles">
+            <thead className="text-center">
+              <tr className="border-bottom">
+                <th>Tipo de Solicitud</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            {renderMain()}
+          </table>
+        </div>
       </div>
-    </div>
+
+    </Suspense>
   );
 };
 export default RequestPage;

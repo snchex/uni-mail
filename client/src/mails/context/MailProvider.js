@@ -14,16 +14,16 @@ export const useMails = () => {
 
 export const MailProvider = ({ children }) => {
     const [mails, setMails] = useState([]);
-    const [ gp, setGp ] = useState(false);
+    const [gp, setGp] = useState(false);
     const [msg, setMsg] = useState("");
 
     async function loadMails() {
         const response = await getAllMails();
         setMails(response.data);
-       
+
     }
 
-    async function loadMailUser(){
+    async function loadMailUser() {
         const response = await getMailUser();
         setMails(response.data);
     }
@@ -36,38 +36,38 @@ export const MailProvider = ({ children }) => {
             console.error(error);
 
         }
-        
-    }   
-     
+
+    }
+
 
     const crMail = async (mail) => {
         try {
             const response = await createMail(mail);
             console.log(response);
-            if(response.status === 201){
-                
+            if (response.status === 201) {
+
                 setGp(true);
-            }else{
+            } else {
                 setGp(false);
             }
         } catch (error) {
             setMsg(error.response.data.msg);
-            
+
         }
     }
     const upMail = async (id, newFields) => {
         try {
             const response = await updateMail(id, newFields);
             console.log(response)
-            if(response.status === 200){
-               
+            if (response.status === 200) {
+
                 setGp(true);
-            }else{
+            } else {
                 setGp(false);
             }
         } catch (error) {
             setMsg(error.response.data.msg);
-          
+
         }
     }
 

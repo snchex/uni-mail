@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
+import Loader from "../layouts/loader/Loader";
 import { useMails } from "../../context/MailProvider";
-import GroupUserCard from "../../components/GroupUserCard";
+//import GroupUserCard from "../../components/GroupUserCard";
+const GroupUserCard = lazy(() => import("../../components/GroupUserCard"));
 
 export const GroupUserPage = () => {
-
   const { mails, loadMailUser } = useMails();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-
       loadMailUser();
-    }, 100);
+    }, 500);
     return () => clearTimeout(timer);
-  });
+  }, []);
   function renderMain() {
     if (mails.group) {
       return (
@@ -21,14 +21,11 @@ export const GroupUserPage = () => {
         </div>
       );
     }
-    return (
-
-      mails.map((mail) => <GroupUserCard mail={mail} key={mail.id} />)
-    );
+    return mails.map((mail) => <GroupUserCard mail={mail} key={mail.id} />);
   }
 
   return (
-    <>
+    <Suspense fallback={Loader}>
       <div className="card mx-auto col-md-7">
         <h1 className="row justify-content-center py-3">Grupos con Usuarios</h1>
 
@@ -46,7 +43,7 @@ export const GroupUserPage = () => {
           </table>
         </div>
       </div>
-    </>
+    </Suspense>
   );
 };
 export default GroupUserPage;

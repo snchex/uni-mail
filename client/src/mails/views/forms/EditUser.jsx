@@ -29,7 +29,7 @@ export const FormEditUser = () => {
         }
       };
       getUserById();
-    }, 100);
+    }, 200);
     return () => clearTimeout(timer);
   }, [id]);
 

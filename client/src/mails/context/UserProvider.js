@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { getAllUsers, getUser, createUser, updateUser, deleteUser } from "../api/userApi";
+import { getAllUsers, deleteUser } from "../api/userApi";
 import { UserContext } from "./UserContext";
 
 
@@ -21,33 +21,6 @@ export const UserProvider = ({ children }) => {
 
     }
 
-    const gtUser = async (id) => {
-        try {
-            const response = await getUser(id);
-            return response.data;
-        } catch (error) {
-            console.error(error);
-
-        }
-    }
-
-    const crUser = async (user) => {
-        try {
-            const response = await createUser(user);
-            console.log(response);
-        } catch (error) {
-            console.error(error);
-
-        }
-    }
-    const upUser = async (id, newFields) => {
-        try {
-            const response = await updateUser(id, newFields);
-            console.log(response)
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
     const delUser = async (id) => {
         try {
@@ -62,7 +35,7 @@ export const UserProvider = ({ children }) => {
 
 
     return (
-        <UserContext.Provider value={{ users, loadUsers, gtUser, crUser, upUser, delUser }} >
+        <UserContext.Provider value={{ users, loadUsers, delUser }} >
             {children}
         </UserContext.Provider>
     )

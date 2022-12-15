@@ -28,7 +28,7 @@ export function GroupForm() {
         }
       };
       loadGroup();
-    }, 1000);
+    }, 200);
     return () => clearTimeout(timer);
   });
 
@@ -39,7 +39,7 @@ export function GroupForm() {
   const verGroup = () => {
     const timer = setTimeout(() => {
       navigate("/group/list");
-    }, 100);
+    }, 200);
     return () => clearTimeout(timer);
   };
 

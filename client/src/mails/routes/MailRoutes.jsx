@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getMe } from "../auth/authSlice";
+/*
 import {
   TypePage,
   DepartPage,
@@ -14,6 +14,7 @@ import {
   NotFound,
   UserPage,
 } from "../views/pages";
+
 import {
   TypeForm,
   DepartamentForm,
@@ -23,16 +24,37 @@ import {
   FormAddUser,
   FormEditUser,
 } from "../views/forms";
+*/
 import {
-  DepartamentProvider,
   TypeProvider,
   RequestProvider,
   GroupProvider,
   MailProvider,
   UserProvider,
+  DepartamentProvider,
 } from "../context";
 
+import { getMe } from "../auth/authSlice";
+import Loader from "../views/layouts/loader/Loader";
 import { Navbar, Footer } from "../views/layouts/nav";
+
+const TypePage = lazy(() => import("../views/pages/TypePage"));
+const DepartPage = lazy(() => import("../views/pages/DepartamentPage"));
+const RequestPage = lazy(() => import("../views/pages/RequestPage"));
+const GroupPage = lazy(() => import("../views/pages/GroupPage"));
+const GroupUserPage = lazy(() => import("../views/pages/GroupUserPage"));
+const MailPage = lazy(() => import("../views/pages/MailPage"));
+const Home = lazy(() => import("../views/pages/Home"));
+const NotFound = lazy(() => import("../views/pages/NotFound"));
+const UserPage = lazy(() => import("../views/pages/UserPage"));
+
+const TypeForm = lazy(() => import("../views/forms/TypeForm"));
+const DepartamentForm = lazy(() => import("../views/forms/DepartamentForm"));
+const GroupForm = lazy(() => import("../views/forms/GroupForm"));
+const MailForm = lazy(() => import("../views/forms/MailForm"));
+const RequestForm = lazy(() => import("../views/forms/RequestForm"));
+const FormAddUser = lazy(() => import("../views/forms/AddUser"));
+const FormEditUser = lazy(() => import("../views/forms/EditUser"));
 
 export function MailRoutes() {
   const dispatch = useDispatch();
@@ -46,17 +68,17 @@ export function MailRoutes() {
     dispatch(getMe());
   }, [dispatch, isError, navigate]);
   return (
-    <UserProvider>
-      <MailProvider>
-        <GroupProvider>
-          <RequestProvider>
-            <DepartamentProvider>
-              <TypeProvider>
-                <Navbar />
-                <Footer />
-                <div className="container-fluid">
+    <Suspense fallback={<Loader />}>
+      <Navbar />
+      <Footer />
+      <UserProvider>
+        <MailProvider>
+          <GroupProvider>
+            <RequestProvider>
+              <DepartamentProvider>
+                <TypeProvider>
                   <Routes>
-                    <Route path="/home" element={<Home />} />
+                    <Route index path="/home" element={<Home />} />
                     <Route path="/mail/create" element={<MailForm />} />
                     <Route path="/mail/edit/:id" element={<MailForm />} />
                     <Route path="/mail/list" element={<MailPage />} />
@@ -93,13 +115,13 @@ export function MailRoutes() {
 
                     <Route path="/*" element={<NotFound />} />
                   </Routes>
-                </div>
-              </TypeProvider>
-            </DepartamentProvider>
-          </RequestProvider>
-        </GroupProvider>
-      </MailProvider>
-    </UserProvider>
+                </TypeProvider>
+              </DepartamentProvider>
+            </RequestProvider>
+          </GroupProvider>
+        </MailProvider>
+      </UserProvider>
+    </Suspense>
   );
 }
 export default MailRoutes;

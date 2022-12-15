@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LoginUser, reset, getMe } from "../../auth/authSlice";
+
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,14 +13,16 @@ export const LoginPage = () => {
   );
 
   useEffect(() => {
+    
     if (user || isSuccess) {
       navigate("/home");
     }
     dispatch(getMe());
     dispatch(reset());
+   
   }, [user, isSuccess, dispatch, navigate]);
 
-  console.table(user);
+
   const Auth = (e) => {
     e.preventDefault();
     dispatch(LoginUser({ email, password }));

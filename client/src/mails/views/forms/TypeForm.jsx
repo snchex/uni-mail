@@ -24,7 +24,7 @@ export function TypeForm() {
         }
       };
       loadType();
-    }, 1000);
+    }, 200);
     return () => clearTimeout(timer);
   });
 
@@ -34,7 +34,7 @@ export function TypeForm() {
   const verType = () => {
     const timer = setTimeout(() => {
       navigate("/mailtype/list");
-    }, 100);
+    }, 200);
     return () => clearTimeout(timer);
   };
   return (

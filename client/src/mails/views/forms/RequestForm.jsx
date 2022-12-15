@@ -25,7 +25,7 @@ export function RequestForm() {
         }
       };
       loadRequest();
-    }, 1000);
+    }, 200);
     return () => clearTimeout(timer);
   });
 
@@ -36,7 +36,7 @@ export function RequestForm() {
   const verRequest = () => {
     const timer = setTimeout(() => {
       navigate("/request/list");
-    }, 100);
+    }, 200);
     return () => clearTimeout(timer);
   };
 

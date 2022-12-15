@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
-import GroupCard from "../../components/GroupCard";
+import React, { Suspense, useEffect, lazy } from "react";
 import { useGroups } from "../../context/GroupProvider";
 import { useNavigate } from "react-router-dom";
+//import GroupCard from "../../components/GroupCard";
+const GroupCard = lazy(() => import('../../components/GroupCard'));
+
 export const GroupPage = () => {
   const { groups, loadGroups } = useGroups();
   const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
       loadGroups();
-    }, 100);
+    }, 500);
     return () => clearTimeout(timer);
-  });
+  }, []);
+
 
   function renderMain() {
     if (groups.length === 0)
@@ -23,7 +26,7 @@ export const GroupPage = () => {
   }
 
   return (
-    <>
+    <Suspense>
       <div className="card mx-auto col-md-7">
         <h1 className="row justify-content-center py-3">Lista de Grupos</h1>
         <button
@@ -49,7 +52,7 @@ export const GroupPage = () => {
           </table>
         </div>
       </div>
-    </>
+    </Suspense>
   );
 };
 export default GroupPage;
