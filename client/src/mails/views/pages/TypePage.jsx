@@ -6,12 +6,13 @@ import { useNavigate } from "react-router-dom"
 export function TypePage() {
   const { types, loadTypes } = useTypes();
   const navigate = useNavigate(); 
+
   useEffect(() => {
     const timer = setTimeout(() => {
       loadTypes();
     }, 100);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   function renderMain() {
     if (types.length === 0)

@@ -12,7 +12,8 @@ export const GroupUserPage = () => {
       loadMailUser();
     }, 100);
     return () => clearTimeout(timer);
-  });
+  }, []);
+  
   function renderMain() {
     if (mails.group) {
       return (

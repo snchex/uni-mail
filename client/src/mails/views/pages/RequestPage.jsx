@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom"
 export const RequestPage = () => {
   const { requests, loadRequests } = useRequests();
   const navigate = useNavigate();
+
   useEffect(() => {
     const timer = setTimeout(() => {
       loadRequests();
     }, 100);
 
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   function renderMain() {
     if (requests.length === 0)

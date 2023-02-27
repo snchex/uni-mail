@@ -55,7 +55,7 @@ export const MailForm = (values) => {
       loadMails();
     }, 500);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   const clearInput = () => {
     if (gp === true) {

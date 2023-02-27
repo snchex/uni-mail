@@ -10,7 +10,7 @@ export const GroupPage = () => {
       loadGroups();
     }, 100);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   function renderMain() {
     if (groups.length === 0)

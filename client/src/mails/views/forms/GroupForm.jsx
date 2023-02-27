@@ -30,7 +30,7 @@ export function GroupForm() {
       loadGroup();
     }, 1000);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   const clearInput = () => {
     setGroup([]);

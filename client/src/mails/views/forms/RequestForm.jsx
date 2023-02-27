@@ -27,7 +27,7 @@ export function RequestForm() {
       loadRequest();
     }, 1000);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   const clearInput = () => {
     setRequest([]);

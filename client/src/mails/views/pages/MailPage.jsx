@@ -11,7 +11,7 @@ export const MailPage = () => {
       loadMails();
     }, 500);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   function renderMain() {
     if (mails.length === 0)

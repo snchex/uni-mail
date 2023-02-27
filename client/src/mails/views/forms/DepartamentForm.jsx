@@ -23,7 +23,7 @@ export function DepartamentForm() {
       }
     };
     loadDepartament();
-  });
+  }, []);
 
   const clearInput = () => {
     setDepartament([]);

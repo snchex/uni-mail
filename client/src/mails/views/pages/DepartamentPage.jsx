@@ -10,7 +10,7 @@ export function DepartPage() {
       loadDepartaments();
     }, 500);
     return () => clearTimeout(timer);
-  });
+  },[]);
 
   function renderMain() {
     if (departs.length === 0)

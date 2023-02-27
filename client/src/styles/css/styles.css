@@ -45,10 +45,11 @@ nav {
   width: 100vw;
 }
 .logo {
-  width: 4%;
-  justify-content: start;
-  margin-top: -0.5rem;
-  margin-left: 1rem;
+ position: relative;
+ justify-content: start;
+ width: 3%;
+ height: 100%;
+ margin: 0 1rem .1rem 1rem;
 }
 
 a {
@@ -308,7 +309,7 @@ a.dropdown-item {
 }
 
 body {
-  font-family: montserrat !important;
+  font-family: 'Times New Roman', Times, serif !important;
 }
 footer {
   position: fixed;
@@ -510,11 +511,6 @@ tr {
   line-height: 0.6;
 }
 
-.logo-signin {
-  width: 4rem;
-  height: 4rem;
-  padding-top: 0.5rem;
-}
 
 .plus-circle {
   padding-top: 35%;

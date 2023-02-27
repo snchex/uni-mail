@@ -26,7 +26,7 @@ export function TypeForm() {
       loadType();
     }, 1000);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   const clearInput = () => {
     setType([]);
