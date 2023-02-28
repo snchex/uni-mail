@@ -14,8 +14,10 @@ export const UserPage = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      
       dispatch(getMe());
       loadUsers();
+
       if (isError) {
         navigate("/");
       }
@@ -24,8 +26,8 @@ export const UserPage = () => {
       }
     }, 200);
     return () => clearTimeout(timer);
-  }, [isError, user, navigate, dispatch]);
-  
+  }, [isError, navigate, dispatch]);
+  //user estaba en el arreglos permanetes anteriormente
   function renderMain() {
     return users.map((usuario) => (
       <UserCard usuario={usuario} key={usuario.id} />

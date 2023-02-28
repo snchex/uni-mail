@@ -19,42 +19,36 @@ export const LoginPage = () => {
     dispatch(reset());
   }, [user, isSuccess, dispatch, navigate]);
 
-  console.table(user);
   const Auth = (e) => {
     e.preventDefault();
     dispatch(LoginUser({ email, password }));
   };
   return (
-    <div className="Auth-form-container">
-      <form onSubmit={Auth} className="Auth-form">
-        <div className="Auth-form-content">
+    <div className="row">
+      <form onSubmit={Auth} className="Auth-form-container">
+        <div className="col-md-3 mx-auto ">
           <h3 className="Auth-form-title">Inicio Sesi&oacute;n</h3>
 
-          {isError && <p className="error pl-5">{message}</p>}
 
-          <div className="form-group mt-3">
+          <div className="form-group flex-column d-flex">
+          {isError && <p className="error">{message}</p>}
             <label className="label">Email</label>
-            <div className="control">
-              <input
-                type="text"
-                className="form-control mt-1"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-              />
-            </div>
+
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+            />
           </div>
-          <div className="form-group mt-3">
+          <div className="form-group flex-column d-flex">
             <label className="label">Password</label>
-            <div className="control">
-              <input
-                type="password"
-                className="form-control mt-1"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="******"
-              />
-            </div>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="******"
+            />
           </div>
           <div className="d-grid gap-2 mt-3">
             <button type="submit" className="btn btn-primary">

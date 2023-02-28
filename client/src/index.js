@@ -6,7 +6,7 @@ import { store } from './mails/app/store';
 import Loader from "../src/mails/views/layouts/loader/Loader.jsx"
 import './styles/css/styles.css'
 
-import MailApp from './MailApp';
+import AppRouter from '../src/router/AppRouter';
 
 axios.defaults.withCredentials = true;
 
@@ -15,7 +15,7 @@ root.render(
   <Suspense fallback={<Loader />}>
     <React.StrictMode>
       <Provider store={store}>
-        <MailApp />
+        <AppRouter />
       </Provider>
     </React.StrictMode>
   </Suspense>
