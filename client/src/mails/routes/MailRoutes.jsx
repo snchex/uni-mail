@@ -45,6 +45,7 @@ export function MailRoutes() {
     }
     dispatch(getMe());
   }, [dispatch, isError, navigate]);
+  
   return (
     <UserProvider>
       <MailProvider>

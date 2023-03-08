@@ -12,7 +12,7 @@ import groupRoutes from "./routes/groupRoutes.js";
 import mailRoutes from "./routes/mailRoutes.js";
 import db from "./config/database.js";
 
-const hostname = 'localhost';
+const hostname = '192.168.0.12';
 dotenv.config();
 
 const app = express();
@@ -44,6 +44,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 app.use(userRoute);
 app.use(authRoute);
 app.use(requestRoutes)
@@ -52,11 +53,8 @@ app.use(typeRoutes);
 app.use(groupRoutes);
 app.use(mailRoutes);
 
-//store.sync();
+store.sync();
 
-const nDate = new Date().toLocaleString('es-ES', {
-    timeZone: 'America/Asuncion'
-});
 
 
 app.listen(process.env.APP_PORT, hostname, () => {

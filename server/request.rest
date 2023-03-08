@@ -19,6 +19,18 @@ Content-Type: application/json
   "role": "admin"
 }   
 
+### Via ip
+
+POST http://192.168.0.12:3030/user/create HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Admin",
+  "email": "admin@uni.edu.py",
+  "password": "uniadmin1996",
+  "confPassword": "uniadmin1996",
+  "role": "admin"
+} 
 ### Update a user
 PUT  http://localhost:3030/user/update/a8f5593e-8c73-463d-a486-c5e7d4daabe5 HTTP/1.1
 Content-Type: application/json
