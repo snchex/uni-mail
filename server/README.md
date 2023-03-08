@@ -14,4 +14,4 @@ La base de datos esta en modo root por default la configuracion se encuentra en 
 ###   `sudo mysql -h localhost -u root -p emailMonitoring < backup.sql -f `
 
 Ejecutar el servidor
-### `npm run dev`
+ `npm run dev`
