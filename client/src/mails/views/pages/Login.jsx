@@ -5,8 +5,15 @@ import { LoginUser, reset, getMe } from "../../auth/authSlice";
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [shown, setShown] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const switchShown = () => {
+    setShown(!shown);
+  };
+
   const { user, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.auth
   );
@@ -25,13 +32,12 @@ export const LoginPage = () => {
   };
   return (
     <div className="row">
-      <form onSubmit={Auth} className="Auth-form-container">
-        <div className="col-md-3 mx-auto ">
+      <form onSubmit={Auth}>
+        <div className="login col-md-4 mx-auto ">
           <h3 className="Auth-form-title">Inicio Sesi&oacute;n</h3>
 
-
           <div className="form-group flex-column d-flex">
-          {isError && <p className="error">{message}</p>}
+            {isError && <p className="error">{message}</p>}
             <label className="label">Email</label>
 
             <input
@@ -44,13 +50,21 @@ export const LoginPage = () => {
           <div className="form-group flex-column d-flex">
             <label className="label">Password</label>
             <input
-              type="password"
+              type={shown ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="******"
+              placeholder="*******"
             />
+
+            <span className="auto-col">
+              {shown ? (
+                <i className="fas fa-eye" onClick={switchShown} />
+              ) : (
+                <i class="fas fa-eye-slash fas-eye" onClick={switchShown} />
+              )}
+            </span>
           </div>
-          <div className="d-grid gap-2 mt-3">
+          <div className="form-group flex-column d-flex">
             <button type="submit" className="btn btn-primary">
               {isLoading ? "Loading..." : "Iniciar Sesión"}
             </button>

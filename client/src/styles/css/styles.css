@@ -24,7 +24,6 @@
   border: 3px solid transparent;
 }
 
-
 * {
   padding: 0;
   margin: 0;
@@ -366,6 +365,11 @@ table {
 .hidetext {
   -webkit-text-security: disc; /* Default */
 }
+
+.login{
+  margin-top: 10rem;
+}
+
 .table-list {
   margin-top: 5rem;
   position: relative;

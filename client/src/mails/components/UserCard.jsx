@@ -54,7 +54,7 @@ export const UserCard = ({ usuario }) => {
           <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button onClick={() => delUser(usuario.uuid)} variant="primary">
+          <Button onClick={() => delUser(usuario.uuid)} variant="danger">
             Entendido
           </Button>
         </Modal.Footer>

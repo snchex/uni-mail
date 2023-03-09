@@ -12,7 +12,7 @@ import groupRoutes from "./routes/groupRoutes.js";
 import mailRoutes from "./routes/mailRoutes.js";
 import db from "./config/database.js";
 
-const hostname = '192.168.0.12';
+const hostname = 'localhost';
 dotenv.config();
 
 const app = express();

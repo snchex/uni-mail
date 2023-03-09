@@ -26,7 +26,7 @@ export const UserPage = () => {
       }
     }, 200);
     return () => clearTimeout(timer);
-  }, [isError, navigate, dispatch]);
+  }, [isError, navigate, dispatch, user]);
   //user estaba en el arreglos permanetes anteriormente
   function renderMain() {
     return users.map((usuario) => (
