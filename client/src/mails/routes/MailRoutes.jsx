@@ -32,7 +32,7 @@ import {
   UserProvider,
 } from "../context";
 
-import { Navbar, Footer } from "../views/layouts/nav";
+import { Head, Footer } from "../views/layouts/nav";
 
 export function MailRoutes() {
   const dispatch = useDispatch();
@@ -53,9 +53,9 @@ export function MailRoutes() {
           <RequestProvider>
             <DepartamentProvider>
               <TypeProvider>
-                <Navbar />
+                <Head />
                 <Footer />
-                <div className="container-fluid">
+                
                   <Routes>
                     <Route path="/home" element={<Home />} />
                     <Route path="/mail/create" element={<MailForm />} />
@@ -94,7 +94,7 @@ export function MailRoutes() {
 
                     <Route path="/*" element={<NotFound />} />
                   </Routes>
-                </div>
+                
               </TypeProvider>
             </DepartamentProvider>
           </RequestProvider>

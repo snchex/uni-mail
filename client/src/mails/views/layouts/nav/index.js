@@ -1,1 +1,1 @@
-export {Footer, Navbar} from './components';
+export {Footer, Head} from './components';

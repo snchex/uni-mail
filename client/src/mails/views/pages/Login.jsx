@@ -33,7 +33,7 @@ export const LoginPage = () => {
   return (
     <div className="row">
       <form onSubmit={Auth}>
-        <div className="login col-md-4 mx-auto ">
+        <div className="login col-md-3 mx-auto ">
           <h3 className="Auth-form-title">Inicio Sesi&oacute;n</h3>
 
           <div className="form-group flex-column d-flex">
@@ -56,17 +56,18 @@ export const LoginPage = () => {
               placeholder="*******"
             />
 
-            <span className="auto-col">
               {shown ? (
-                <i className="fas fa-eye" onClick={switchShown} />
+                <i className="col align-self-end fas fa-eye" onClick={switchShown} />
               ) : (
-                <i class="fas fa-eye-slash fas-eye" onClick={switchShown} />
-              )}
-            </span>
+                <i className="col align-self-end fas fa-eye-slash fas-eye" onClick={switchShown} />
+              )
+              }
+            
+            
           </div>
           <div className="form-group flex-column d-flex">
             <button type="submit" className="btn btn-primary">
-              {isLoading ? "Loading..." : "Iniciar Sesión"}
+              {isLoading ? "Cargando..." : "Iniciar Sesión"}
             </button>
           </div>
         </div>
